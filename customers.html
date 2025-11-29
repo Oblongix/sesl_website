@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SESL – Customers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Load dark mode before rendering -->
+  <script>
+    const savedTheme = localStorage.getItem("theme");
+    if (
+      savedTheme === "dark" ||
+      (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind brand colors -->
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              300: "#a5b4fc",
+              500: "#6366f1",
+              600: "#4f46e5"
+            }
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+
+<!-- HEADER -->
+<header class="border-b border-slate-300 bg-white/80 backdrop-blur sticky top-0 z-40 dark:border-slate-800 dark:bg-slate-950/80">
+  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+    
+    <!-- LOGO -->
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="SESL Logo.png" class="h-9 block dark:hidden" />
+      <img src="SESL Logo Dark.png" class="h-9 hidden dark:block" />
+    </a>
+
+    <!-- NAV (desktop) -->
+    <nav class="hidden md:flex gap-8 text-sm font-medium">
+      <a href="index.html">Home</a>
+      <a href="product.html">Product</a>
+      <a href="solutions.html">Solutions</a>
+      <a href="customers.html" class="text-brand-600 dark:text-brand-300 font-semibold">Customers</a>
+      <a href="resources.html">Resources</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+    </nav>
+
+    <div class="flex items-center gap-4">
+
+      <!-- LOGIN -->
+      <a href="login.html"
+        class="px-4 py-2 rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-200
+               dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800 text-sm transition">
+        Login
+      </a>
+
+      <!-- THEME -->
+      <button id="themeToggle"
+        class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200
+               dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 transition">
+        🌙
+      </button>
+
+      <!-- MOBILE MENU BUTTON -->
+      <button id="mobileMenuBtn"
+        class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xl">
+        ☰
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div id="mobileMenu"
+  class="hidden md:hidden flex-col bg-white dark:bg-slate-900 border-b border-slate-300 dark:border-slate-800 px-4 py-4 space-y-3 text-sm font-medium">
+
+  <a href="index.html">Home</a>
+  <a href="product.html">Product</a>
+  <a href="solutions.html">Solutions</a>
+  <a href="resources.html">Resources</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="about.html">About</a>
+  <a href="customers.html" class="text-brand-600 dark:text-brand-300">Customers</a>
+
+</div>
+
+<!-- HERO -->
+<section class="py-24 px-4 text-center">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-4xl sm:text-5xl font-bold mb-6">How organisations use SESL</h1>
+    <p class="text-lg text-slate-700 dark:text-slate-300 max-w-2xl mx-auto">
+      From compliance automation to eligibility engines and risk modelling — SESL powers reliable,
+      deterministic decision systems across industries.
+    </p>
+  </div>
+</section>
+
+<!-- STORIES GRID -->
+<section class="px-4 pb-32">
+  <div class="max-w-7xl mx-auto grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+
+    <!-- CUSTOMER STORY CARD -->
+    <div class="p-8 rounded-2xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800 flex flex-col">
+      <img src="customer1-logo.png" class="h-48 opacity-80" alt="">
+      <h3 class="text-xl font-semibold mb-3">Automating Passport Eligibility</h3>
+      <p class="text-slate-600 dark:text-slate-400 mb-6 flex-1">
+        SESL helped a government team convert complex legal rules into a deterministic eligibility engine
+        with full auditability and zero ambiguity.
+      </p>
+      <a href="customer1-passport.html" class="mt-auto inline-block px-5 py-2 rounded-lg bg-brand-600 text-white hover:bg-brand-500 transition font-semibold">
+        Read story →
+      </a>
+    </div>
+
+    <div class="p-8 rounded-2xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800 flex flex-col">
+      <img src="customer2-logo.png" class="h-48 opacity-80" alt="">
+      <h3 class="text-xl font-semibold mb-3">Policy Interpretation at Scale</h3>
+      <p class="text-slate-600 dark:text-slate-400 mb-6 flex-1">
+        Using SESL, a regulatory organisation transformed hundreds of pages of inconsistent policy text
+        into transparent decision logic.
+      </p>
+      <a href="customer2-policy.html" class="mt-auto inline-block px-5 py-2 rounded-lg bg-brand-600 text-white hover:bg-brand-500 transition font-semibold">
+        Read story →
+      </a>
+    </div>
+
+    <div class="p-8 rounded-2xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800 flex flex-col">
+      <img src="customer3-logo.png" class="h-48 opacity-80" alt="">
+      <h3 class="text-xl font-semibold mb-3">Risk Scoring Modernisation</h3>
+      <p class="text-slate-600 dark:text-slate-400 mb-6 flex-1">
+        A financial services provider replaced opaque spreadsheets with SESL’s deterministic,
+        explainable scoring engine — improving governance and speed.
+      </p>
+      <a href="customer3-risk.html" class="mt-auto inline-block px-5 py-2 rounded-lg bg-brand-600 text-white hover:bg-brand-500 transition font-semibold">
+        Read story →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-slate-300 dark:border-slate-800 py-16 px-4">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+
+    <div>
+      <h4 class="font-semibold mb-3">Product</h4>
+      <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+        <li><a href="product.html" class="hover:text-brand-600">Overview</a></li>
+        <li><a href="product.html#features" class="hover:text-brand-600">Features</a></li>
+        <li><a href="#demo" class="hover:text-brand-600">Demo</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-semibold mb-3">Solutions</h4>
+      <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+        <li><a href="solutions.html" class="hover:text-brand-600">Use Cases</a></li>
+        <li><a href="solutions.html#compliance" class="hover:text-brand-600">Compliance</a></li>
+        <li><a href="solutions.html#enterprise" class="hover:text-brand-600">Enterprise</a></li>
+        <li><a href="solutions.html#automation" class="hover:text-brand-600">Process Automation</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-semibold mb-3">Resources</h4>
+      <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+        <li><a href="resources.html" class="hover:text-brand-600">Documentation</a></li>
+        <li><a href="https://github.com/YOUR_REPO/releases" class="hover:text-brand-600">Download</a></li>
+        <li><a href="resources.html#connect" class="hover:text-brand-600">LLM Server</a></li>
+        <li><a href="resources.html#examples" class="hover:text-brand-600">Examples</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-semibold mb-3">Company</h4>
+      <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+        <li><a href="about.html" class="hover:text-brand-600">About SESL</a></li>
+        <li><a href="about.html#mission" class="hover:text-brand-600">Mission</a></li>
+        <li><a href="about.html#contact" class="hover:text-brand-600">Contact</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-300 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
+    <div class="flex items-center gap-3">
+      <img src="SESL Logo.png" class="h-7 block dark:hidden" />
+      <img src="SESL Logo Dark.png" class="h-7 hidden dark:block" />
+      <span class="text-sm text-slate-600 dark:text-slate-400">Simple Expert System Language</span>
+    </div>
+
+    <div class="flex gap-4">
+      <a href="#" class="text-slate-600 hover:text-brand-600 dark:text-slate-400">Twitter</a>
+      <a href="#" class="text-slate-600 hover:text-brand-600 dark:text-slate-400">LinkedIn</a>
+    </div>
+  </div>
+
+  <div class="text-center mt-6 text-sm text-slate-500 dark:text-slate-500">
+    © <span id="year"></span> Oblongix. All rights reserved.
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+  const btn = document.getElementById("themeToggle");
+
+  function updateThemeIcon() {
+    btn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙";
+  }
+
+  btn.addEventListener("click", () => {
+    const dark = document.documentElement.classList.toggle("dark");
+    localStorage.setItem("theme", dark ? "dark" : "light");
+    updateThemeIcon();
+  });
+
+  updateThemeIcon();
+
+  // Mobile menu toggle
+  const mobileBtn = document.getElementById("mobileMenuBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+  mobileBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

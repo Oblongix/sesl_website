@@ -1,0 +1,59 @@
+const:
+  MIN_ADULT_AGE: 16
+
+rules:
+
+  - rule: check_age
+    priority: 10
+    if:
+      - applicant.age < MIN_ADULT_AGE
+    then:
+      result.eligible: false
+    because: "Applicant is under the required adult age."
+
+  - rule: check_nationality
+    priority: 20
+    if:
+      - applicant.nationality != "British"
+    then:
+      result.eligible: false
+    because: "Applicant is not a British national."
+
+  - rule: check_previous_passport
+    priority: 30
+    if:
+      - applicant.has_previous_passport == true
+    then:
+      result.eligible: false
+    because: "Applicant has already had a UK passport."
+
+  - rule: verify_documents
+    priority: 40
+    if:
+      all:
+        - docs.birth_certificate == true
+        - docs.identity_evidence == true
+        - docs.photo_ok == true
+    then:
+      facts.docs_ok: true
+    because: "All required documents are provided."
+
+  - rule: final_decision
+    priority: 100
+    if:
+      - facts.docs_ok == true
+      - result.eligible != false
+    then:
+      result.eligible: true
+    because: "All requirements satisfied."
+
+facts:
+  - name: Scenario1
+    applicant:
+      age: 22
+      nationality: "British"
+      has_previous_passport: false
+    docs:
+      birth_certificate: true
+      identity_evidence: true
+      photo_ok: true

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SESL – Pricing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="SESL pricing for Local Licence, MCP, API, and Enterprise deployments." />
+
+  <!-- Load dark mode before rendering -->
+  <script>
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            brand: { 300: "#a5b4fc", 500: "#6366f1", 600: "#4f46e5" }
+          },
+          fontFamily: { sans: ["Inter", "system-ui", "Arial"] }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased">
+
+<!-- HEADER -->
+<header class="border-b border-slate-300 bg-white/80 backdrop-blur sticky top-0 z-40 dark:border-slate-800 dark:bg-slate-950/80">
+  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+
+    <!-- LOGO -->
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="SESL Logo.png" class="h-10 block dark:hidden" />
+      <img src="SESL Logo Dark.png" class="h-10 hidden dark:block" />
+    </a>
+
+    <!-- DESKTOP NAV -->
+    <nav class="hidden md:flex gap-8 text-sm font-medium">
+      <a href="index.html">Home</a>
+      <a href="product.html">Product</a>
+      <a href="solutions.html">Solutions</a>
+      <a href="Customers.html">Customers</a>
+      <a href="resources.html">Resources</a>
+      <a href="pricing.html" class="text-brand-600 dark:text-brand-300 font-semibold">Pricing</a>
+      <a href="about.html">About</a>
+    </nav>
+
+    <!-- RIGHT SIDE -->
+    <div class="flex items-center gap-4">
+      <a href="login.html"
+        class="px-4 py-2 rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-200
+               dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800
+               text-sm font-medium transition-colors">
+        Login
+      </a>
+
+      <button id="themeToggle"
+        class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200 
+               dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors">
+        🌙
+      </button>
+
+      <!-- MOBILE MENU BUTTON -->
+      <button id="mobileMenuBtn"
+        class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xl">
+        ☰
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div id="mobileMenu"
+  class="hidden md:hidden flex-col bg-white dark:bg-slate-900 border-b border-slate-300 dark:border-slate-800 px-4 py-4 space-y-3 text-sm font-medium">
+
+  <a href="index.html" class="block">Home</a>
+  <a href="product.html" class="block">Product</a>
+  <a href="solutions.html" class="block">Solutions</a>
+  <a href="resources.html" class="block">Resources</a>
+  <a href="pricing.html" class="block text-brand-600 dark:text-brand-300">Pricing</a>
+  <a href="about.html" class="block">About</a>
+
+</div>
+
+<!-- HERO -->
+<section class="pt-24 pb-12 px-4 text-center">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-4xl sm:text-5xl font-semibold mb-6">Simple, transparent pricing.</h1>
+    <p class="text-lg text-slate-700 dark:text-slate-300">
+      Choose the SESL setup that works for you — locally, through MCP, via API, or with a dedicated enterprise server.
+    </p>
+  </div>
+</section>
+
+<!-- PRICING GRID -->
+<section class="py-16 px-4 border-t border-slate-200 dark:border-slate-800">
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8">
+
+    <!-- FREE -->
+    <div class="p-8 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border border-slate-300 dark:border-slate-800 flex flex-col">
+      <h2 class="text-2xl font-semibold mb-2">Free</h2>
+      <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">Ideal for learning SESL.</p>
+      <div class="text-4xl font-bold mb-4">£0 <span class="text-lg font-normal text-slate-500">forever</span></div>
+
+      <ul class="space-y-3 text-sm mb-6 flex-1">
+        <li>✔ Up to 10 rules</li>
+        <li>✔ Up to 5 scenarios</li>
+        <li>✔ Basic explainability</li>
+        <li>✔ Community support</li>
+        <li>✖ No MCP</li>
+        <li>✖ No API</li>
+      </ul>
+
+      <a href="#" class="mt-auto text-center block px-6 py-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-white 
+      dark:bg-slate-700 dark:hover:bg-slate-600 transition font-semibold">Get Started</a>
+    </div>
+
+    <!-- LOCAL LICENCE -->
+    <div class="p-8 bg-slate-100 dark:bg-slate-900/40 rounded-2xl border border-slate-300 dark:border-slate-800 flex flex-col">
+      <h2 class="text-2xl font-semibold mb-2">Local Licence</h2>
+      <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">Run SESL fully offline.</p>
+
+      <div class="text-4xl font-bold mb-4">£10 <span class="text-lg font-normal text-slate-500">monthly</span></div>
+
+      <ul class="space-y-3 text-sm mb-6 flex-1">
+        <li>✔ Unlimited rules</li>
+        <li>✔ Unlimited scenarios</li>
+        <li>✔ Full explainability</li>
+        <li>✔ Runs offline</li>
+        <li>✔ No external dependencies</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 dark:text-slate-500 mb-4">
+        12-month minimum commitment, then 1-month rolling.
+      </p>
+
+      <a href="#" class="mt-auto text-center block px-6 py-3 rounded-lg bg-brand-600 hover:bg-brand-500 text-white transition font-semibold">
+        Buy Licence
+      </a>
+    </div>
+
+    <!-- MCP LICENCE -->
+    <div class="p-8 bg-white dark:bg-slate-900 rounded-2xl border border-slate-300 dark:border-slate-800 shadow-sm flex flex-col">
+      <h2 class="text-2xl font-semibold mb-2">MCP Licence</h2>
+      <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">Use SESL with ChatGPT or any MCP-compatible LLM.</p>
+
+      <div class="text-4xl font-bold mb-4">£0.05 <span class="text-lg font-normal text-slate-500">per request</span></div>
+
+      <ul class="space-y-3 text-sm mb-6 flex-1">
+        <li>✔ Unlimited MCP queries</li>
+        <li>✔ LLM-assisted rule creation</li>
+        <li>✔ Explainability traces log</li>
+        <li>✔ Ruleset and Scenario storage</li>
+        <li>✔ Audit logs</li>
+        <li>✔ Priority feature access</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 dark:text-slate-500 mb-4">
+        £10 minimum monthly spend. Credit card required.
+      </p>
+
+      <a href="#" class="mt-auto text-center block px-6 py-3 rounded-lg bg-brand-600 hover:bg-brand-500 text-white transition font-semibold">
+        Subscribe
+      </a>
+    </div>
+
+    <!-- API LICENCE -->
+    <div class="p-8 bg-slate-100 dark:bg-slate-900/40 rounded-2xl border border-slate-300 dark:border-slate-800 flex flex-col">
+      <h2 class="text-2xl font-semibold mb-2">API Licence</h2>
+      <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">Integrate SESL into your apps at scale.</p>
+
+      <div class="text-4xl font-bold mb-4">£0.10 <span class="text-lg font-normal text-slate-500">per request</span></div>
+
+      <ul class="space-y-3 text-sm mb-6 flex-1">
+        <li>✔ Hosted engine</li>
+        <li>✔ Unlimited rule queries</li>
+        <li>✔ Explainability traces log</li>
+        <li>✔ Ruleset and Scenario storage</li>
+        <li>✔ High-performance evaluation</li>
+        <li>✔ Volume discounts</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 dark:text-slate-500 mb-4">
+        £10 minimum monthly spend. Credit card required.
+      </p>
+
+      <a href="#" class="mt-auto text-center block px-6 py-3 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-semibold transition">
+        Get API Key
+      </a>
+    </div>
+
+    <!-- ORGANISATION SERVER -->
+    <div class="p-8 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border border-slate-300 dark:border-slate-800 flex flex-col">
+      <h2 class="text-2xl font-semibold mb-2">Organisation Server</h2>
+      <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">A fully dedicated MCP + API server.</p>
+
+      <div class="text-4xl font-bold mb-4">TBD<span class="text-lg font-normal text-slate-500"> / month</span></div>
+
+      <ul class="space-y-3 text-sm mb-6 flex-1">
+        <li>✔ Dedicated SESL engine</li>
+        <li>✔ Private hosting</li>
+        <li>✔ Custom SLAs</li>
+        <li>✔ Region selection</li>
+        <li>✔ Enhanced security</li>
+        <li>✔ Deployment assistance</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 dark:text-slate-500 mb-4">
+        12-month minimum contract.
+      </p>
+
+      <a href="#" class="mt-auto text-center block px-6 py-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-white 
+      dark:bg-slate-700 dark:hover:bg-slate-600 font-semibold transition">
+        Contact Sales
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ Accordion -->
+<section class="py-20 px-4 border-t border-slate-200 dark:border-slate-800">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-3xl font-semibold mb-10">Frequently Asked Questions</h2>
+
+    <div id="faqAccordion" class="space-y-4">
+
+      <!-- FAQ 1 -->
+      <div class="border border-slate-300 dark:border-slate-700 rounded-xl">
+        <button data-accordion-trigger class="w-full flex justify-between items-center px-5 py-4 text-left">
+          <span class="font-medium">What is SESL?</span>
+          <span data-chevron class="transition-transform">⌄</span>
+        </button>
+        <div class="px-5 pb-4 hidden text-sm text-slate-600 dark:text-slate-400">
+          SESL (Simple Expert System Language) is a lightweight rule-engine designed for transparency, explainability, and compatibility with LLMs.
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="border border-slate-300 dark:border-slate-700 rounded-xl">
+        <button data-accordion-trigger class="w-full flex justify-between items-center px-5 py-4 text-left">
+          <span class="font-medium">Can I use SESL completely offline?</span>
+          <span data-chevron class="transition-transform">⌄</span>
+        </button>
+        <div class="px-5 pb-4 hidden text-sm text-slate-600 dark:text-slate-400">
+          Yes. The Local Licence provides a fully offline SESL engine with no external dependencies.
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="border border-slate-300 dark:border-slate-700 rounded-xl">
+        <button data-accordion-trigger class="w-full flex justify-between items-center px-5 py-4 text-left">
+          <span class="font-medium">How does the MCP Licence work?</span>
+          <span data-chevron class="transition-transform">⌄</span>
+        </button>
+        <div class="px-5 pb-4 hidden text-sm">
+          The MCP Licence lets you call SESL through ChatGPT or any MCP-compatible LLM. You pay per request with a £10 monthly minimum.
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="border border-slate-300 dark:border-slate-700 rounded-xl">
+        <button data-accordion-trigger class="w-full flex justify-between items-center px-5 py-4 text-left">
+          <span class="font-medium">Is there a free version of SESL?</span>
+          <span data-chevron class="transition-transform">⌄</span>
+        </button>
+        <div class="px-5 pb-4 hidden text-sm">
+          Yes. The Free plan includes up to 10 rules, 5 scenarios, basic explainability, and community support.
+        </div>
+      </div>
+
+      <!-- FAQ 5 -->
+      <div class="border border-slate-300 dark:border-slate-700 rounded-xl">
+        <button data-accordion-trigger class="w-full flex justify-between items-center px-5 py-4 text-left">
+          <span class="font-medium">What payment methods are supported?</span>
+          <span data-chevron class="transition-transform">⌄</span>
+        </button>
+        <div class="px-5 pb-4 hidden text-sm">
+          We accept major credit and debit cards for monthly plans. Enterprise customers can request invoicing.
+        </div>
+      </div>
+
+      <!-- FAQ 6 -->
+      <div class="border border-slate-300 dark:border-slate-700 rounded-xl">
+        <button data-accordion-trigger class="w-full flex justify-between items-center px-5 py-4 text-left">
+          <span class="font-medium">Do you offer a trial for the paid plans?</span>
+          <span data-chevron class="transition-transform">⌄</span>
+        </button>
+        <div class="px-5 pb-4 hidden text-sm">
+          MCP and API usage can be tested with the Free tier until you exceed its limitations. Local Licence does not include a trial.
+        </div>
+      </div>
+
+      <!-- FAQ 7 -->
+      <div class="border border-slate-300 dark:border-slate-700 rounded-xl">
+        <button data-accordion-trigger class="w-full flex justify-between items-center px-5 py-4 text-left">
+          <span class="font-medium">Are volume discounts available?</span>
+          <span data-chevron class="transition-transform">⌄</span>
+        </button>
+        <div class="px-5 pb-4 hidden text-sm">
+          Yes. API plans automatically apply volume-based pricing depending on monthly usage.
+        </div>
+      </div>
+
+      <!-- FAQ 8 -->
+      <div class="border border-slate-300 dark:border-slate-700 rounded-xl">
+        <button data-accordion-trigger class="w-full flex justify-between items-center px-5 py-4 text-left">
+          <span class="font-medium">Can I switch plans later?</span>
+          <span data-chevron class="transition-transform">⌄</span>
+        </button>
+        <div class="px-5 pb-4 hidden text-sm">
+          Yes. You can upgrade or downgrade at any time, except the Local Licence and Organisation Server which have contract terms.
+        </div>
+      </div>
+
+      <!-- FAQ 9 -->
+      <div class="border border-slate-300 dark:border-slate-700 rounded-xl">
+        <button data-accordion-trigger class="w-full flex justify-between items-center px-5 py-4 text-left">
+          <span class="font-medium">Does SESL store my rules?</span>
+          <span data-chevron class="transition-transform">⌄</span>
+        </button>
+        <div class="px-5 pb-4 hidden text-sm">
+          MCP and API plans include cloud storage for rulesets and scenarios. Local Edition stores everything on your machine.
+        </div>
+      </div>
+
+      <!-- FAQ 10 -->
+      <div class="border border-slate-300 dark:border-slate-700 rounded-xl">
+        <button data-accordion-trigger class="w-full flex justify-between items-center px-5 py-4 text-left">
+          <span class="font-medium">Is SESL GDPR compliant?</span>
+          <span data-chevron class="transition-transform">⌄</span>
+        </button>
+        <div class="px-5 pb-4 hidden text-sm">
+          Yes. We follow strict data-handling policies and offer EU region hosting for enterprise deployments.
+        </div>
+      </div>
+
+      <!-- FAQ 11 -->
+      <div class="border border-slate-300 dark:border-slate-700 rounded-xl">
+        <button data-accordion-trigger class="w-full flex justify-between items-center px-5 py-4 text-left">
+          <span class="font-medium">Can SESL integrate with my LLM backend?</span>
+          <span data-chevron class="transition-transform">⌄</span>
+        </button>
+        <div class="px-5 pb-4 hidden text-sm">
+          Yes. SESL works with any MCP-compatible LLM and provides a fully REST-based API for custom integrations.
+        </div>
+      </div>
+
+      <!-- FAQ 12 -->
+      <div class="border border-slate-300 dark:border-slate-700 rounded-xl">
+        <button data-accordion-trigger class="w-full flex justify-between items-center px-5 py-4 text-left">
+          <span class="font-medium">Do you support team accounts?</span>
+          <span data-chevron class="transition-transform">⌄</span>
+        </button>
+        <div class="px-5 pb-4 hidden text-sm">
+          Team management is available for MCP, API, and Organisation Server plans.
+        </div>
+      </div>
+
+      <!-- FAQ 13 -->
+      <div class="border border-slate-300 dark:border-slate-700 rounded-xl">
+        <button data-accordion-trigger class="w-full flex justify-between items-center px-5 py-4 text-left">
+          <span class="font-medium">What’s included in the Organisation Server?</span>
+          <span data-chevron class="transition-transform">⌄</span>
+        </button>
+        <div class="px-5 pb-4 hidden text-sm">
+          A fully dedicated SESL engine with private hosting, region selection, enterprise SLAs, and priority support.
+        </div>
+      </div>
+
+      <!-- FAQ 14 -->
+      <div class="border border-slate-300 dark:border-slate-700 rounded-xl">
+        <button data-accordion-trigger class="w-full flex justify-between items-center px-5 py-4 text-left">
+          <span class="font-medium">How does billing work?</span>
+          <span data-chevron class="transition-transform">⌄</span>
+        </button>
+        <div class="px-5 pb-4 hidden text-sm">
+          Billing occurs monthly. MCP/API usage is charged based on the number of SESL evaluation requests made.
+        </div>
+      </div>
+
+      <!-- FAQ 15 -->
+      <div class="border border-slate-300 dark:border-slate-700 rounded-xl">
+        <button data-accordion-trigger class="w-full flex justify-between items-center px-5 py-4 text-left">
+          <span class="font-medium">Where can I get support?</span>
+          <span data-chevron class="transition-transform">⌄</span>
+        </button>
+        <div class="px-5 pb-4 hidden text-sm">
+          Free users receive community support. Paid plans include priority support, and enterprise customers receive dedicated account assistance.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Accordion
+  document.querySelectorAll('[data-accordion-trigger]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const panel = btn.nextElementSibling;
+      const chev = btn.querySelector('[data-chevron]');
+      panel.classList.toggle('hidden');
+      chev.classList.toggle('rotate-180');
+    });
+  });
+</script>
+
+<!-- FOOTER -->
+<footer class="border-t border-slate-300 dark:border-slate-800 py-16 px-4">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+
+      <div>
+        <h4 class="font-semibold mb-3">Product</h4>
+        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li><a href="product.html" class="hover:text-brand-600">Overview</a></li>
+          <li><a href="product.html#features" class="hover:text-brand-600">Features</a></li>
+          <li><a href="#demo" class="hover:text-brand-600">Demo</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold mb-3">Solutions</h4>
+        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li><a href="solutions.html" class="hover:text-brand-600">Use Cases</a></li>
+          <li><a href="solutions.html#compliance" class="hover:text-brand-600">Compliance</a></li>
+          <li><a href="solutions.html#enterprise" class="hover:text-brand-600">Enterprise</a></li>
+          <li><a href="solutions.html#automation" class="hover:text-brand-600">Process Automation</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold mb-3">Resources</h4>
+        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li><a href="resources.html" class="hover:text-brand-600">Documentation</a></li>
+          <li><a href="https://github.com/YOUR_REPO/releases" class="hover:text-brand-600">Download</a></li>
+          <li><a href="resources.html#connect" class="hover:text-brand-600">LLM Server</a></li>
+          <li><a href="resources.html#examples" class="hover:text-brand-600">Examples</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold mb-3">Company</h4>
+        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li><a href="about.html" class="hover:text-brand-600">About SESL</a></li>
+          <li><a href="about.html#mission" class="hover:text-brand-600">Mission</a></li>
+          <li><a href="about.html#contact" class="hover:text-brand-600">Contact</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-300 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-3">
+        <img src="SESL Logo.png" class="h-7 block dark:hidden" />
+        <img src="SESL Logo Dark.png" class="h-7 hidden dark:block" />
+        <span class="text-sm text-slate-600 dark:text-slate-400">Simple Expert System Language</span>
+      </div>
+
+      <div class="flex gap-4">
+        <a href="#" class="text-slate-600 hover:text-brand-600 dark:text-slate-400">Twitter</a>
+        <a href="#" class="text-slate-600 hover:text-brand-600 dark:text-slate-400">LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="text-center mt-6 text-sm text-slate-500 dark:text-slate-500">
+      © <span id="year"></span> Oblongix. All rights reserved.
+    </div>
+</footer>
+
+<script>
+  // Theme
+  const btn = document.getElementById("themeToggle");
+  btn.addEventListener("click", () => {
+    const d = document.documentElement.classList.toggle("dark");
+    localStorage.setItem("theme", d ? "dark" : "light");
+    btn.textContent = d ? "☀️" : "🌙";
+  });
+  btn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙";
+
+  // Mobile menu
+  const mobileBtn = document.getElementById("mobileMenuBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+  mobileBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

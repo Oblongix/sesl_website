@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SESL Customer Story – Passport Eligibility</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Dark mode -->
+  <script>
+    const s = localStorage.getItem("theme");
+    if (s==="dark" || (!s && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode:"class",
+      theme:{extend:{colors:{brand:{300:"#a5b4fc",500:"#6366f1",600:"#4f46e5"}}}}
+    };
+  </script>
+</head>
+
+<body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+
+<!-- HEADER (same as all pages, with mobile menu) -->
+<header class="border-b border-slate-300 bg-white/80 backdrop-blur sticky top-0 z-40 dark:border-slate-800 dark:bg-slate-950/80">
+  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="SESL Logo.png" class="h-9 block dark:hidden">
+      <img src="SESL Logo Dark.png" class="h-9 hidden dark:block">
+    </a>
+
+    <nav class="hidden md:flex gap-8 text-sm font-medium">
+      <a href="customers.html" class="text-brand-600 dark:text-brand-300 font-semibold">← All Stories</a>
+    </nav>
+
+    <div class="flex items-center gap-4">
+      <button id="themeToggle" class="p-2 rounded-full border border-slate-300 dark:border-slate-700">🌙</button>
+      <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700">☰</button>
+    </div>
+  </div>
+</header>
+
+<div id="mobileMenu"
+  class="hidden md:hidden flex-col bg-white dark:bg-slate-900 border-b border-slate-300 dark:border-slate-800 px-4 py-4 space-y-3 text-sm">
+  <a href="customers.html" class="font-semibold">← All Stories</a>
+</div>
+
+<!-- HERO -->
+<section class="pt-24 pb-16 px-4">
+  <div class="max-w-4xl mx-auto text-center">
+    <h1 class="text-4xl font-bold mb-6">Automating Passport Eligibility</h1>
+    <p class="text-lg text-slate-700 dark:text-slate-300 max-w-2xl mx-auto">
+      A government agency used SESL to convert decades of legal rules into a deterministic, fully auditable eligibility engine.
+    </p>
+  </div>
+</section>
+
+<!-- STORY CONTENT -->
+<section class="max-w-4xl mx-auto px-4 pb-32 space-y-12">
+
+  <div class="p-8 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
+    <h2 class="text-2xl font-semibold mb-4">The Challenge</h2>
+    <p>
+      The rules governing passport eligibility were spread across outdated documents,
+      inconsistent internal notes, and embedded logic in legacy systems.
+      Staff frequently disagreed on interpretations, and audits were slow and expensive.
+    </p>
+  </div>
+
+  <div class="p-8 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
+    <h2 class="text-2xl font-semibold mb-4">Why SESL?</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li>100% deterministic decision-making</li>
+      <li>Full explanation of every rule applied</li>
+      <li>Forward-chaining engine matches legal reasoning</li>
+      <li>Easy for internal policy teams to author rules</li>
+    </ul>
+  </div>
+
+  <div class="p-8 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
+    <h2 class="text-2xl font-semibold mb-4">Impact</h2>
+    <p>
+      After migrating to SESL, processing time dropped, appeals reduced,
+      and internal trust in decisions increased dramatically.
+    </p>
+    <ul class="list-disc pl-6 mt-4 space-y-2">
+      <li><strong>38% faster</strong> eligibility checks</li>
+      <li><strong>70% fewer</strong> decision disputes</li>
+      <li><strong>100% auditor satisfaction</strong> due to rule tracing</li>
+    </ul>
+  </div>
+
+  <a href="customers.html" class="inline-block text-brand-600 dark:text-brand-300 text-lg font-semibold">
+    ← Back to all customer stories
+  </a>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-slate-300 dark:border-slate-800 py-10 px-4 text-center text-sm text-slate-600 dark:text-slate-400">
+  © <span id="year"></span> Oblongix. All rights reserved.
+</footer>
+
+<script>
+  const btn = document.getElementById("themeToggle");
+  const mobileBtn = document.getElementById("mobileMenuBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  btn.addEventListener("click", ()=>{
+    const d=document.documentElement.classList.toggle("dark");
+    localStorage.setItem("theme", d?"dark":"light");
+    btn.textContent = d?"☀️":"🌙";
+  });
+  btn.textContent = document.documentElement.classList.contains("dark")?"☀️":"🌙";
+
+  mobileBtn.addEventListener("click",()=>mobileMenu.classList.toggle("hidden"));
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

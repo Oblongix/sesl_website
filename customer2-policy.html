@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SESL Customer Story – Policy Interpretation Engine</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Dark mode -->
+  <script>
+    const s = localStorage.getItem("theme");
+    if (s==="dark" || (!s && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode:"class",
+      theme:{extend:{colors:{brand:{300:"#a5b4fc",500:"#6366f1",600:"#4f46e5"}}}}
+    };
+  </script>
+</head>
+
+<body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+
+<!-- HEADER -->
+<header class="border-b border-slate-300 bg-white/80 backdrop-blur sticky top-0 z-40 dark:border-slate-800 dark:bg-slate-950/80">
+  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="SESL Logo.png" class="h-9 block dark:hidden">
+      <img src="SESL Logo Dark.png" class="h-9 hidden dark:block">
+    </a>
+
+    <nav class="hidden md:flex gap-8 text-sm font-medium">
+      <a href="customers.html" class="text-brand-600 dark:text-brand-300 font-semibold">← All Stories</a>
+    </nav>
+
+    <div class="flex items-center gap-4">
+      <button id="themeToggle" class="p-2 rounded-full border border-slate-300 dark:border-slate-700">🌙</button>
+      <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div id="mobileMenu"
+  class="hidden md:hidden flex-col bg-white dark:bg-slate-900 border-b border-slate-300 dark:border-slate-800 px-4 py-4 space-y-3 text-sm">
+  <a href="customers.html" class="font-semibold">← All Stories</a>
+</div>
+
+<!-- HERO -->
+<section class="pt-24 pb-16 px-4">
+  <div class="max-w-4xl mx-auto text-center">
+    <h1 class="text-4xl font-bold mb-6">Transforming Policy into a Living Rule Engine</h1>
+    <p class="text-lg text-slate-700 dark:text-slate-300 max-w-2xl mx-auto">
+      A regulatory organisation used SESL to convert thousands of pages of policy into a continuously
+      updated, fully auditable logic engine.
+    </p>
+  </div>
+</section>
+
+<!-- STORY CONTENT -->
+<section class="max-w-4xl mx-auto px-4 pb-32 space-y-12">
+
+  <div class="p-8 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
+    <h2 class="text-2xl font-semibold mb-4">The Challenge</h2>
+    <p>
+      Policy changes frequently, but internal systems were slow to update.
+      Teams relied on manual interpretations, FAQs, email threads, and spreadsheets,
+      leading to inconsistent results and risks during audits.
+    </p>
+  </div>
+
+  <div class="p-8 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
+    <h2 class="text-2xl font-semibold mb-4">How SESL Helped</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li>Policy teams turned written guidance into deterministic SESL rules</li>
+      <li>Automatic rule linking ensured no contradictions</li>
+      <li>Scenario testing validated every policy update instantly</li>
+      <li>Explainability views provided auditor-ready trace evidence</li>
+    </ul>
+  </div>
+
+  <div class="p-8 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
+    <h2 class="text-2xl font-semibold mb-4">Impact</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>94% reduction</strong> in policy interpretation disputes</li>
+      <li><strong>Real-time</strong> propagation of policy updates</li>
+      <li><strong>Zero errors</strong> found in external audits</li>
+      <li><strong>Cross-department alignment</strong> on rule meaning</li>
+    </ul>
+  </div>
+
+  <a href="customers.html" class="inline-block text-brand-600 dark:text-brand-300 text-lg font-semibold">
+    ← Back to all customer stories
+  </a>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-slate-300 dark:border-slate-800 py-10 px-4 text-center text-sm text-slate-600 dark:text-slate-400">
+  © <span id="year"></span> Oblongix. All rights reserved.
+</footer>
+
+<script>
+  const btn = document.getElementById("themeToggle");
+  const mobileBtn = document.getElementById("mobileMenuBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  btn.addEventListener("click", ()=>{
+    const d=document.documentElement.classList.toggle("dark");
+    localStorage.setItem("theme", d?"dark":"light");
+    btn.textContent = d?"☀️":"🌙";
+  });
+
+  btn.textContent = document.documentElement.classList.contains("dark")?"☀️":"🌙";
+  mobileBtn.addEventListener("click", ()=>mobileMenu.classList.toggle("hidden"));
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

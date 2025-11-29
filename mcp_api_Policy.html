@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SESL – MCP & API Usage Policy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+</head>
+
+<body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 p-8">
+
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-semibold mb-6">MCP & API Usage Policy</h1>
+
+    <p class="text-slate-600 dark:text-slate-400 mb-8">
+      This document explains how SESL manages usage, billing, performance, and data handling for MCP and API services.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-3">1. Billing & Minimum Commitments</h2>
+    <ul class="list-disc ml-6 text-slate-600 dark:text-slate-400">
+      <li>MCP requires a minimum monthly spend of £10.</li>
+      <li>API usage requires a minimum monthly spend of £10.</li>
+      <li>A valid credit card is required for both services.</li>
+      <li>Organisation Server customers are billed annually with a 12-month minimum commitment.</li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-3">2. Rate Limits & Fair Use</h2>
+    <ul class="list-disc ml-6 text-slate-600 dark:text-slate-400">
+      <li>Requests are processed on a best-effort basis under shared plans.</li>
+      <li>High-volume workloads may be rate-limited if they exceed fair-use thresholds.</li>
+      <li>Enterprise plans may reserve dedicated capacity.</li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-3">3. Data Processing</h2>
+    <ul class="list-disc ml-6 text-slate-600 dark:text-slate-400">
+      <li>SESL does not retain rule files or scenario data submitted via MCP or API unless logging is explicitly enabled.</li>
+      <li>We only store anonymised metadata needed for billing and service diagnostics.</li>
+      <li>No model training uses customer data.</li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-3">4. Region Selection</h2>
+    <p class="text-slate-600 dark:text-slate-400">
+      MCP and API servers operate in the US, EU, and UK.  
+      Enterprise customers may choose a dedicated region or request private hosting.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-3">5. Security</h2>
+    <ul class="list-disc ml-6 text-slate-600 dark:text-slate-400">
+      <li>All traffic is encrypted in transit (TLS 1.2+).</li>
+      <li>All data is encrypted at rest.</li>
+      <li>Enterprise options include isolated compute, private networking, and optional on-prem deployment.</li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-3">6. Service Availability & SLAs</h2>
+    <ul class="list-disc ml-6 text-slate-600 dark:text-slate-400">
+      <li>Shared plans operate on a best-effort uptime basis.</li>
+      <li>Enterprise plans include custom SLAs covering uptime, latency, and response times.</li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-3">7. Termination</h2>
+    <ul class="list-disc ml-6 text-slate-600 dark:text-slate-400">
+      <li>Customers may cancel MCP or API service after meeting the minimum monthly commitment.</li>
+      <li>Enterprise service requires 90-days notice after the 12-month commitment period.</li>
+    </ul>
+
+  </div>
+
+</body>
+</html>
