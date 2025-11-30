@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>SESL – Solutions</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Load dark mode before rendering -->
   <script>
@@ -19,7 +20,6 @@
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Tailwind brand colors -->
   <script>
     tailwind.config = {
       darkMode: "class",
@@ -30,10 +30,10 @@
               300: "#a5b4fc",
               500: "#6366f1",
               600: "#4f46e5",
-            }
-          }
-        }
-      }
+            },
+          },
+        },
+      },
     };
   </script>
 </head>
@@ -43,14 +43,11 @@
   <!-- HEADER -->
   <header class="border-b border-slate-300 bg-white/80 dark:bg-slate-950/80 dark:border-slate-800 backdrop-blur sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-
-      <!-- LOGO -->
       <a href="index.html" class="flex items-center gap-3">
-        <img src="SESL Logo.png" class="h-9 block dark:hidden">
-        <img src="SESL Logo Dark.png" class="h-9 hidden dark:block">
+        <img src="SESL Logo.png" alt="SESL Logo" class="h-9 block dark:hidden" />
+        <img src="SESL Logo Dark.png" alt="SESL Logo Dark" class="h-9 hidden dark:block" />
       </a>
 
-      <!-- NAV (DESKTOP) -->
       <nav class="hidden md:flex gap-8 text-sm font-medium">
         <a href="index.html">Home</a>
         <a href="product.html">Product</a>
@@ -61,181 +58,1508 @@
         <a href="about.html">About</a>
       </nav>
 
-      <!-- RIGHT SIDE -->
       <div class="flex items-center gap-4">
-
-        <!-- LOGIN BUTTON -->
-        <a href="login.html"
-          class="px-4 py-2 rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-200
+        <a href="login.html" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-200
                  dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800
                  text-sm font-medium transition-colors">
           Login
         </a>
 
-        <!-- THEME BUTTON -->
-        <button id="themeToggle"
-          class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200
-                 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800
-                 transition-colors">
+        <button id="themeToggle" class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200
+                 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors" aria-label="Toggle theme">
           🌙
         </button>
 
-        <!-- MOBILE MENU BUTTON -->
-        <button id="mobileMenuBtn"
-          class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xl">
+        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xl" aria-label="Open mobile menu">
           ☰
         </button>
-
       </div>
-
     </div>
   </header>
 
   <!-- MOBILE MENU -->
-  <div id="mobileMenu"
-    class="hidden md:hidden flex-col bg-white dark:bg-slate-900 border-b border-slate-300 dark:border-slate-800 px-4 py-4 space-y-3 text-sm font-medium">
-
-    <a href="index.html" class="block">Home</a>
-    <a href="product.html" class="block">Product</a>
-    <a href="solutions.html" class="block text-brand-600 dark:text-brand-300">Solutions</a>
-    <a href="customers.html" class="block">Customers</a>
-    <a href="resources.html" class="block">Resources</a>
-    <a href="pricing.html" class="block">Pricing</a>
-    <a href="about.html" class="block">About</a>
-
+  <div id="mobileMenu" class="hidden md:hidden flex-col bg-white dark:bg-slate-900 border-b border-slate-300 dark:border-slate-800 px-4 py-4 space-y-3 text-sm font-medium">
+    <a href="index.html">Home</a>
+    <a href="product.html">Product</a>
+    <a href="solutions.html" class="text-brand-600 dark:text-brand-300">Solutions</a>
+    <a href="customers.html">Customers</a>
+    <a href="resources.html">Resources</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="about.html">About</a>
   </div>
 
   <!-- CONTENT -->
   <main class="max-w-5xl mx-auto px-4 py-20">
-
     <h1 class="text-4xl font-bold mb-10">Solutions</h1>
 
-    <!-- EXAMPLES -->
-    <section id="examples" class="py-20 border-t border-slate-300 dark:border-slate-800 px-4">
-      <div class="max-w-5xl mx-auto">
+    <section id="industry-sectors" class="py-20 border-t border-slate-300 dark:border-slate-800">
+      <div class="max-w-5xl mx-auto px-4">
 
-        <h2 class="text-3xl font-semibold mb-6">Example Use Cases</h2>
+        <h2 class="text-3xl font-bold mb-10">Industry-Specific SESL Use Cases</h2>
+        <p class="text-slate-700 dark:text-slate-300 mb-12">
+          SESL enables organisations to translate policies, regulatory controls, and complex
+          operational logic into fully testable, transparent rule models. Each industry example
+          demonstrates how SESL standardises decisions, eliminates ambiguity, supports multi-channel
+          consistency, and strengthens governance through a clear reasoning trail.
+          <BR><BR>
+          These examples are illiustrative and very simple. in real-world applications, SESL models can be
+          far more complicated with many hundreds of predefined rules to cope with the complexity of real
+          world processes and practices. These should act as a starting point for understanding how SESL
+          can be applied.
+          <br><br>
+          While each shows the SESL code in real world applications this will be hidden behind a user-firndly
+          interface such as chatGPT, where business users can interact with the model without needing to see
+          or understand the code, but just getting the reassurance that the responses to their questions and
+          correct, repeatable and auditable.
+          where
+        </p>
 
-        <div class="space-y-4 text-sm text-slate-700 dark:text-slate-300">
+        <section class="mb-12">
+          <div class="p-6 bg-slate-100 border border-slate-300 rounded-xl 
+              dark:bg-slate-900/40 dark:border-slate-800">
 
-          <div class="p-5 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
-            <strong>Eligibility:</strong> passports, benefits, renewals.
+            <ul class="space-y-2 text-slate-700 dark:text-slate-300 leading-relaxed">
+
+            
+              <li><a href="#industry-sectors" class="text-brand-600 dark:text-brand-300 hover:underline font-semibold">
+                  Industry-Specific Use Cases
+                </a></li>
+
+              <ul class="ml-4 space-y-2 text-slate-600 dark:text-slate-400">
+
+                <li><a href="#law" class="text-brand-600 dark:text-brand-300 hover:underline">
+                    1. Law & Legal Services
+                  </a></li>
+
+                <li><a href="#tax" class="text-brand-600 dark:text-brand-300 hover:underline">
+                    2. Tax
+                  </a></li>
+
+                <li><a href="#government" class="text-brand-600 dark:text-brand-300 hover:underline">
+                    3. Government & Public Services
+                  </a></li>
+
+                <li><a href="#banking" class="text-brand-600 dark:text-brand-300 hover:underline">
+                    4. Banking & Financial Services
+                  </a></li>
+
+                <li><a href="#healthcare" class="text-brand-600 dark:text-brand-300 hover:underline">
+                    5. Healthcare
+                  </a></li>
+
+                <li><a href="#insurance" class="text-brand-600 dark:text-brand-300 hover:underline">
+                    6. Insurance
+                  </a></li>
+
+                <li><a href="#retail" class="text-brand-600 dark:text-brand-300 hover:underline">
+                    7. Retail & E-Commerce
+                  </a></li>
+
+                <li><a href="#pensions" class="text-brand-600 dark:text-brand-300 hover:underline">
+                    8. Pensions
+                  </a></li>
+
+              </ul>
+            </ul>
+
           </div>
+        </section>
 
-          <div class="p-5 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
-            <strong>Compliance:</strong> rules, constraints, audits.
-          </div>
+        <!-- ============================== -->
+        <!-- 1. LAW & LEGAL SERVICES        -->
+        <!-- ============================== -->
 
-          <div class="p-5 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
-            <strong>Risk Scoring:</strong> weighted scoring, thresholds.
-          </div>
+        <h3 class="text-2xl font-semibold mt-20 mb-4">1. Law & Legal Services</h3>
 
-          <div class="p-5 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
-            <strong>Pricing:</strong> deterministic pricing engines.
-          </div>
+        <p class="text-slate-700 dark:text-slate-300 mb-6">
+          Legal teams face increasing pressure to standardise reasoning, reduce risk, and ensure
+          consistent interpretation of regulatory frameworks. SESL allows firms to encode repeatable
+          legal logic—eligibility tests, contract clauses, conflict checks, and compliance reviews—
+          reducing manual assessment while improving defensibility and consistency.
+        </p>
+
+        <div class="space-y-12">
+
+          <!-- 1.1 Conflict of Interest Screening -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">
+              1.1 Conflict-of-Interest Screening
+            </summary>
+
+            <p class="mt-4 text-slate-700 dark:text-slate-300">
+              <strong>Industry Context:</strong>
+              Compliance teams must perform thorough conflict-of-interest (COI) checks before accepting
+              new clients or matters. SESL provides a complete, testable COI framework that applies identical
+              logic every time, reducing regulatory and professional-standards exposure.
+            </p>
+
+            <p class="mt-3 text-slate-700 dark:text-slate-300">
+              <strong>How the Model Works:</strong>
+              SESL evaluates relationships, adverse party flags, historical engagements, and internal
+              restrictions. Each rule contributes to a final decision: allow, restrict, or reject.
+            </p>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  HIGH_RISK_ENTITIES: ["sanctioned", "politically_exposed"]
+  BLOCKED_RELATIONSHIPS: ["direct_competitor", "active_opponent"]
+
+rules:
+  - rule: Check_Internal_Block
+    priority: 100
+    if: matter.internal_block == true
+    then:
+      result.status: "reject"
+      result.reason: "Internal block in place."
+      stop: true
+
+  - rule: Check_Client_Relationship
+    priority: 95
+    if: client.relationship in BLOCKED_RELATIONSHIPS
+    then:
+      result.status: "reject"
+      result.reason: "Conflicting relationship."
+
+  - rule: Check_Adverse_Party
+    priority: 90
+    if: matter.adverse_party == client.name
+    then:
+      result.status: "reject"
+      result.reason: "Client is the adverse party."
+
+  - rule: High_Risk_Entity
+    priority: 85
+    if: client.entity_type in HIGH_RISK_ENTITIES
+    then:
+      result.flag: "enhanced_due_diligence"
+
+  - rule: Allow
+    priority: 70
+    then:
+      result.status: result.status or "allow"
+
+facts:
+  - name: "Scenario 1 – Direct conflict"
+    client:
+      name: "AlphaCorp"
+      relationship: "direct_competitor"
+      entity_type: "corporate"
+    matter:
+      adverse_party: "BetaCorp"
+      internal_block: false
+    result: {}
+
+  - name: "Scenario 2 – High-risk client"
+    client:
+      name: "John Doe"
+      relationship: "neutral"
+      entity_type: "politically_exposed"
+    matter:
+      adverse_party: "Acme Ltd"
+      internal_block: false
+    result: {}
+
+  - name: "Scenario 3 – Clear"
+    client:
+      name: "FreshMart"
+      relationship: "neutral"
+      entity_type: "corporate"
+    matter:
+      adverse_party: "AnotherCo"
+      internal_block: false
+    result: {}
+</code></pre>
+
+          </details>
+
+
+          <!-- 1.2 Contract Clause Applicability -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">
+              1.2 Contract Clause Applicability Engine
+            </summary>
+
+            <p class="mt-4 text-slate-700 dark:text-slate-300">
+              <strong>Industry Context:</strong>
+              Large firms reuse templates containing optional clauses (indemnity, IP assignment,
+              termination rights, data processing). Determining which clauses apply is often inconsistent
+              across lawyers. SESL standardises clause triggering so every contract is constructed correctly.
+            </p>
+
+            <p class="mt-3 text-slate-700 dark:text-slate-300">
+              <strong>How the Model Works:</strong>
+              SESL evaluates deal structure, jurisdiction, counterparty type, and risk profile to determine
+              which clauses must be inserted or removed.
+            </p>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  HIGH_RISK_JURISDICTIONS: ["BR", "CN", "NG"]
+  PUBLIC_SECTOR_TYPES: ["government", "municipality"]
+
+rules:
+  - rule: Add_Indemnity
+    priority: 100
+    if: contract.value > 100000
+    then: result.clauses.indemnity: true
+
+  - rule: Add_Data_Processing
+    priority: 95
+    if: contract.includes_personal_data
+    then: result.clauses.data_processing: true
+
+  - rule: Add_Public_Sector_Terms
+    priority: 90
+    if: counterparty.type in PUBLIC_SECTOR_TYPES
+    then: result.clauses.public_sector: true
+
+  - rule: Add_Risk_Surcharge
+    priority: 85
+    if: counterparty.jurisdiction in HIGH_RISK_JURISDICTIONS
+    then: result.clauses.risk_surcharge: true
+
+  - rule: Standard_Terms
+    priority: 70
+    then: result.clauses.standard_terms: true
+
+facts:
+  - name: "Scenario 1 – Large deal with data"
+    contract:
+      value: 250000
+      includes_personal_data: true
+    counterparty:
+      type: "corporate"
+      jurisdiction: "UK"
+    result: {}
+
+  - name: "Scenario 2 – Municipal counterparty"
+    contract:
+      value: 50000
+      includes_personal_data: false
+    counterparty:
+      type: "municipality"
+      jurisdiction: "US"
+    result: {}
+
+  - name: "Scenario 3 – High-risk jurisdiction"
+    contract:
+      value: 80000
+      includes_personal_data: true
+    counterparty:
+      type: "corporate"
+      jurisdiction: "NG"
+    result: {}
+</code></pre>
+
+          </details>
+
+
+          <!-- 1.3 Client Risk & Matter Acceptance -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">
+              1.3 Client Risk & Matter Acceptance
+            </summary>
+
+            <p class="mt-4 text-slate-700 dark:text-slate-300">
+              <strong>Industry Context:</strong>
+              Law firms must assess client risk—including financial stability, reputational exposure,
+              sanctions, and suitability—before accepting new matters. SESL makes these tests transparent
+              and auditable.
+            </p>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  RISK_SCORE_THRESHOLD: 50
+  NEG_PRESS_RISK: 20
+  LOW_CREDIT_RISK: 30
+  SANCTIONS_RISK: 100
+
+rules:
+  - rule: Init
+    priority: 100
+    then: result.risk_score: 0
+
+  - rule: Sanctions
+    priority: 95
+    if: client.sanctions_hit
+    then: result.risk_score: result.risk_score + SANCTIONS_RISK
+
+  - rule: Negative_Press
+    priority: 90
+    if: client.negative_press
+    then: result.risk_score: result.risk_score + NEG_PRESS_RISK
+
+  - rule: Low_Credit
+    priority: 85
+    if: client.credit_rating == "low"
+    then: result.risk_score: result.risk_score + LOW_CREDIT_RISK
+
+  - rule: Determine_Outcome
+    priority: 70
+    if: result.risk_score >= RISK_SCORE_THRESHOLD
+    then:
+      result.acceptance: "review_required"
+    else:
+      result.acceptance: "accepted"
+
+facts:
+  - name: "Scenario 1 – Clean client"
+    client:
+      sanctions_hit: false
+      negative_press: false
+      credit_rating: "good"
+    result: {}
+
+  - name: "Scenario 2 – Credit risk + negative press"
+    client:
+      sanctions_hit: false
+      negative_press: true
+      credit_rating: "low"
+    result: {}
+
+  - name: "Scenario 3 – Sanction match"
+    client:
+      sanctions_hit: true
+      negative_press: false
+      credit_rating: "good"
+    result: {}
+</code></pre>
+
+          </details>
 
         </div>
 
+        <!-- ============================== -->
+        <!-- 2. TAX                         -->
+        <!-- ============================== -->
+
+        <h3 class="text-2xl font-semibold mt-20 mb-4">2. Tax</h3>
+
+        <p class="text-slate-700 dark:text-slate-300 mb-6">
+          Tax determinations rely on precise rules, consistent application, and strong documentation.
+          SESL gives tax teams a structured way to operationalise eligibility tests, thresholds,
+          allowances, residency rules, and reporting requirements—ensuring consistent outcomes across
+          filing systems, advisory workflows, and audit processes.
+        </p>
+
+        <div class="space-y-12">
+
+          <!-- 2.1 Tax Residency Test -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">
+              2.1 Tax Residency Determination
+            </summary>
+
+            <p class="mt-4 text-slate-700 dark:text-slate-300">
+              <strong>Industry Context:</strong>
+              Determining tax residency can be complex and depends on days present, personal ties,
+              work ties, property ties, and historical residency. Inconsistent assessments can
+              trigger penalties or disputes with tax authorities. SESL ensures transparent,
+              standardised application of statutory tests.
+            </p>
+
+            <p class="mt-3 text-slate-700 dark:text-slate-300">
+              <strong>How the Model Works:</strong>
+              SESL evaluates day-count thresholds, connection factors, and historical resident
+              status. Depending on the combination, the model returns <em>resident</em>,
+              <em>non-resident</em>, or a borderline “dual-tie” outcome requiring further review.
+            </p>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  MIN_DAYS_RESIDENT: 183
+  FAMILY_TIE_POINTS: 15
+  WORK_TIE_POINTS: 10
+  PROPERTY_TIE_POINTS: 10
+  PRIOR_RESIDENCY_POINTS: 20
+  RESIDENCY_THRESHOLD: 25
+
+rules:
+  - rule: Auto_Resident
+    priority: 100
+    if: person.days_in_country >= MIN_DAYS_RESIDENT
+    then:
+      result.status: "resident"
+      result.reason: "Meets day-count rule."
+      stop: true
+
+  - rule: Score_Init
+    priority: 95
+    then: result.score: 0
+
+  - rule: Family_Tie
+    priority: 90
+    if: person.has_family_tie
+    then: result.score: result.score + FAMILY_TIE_POINTS
+
+  - rule: Work_Tie
+    priority: 85
+    if: person.has_work_tie
+    then: result.score: result.score + WORK_TIE_POINTS
+
+  - rule: Property_Tie
+    priority: 80
+    if: person.owns_property
+    then: result.score: result.score + PROPERTY_TIE_POINTS
+
+  - rule: Prior_Residency
+    priority: 75
+    if: person.was_resident_last_year
+    then: result.score: result.score + PRIOR_RESIDENCY_POINTS
+
+  - rule: Determine_Status
+    priority: 70
+    if: result.score >= RESIDENCY_THRESHOLD
+    then:
+      result.status: "resident"
+    else:
+      result.status: "non_resident"
+</code></pre>
+
+          </details>
+          <!-- 2.2 VAT / Sales Tax Threshold Determination -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">
+              2.2 VAT / Sales Tax Threshold Determination
+            </summary>
+
+            <p class="mt-4 text-slate-700 dark:text-slate-300">
+              <strong>Industry Context:</strong>
+              Revenue authorities and enterprise finance teams must consistently determine whether
+              a business exceeds VAT or sales-tax registration thresholds. Manual checks lead to
+              inconsistent filings, compliance breaches, and penalties. SESL enables a transparent,
+              traceable model that evaluates turnover, sales mix, and supply location.
+            </p>
+
+            <p class="mt-3 text-slate-700 dark:text-slate-300">
+              <strong>How the Model Works:</strong>
+              SESL checks rolling 12-month taxable turnover, type of goods/services, exempt
+              categories, and cross-border considerations. The model returns: <em>mandatory
+                registration</em>, <em>eligible but optional</em>, or <em>not required</em>.
+            </p>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  VAT_THRESHOLD: 85000
+  ZERO_RATED: ["food_basic", "children_clothes"]
+  EXEMPT: ["education", "healthcare"]
+
+rules:
+  - rule: Init
+    priority: 100
+    then: result.taxable_turnover: 0
+
+  - rule: Calculate_Taxable
+    priority: 95
+    for: sale in business.sales
+    if: sale.category not in EXEMPT
+    then: result.taxable_turnover: result.taxable_turnover + sale.amount
+
+  - rule: Mandatory_Register
+    priority: 90
+    if: result.taxable_turnover >= VAT_THRESHOLD
+    then:
+      result.status: "mandatory_registration"
+      result.reason: "Threshold exceeded."
+      stop: true
+
+  - rule: Optional_Register
+    priority: 80
+    if: result.taxable_turnover > 0
+    then:
+      result.status: "optional_registration"
+
+  - rule: Not_Required
+    priority: 70
+    then:
+      result.status: "not_required"
+
+facts:
+  - name: "Scenario 1 – Mandatory registration"
+    business:
+      sales:
+        - { category: "general_goods", amount: 60000 }
+        - { category: "services", amount: 30000 }
+    result: {}
+
+  - name: "Scenario 2 – Optional registration (below threshold)"
+    business:
+      sales:
+        - { category: "general_goods", amount: 20000 }
+        - { category: "education", amount: 40000 }
+    result: {}
+
+  - name: "Scenario 3 – Not required (entirely exempt)"
+    business:
+      sales:
+        - { category: "education", amount: 90000 }
+    result: {}
+</code></pre>
+
+          </details>
+          <!-- 2.3 Corporate Tax Deduction Eligibility (Capex/Opex) -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">
+              2.3 Corporate Tax Deduction Eligibility (Capex/Opex)
+            </summary>
+
+            <p class="mt-4 text-slate-700 dark:text-slate-300">
+              <strong>Industry Context:</strong>
+              Multinational corporations frequently misclassify expenses—leading to audit findings,
+              back-dated adjustments, and penalties. SESL creates deterministic classification logic
+              aligned with tax authority guidance, internal controls, and audit requirements.
+            </p>
+
+            <p class="mt-3 text-slate-700 dark:text-slate-300">
+              <strong>How the Model Works:</strong>
+              SESL evaluates expense nature, expected useful life, asset type, and accounting policy.
+              Output categories include: <em>OPEX (deductible)</em>, <em>CAPEX (capitalised)</em>,
+              or <em>non-deductible</em>.
+            </p>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  MIN_CAPEX_LIFESPAN: 2
+  NON_DEDUCTIBLE_TYPES: ["fines", "penalties"]
+
+rules:
+  - rule: Check_Non_Deductible
+    priority: 100
+    if: expense.type in NON_DEDUCTIBLE_TYPES
+    then:
+      result.classification: "non_deductible"
+      result.reason: "Expense type disallowed."
+      stop: true
+
+  - rule: Capex_Long_Life
+    priority: 95
+    if: expense.useful_life_years >= MIN_CAPEX_LIFESPAN
+    then:
+      result.classification: "capex"
+      result.reason: "Long-life asset creation."
+      stop: true
+
+  - rule: Opex
+    priority: 80
+    then:
+      result.classification: "opex"
+      result.reason: "Operational expense."
+
+facts:
+  - name: "Scenario 1 – Capital expenditure"
+    expense:
+      type: "equipment"
+      useful_life_years: 5
+    result: {}
+
+  - name: "Scenario 2 – Operational expense"
+    expense:
+      type: "marketing"
+      useful_life_years: 0
+    result: {}
+
+  - name: "Scenario 3 – Non-deductible"
+    expense:
+      type: "fines"
+      useful_life_years: 0
+    result: {}
+</code></pre>
+
+          </details>
+          <!-- 2.4 Cross-Border Withholding Tax (WHT) Calculator -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">
+              2.4 Cross-Border Withholding Tax (WHT) Rate Calculator
+            </summary>
+
+            <p class="mt-4 text-slate-700 dark:text-slate-300">
+              <strong>Industry Context:</strong>
+              Cross-border payments expose organisations to complex treaty rules, documentation
+              requirements, and compliance risks. Incorrect withholding rates are a major cause
+              of tax disputes and delayed payments. SESL enables defensible, real-time WHT
+              determinations across finance systems.
+            </p>
+
+            <p class="mt-3 text-slate-700 dark:text-slate-300">
+              <strong>How the Model Works:</strong>
+              SESL evaluates treaty eligibility, residency status, payment type, and documentation
+              validity to calculate the correct withholding percentage.
+            </p>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  DEFAULT_WHT: 30
+  TREATY_RATES:
+    interest: 10
+    royalties: 12
+    dividends: 5
+
+rules:
+  - rule: Invalid_Documentation
+    priority: 100
+    if: not payment.has_valid_certificate
+    then:
+      result.rate: DEFAULT_WHT
+      result.reason: "No valid treaty documentation."
+      stop: true
+
+  - rule: Treaty_Rate
+    priority: 90
+    if:
+      all:
+        - payment.treaty_eligible
+        - payment.type in TREATY_RATES
+    then:
+      result.rate: TREATY_RATES[payment.type]
+      result.reason: "Treaty rate applied."
+      stop: true
+
+  - rule: Default_Rate
+    priority: 70
+    then:
+      result.rate: DEFAULT_WHT
+      result.reason: "Default WHT applied."
+
+facts:
+  - name: "Scenario 1 – Treaty rate (dividends)"
+    payment:
+      type: "dividends"
+      treaty_eligible: true
+      has_valid_certificate: true
+    result: {}
+
+  - name: "Scenario 2 – Invalid documentation"
+    payment:
+      type: "interest"
+      treaty_eligible: true
+      has_valid_certificate: false
+    result: {}
+
+  - name: "Scenario 3 – Non-treaty country"
+    payment:
+      type: "royalties"
+      treaty_eligible: false
+      has_valid_certificate: true
+    result: {}
+</code></pre>
+
+          </details>
+
+
+
+        </div>
+        <!-- ============================== -->
+        <!-- 3. GOVERNMENT & PUBLIC SERVICES -->
+        <!-- ============================== -->
+
+        <h3 class="text-2xl font-semibold mt-20 mb-4">3. Government & Public Services</h3>
+
+        <p class="text-slate-700 dark:text-slate-300 mb-6">
+          Public agencies face increasing pressure to demonstrate fairness, auditability, and
+          consistency in operational decisions. SESL ensures policy logic is explicit, testable,
+          and consistently applied across caseworkers, legacy systems, and digital channels.
+        </p>
+
+        <div class="space-y-12">
+
+          <!-- 3.1 Housing Benefit -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">3.1 Housing Benefit Eligibility</summary>
+
+            <p class="mt-4 text-slate-700 dark:text-slate-300">
+              <strong>Industry Context:</strong> Housing-benefit calculation is highly regulated and
+              politically sensitive. SESL ensures rules are transparent, deterministic, and auditable.
+            </p>
+
+            <p class="mt-3 text-slate-700 dark:text-slate-300">
+              <strong>How the Model Works:</strong> Rules evaluate age, documentation, income bands,
+              and thresholds to determine full eligibility, partial eligibility, or rejection.
+            </p>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  MIN_AGE: 18
+  MAX_INCOME_FULL: 18000
+  MAX_INCOME_PARTIAL: 30000
+  PARTIAL_RATE: 0.25
+  BASE_CONTRIBUTION: 100
+  REQUIRED_DOCS: ["proof_of_id", "income_statement"]
+
+rules:
+  - rule: Age_Check
+    priority: 100
+    if: applicant.age < MIN_AGE
+    then:
+      result.eligible: false
+      result.reason: "Below minimum age."
+      stop: true
+
+  - rule: Documentation_Check
+    priority: 95
+    if: not all(item in applicant.documents for item in REQUIRED_DOCS)
+    then:
+      result.eligible: false
+      result.reason: "Missing mandatory documentation."
+      stop: true
+
+  - rule: Full_Benefit
+    priority: 90
+    if: applicant.income <= MAX_INCOME_FULL
+    then:
+      result.band: "full"
+      result.contribution: 0
+      result.eligible: true
+
+  - rule: Partial_Benefit
+    priority: 85
+    if:
+      applicant.income > MAX_INCOME_FULL and
+      applicant.income <= MAX_INCOME_PARTIAL
+    then:
+      result.band: "partial"
+      result.contribution: BASE_CONTRIBUTION * PARTIAL_RATE
+      result.eligible: true
+
+  - rule: No_Benefit
+    priority: 80
+    if: applicant.income > MAX_INCOME_PARTIAL
+    then:
+      result.eligible: false
+      result.reason: "Income above threshold."
+</code></pre>
+
+          </details>
+
+          <!-- 3.2 Passport -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">3.2 Passport Renewal Screening</summary>
+
+            <p class="mt-4 text-slate-700 dark:text-slate-300">
+              <strong>Industry Context:</strong>
+              Passport operations manage high seasonal volumes while enforcing strict identity and
+              document standards. SESL ensures consistent decision-making in all channels.
+            </p>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  MIN_ADULT_AGE: 16
+  MAX_PASSPORT_AGE: 10
+  REQUIRED_DOCS: ["photo", "old_passport"]
+
+rules:
+  - rule: Age_Routing
+    priority: 100
+    if: applicant.age < MIN_ADULT_AGE
+    then:
+      result.eligible: false
+      result.pathway: "child_passport"
+      stop: true
+
+  - rule: Nationality_Check
+    priority: 98
+    if: applicant.is_british != true
+    then:
+      result.eligible: false
+      result.reason: "Non-British nationals require a different process."
+      stop: true
+
+  - rule: Doc_Validation
+    priority: 95
+    if: not all(item in applicant.documents for item in REQUIRED_DOCS)
+    then:
+      result.eligible: false
+      result.reason: "Missing required documents."
+      stop: true
+
+  - rule: Renewal_Eligible
+    priority: 90
+    if: applicant.has_previous_passport and passport.years_since_issue <= MAX_PASSPORT_AGE
+    then:
+      result.eligible: true
+      result.pathway: "renewal"
+
+  - rule: Replacement_Path
+    priority: 85
+    if: applicant.has_previous_passport and passport.lost == true
+    then:
+      result.eligible: true
+      result.pathway: "lost_replacement"
+</code></pre>
+
+          </details>
+
+          <!-- 3.3 SME Grants -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">3.3 SME Grant Scoring</summary>
+
+            <p class="text-slate-700 dark:text-slate-300 mt-4">
+              <strong>Industry Context:</strong>
+              Government grant programmes require fairness and auditability. SESL expresses scoring
+              logic as transparent rule models.
+            </p>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  MIN_SCORE: 70
+  WEIGHT_INNOVATION: 0.5
+  WEIGHT_IMPACT: 0.3
+  WEIGHT_DELIVERY: 0.2
+  PRIORITY_REGION_BONUS: 5
+
+rules:
+  - rule: Score_Innovation
+    priority: 95
+    let: score: proposal.innovation * WEIGHT_INNOVATION
+    then: result.score_innovation: score
+
+  - rule: Score_Impact
+    priority: 94
+    let: score: proposal.impact * WEIGHT_IMPACT
+    then: result.score_impact: score
+
+  - rule: Score_Delivery
+    priority: 93
+    let: score: proposal.delivery * WEIGHT_DELIVERY
+    then: result.score_delivery: score
+
+  - rule: Bonus_Region
+    priority: 90
+    if: proposal.region_priority
+    then: result.bonus: PRIORITY_REGION_BONUS
+
+  - rule: Total_Score
+    priority: 80
+    let: total: result.score_innovation + result.score_impact + result.score_delivery + (result.bonus or 0)
+    then: result.total_score: total
+
+  - rule: Funding_Decision
+    priority: 70
+    if: result.total_score >= MIN_SCORE
+    then: result.awarded: true
+    else: result.awarded: false
+</code></pre>
+
+          </details>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 4. BANKING & FINANCIAL SERVICES -->
+        <!-- ============================== -->
+
+        <h3 class="text-2xl font-semibold mt-20 mb-4">4. Banking & Financial Services</h3>
+
+        <p class="text-slate-700 dark:text-slate-300 mb-6">
+          Banks operate under intense regulatory scrutiny. SESL provides a transparent logic layer
+          aligned with risk committees, auditors, and regulators.
+        </p>
+
+        <div class="space-y-12">
+
+          <!-- 4.1 Credit Card Pre-Eligibility -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">4.1 Credit Card Pre-Eligibility</summary>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  MIN_AGE: 18
+  MIN_INCOME: 15000
+  MAX_DTI: 0.45
+
+rules:
+  - rule: Age_Check
+    priority: 100
+    if: applicant.age < MIN_AGE
+    then:
+      result.status: "decline"
+      result.reason: "Under minimum age."
+      stop: true
+
+  - rule: Income_Check
+    priority: 95
+    if: applicant.income < MIN_INCOME
+    then:
+      result.status: "decline"
+      result.reason: "Income below threshold."
+      stop: true
+
+  - rule: Debt_to_Income
+    priority: 90
+    let: dti: applicant.debt / applicant.income
+    if: dti > MAX_DTI
+    then:
+      result.status: "decline"
+      result.reason: "High debt-to-income ratio."
+      stop: true
+
+  - rule: Risk_Flags
+    priority: 85
+    if: applicant.has_internal_risk_flag
+    then:
+      result.status: "review"
+      result.reason: "Internal risk flag raised."
+      stop: true
+
+  - rule: Accept
+    priority: 80
+    then:
+      result.status: "pre_approved"
+      result.reason: "Meets all criteria."
+</code></pre>
+
+          </details>
+
+          <!-- 4.2 AML Risk -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">4.2 AML Risk Scoring</summary>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  PEP_POINTS: 60
+  HR_COUNTRY_POINTS: 40
+  SANCTION_POINTS: 100
+  UNUSUAL_ACTIVITY_POINTS: 30
+  RISK_HIGH: 80
+  RISK_MEDIUM: 40
+
+rules:
+  - rule: Base
+    priority: 100
+    then: result.risk: 0
+
+  - rule: PEP
+    priority: 95
+    if: customer.is_pep
+    then: result.risk: result.risk + PEP_POINTS
+
+  - rule: High_Risk_Country
+    priority: 90
+    if: customer.country in ["IR", "KP", "SY", "RU"]
+    then: result.risk: result.risk + HR_COUNTRY_POINTS
+
+  - rule: Sanction_Match
+    priority: 85
+    if: customer.sanctions_hit
+    then: result.risk: result.risk + SANCTION_POINTS
+
+  - rule: Unusual_Activity
+    priority: 80
+    if: customer.unusual_activity
+    then: result.risk: result.risk + UNUSUAL_ACTIVITY_POINTS
+
+  - rule: Categorise
+    priority: 70
+    if: result.risk >= RISK_HIGH
+    then: result.category: "high"
+    else if: result.risk >= RISK_MEDIUM
+    then: result.category: "medium"
+    else: result.category: "low"
+</code></pre>
+
+          </details>
+
+          <!-- 4.3 Payment Sanctions -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">4.3 Payment Sanctions Screening</summary>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  BLOCKED_COUNTRIES: ["IR", "KP", "SY"]
+  FLAGGED_COUNTRIES: ["RU", "CU"]
+  HIGH_VALUE_THRESHOLD: 100000
+
+rules:
+  - rule: Blocked_Country
+    priority: 100
+    if: payment.country in BLOCKED_COUNTRIES
+    then:
+      result.status: "block"
+      result.reason: "Sanctioned country."
+      stop: true
+
+  - rule: Flag_High_Risk_Country
+    priority: 95
+    if: payment.country in FLAGGED_COUNTRIES
+    then: result.flag: "high_risk_country"
+
+  - rule: High_Value_Flag
+    priority: 90
+    if: payment.amount > HIGH_VALUE_THRESHOLD
+    then: result.flag: "high_value"
+
+  - rule: Receiver_Flag
+    priority: 85
+    if: payment.receiver_risk_flag
+    then: result.flag: "receiver_risk"
+
+  - rule: Approve
+    priority: 70
+    then: result.status: "allow"
+</code></pre>
+
+          </details>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 5. HEALTHCARE -->
+        <!-- ============================== -->
+
+        <h3 class="text-2xl font-semibold mt-20 mb-4">5. Healthcare</h3>
+
+        <p class="text-slate-700 dark:text-slate-300 mb-6">
+          SESL ensures safe and consistent triage, stewardship, and scheduling logic across clinical
+          teams, digital triage, and call centres.
+        </p>
+
+        <div class="space-y-12">
+
+          <!-- 5.1 Triage -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">5.1 Primary Care Triage</summary>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>rules:
+  - rule: Red_Flag_Chest
+    priority: 100
+    if: symptoms.chest_pain
+    then:
+      result.priority: "emergency"
+      stop: true
+
+  - rule: Red_Flag_Stroke
+    priority: 95
+    if: symptoms.facial_droop or symptoms.arm_weakness
+    then:
+      result.priority: "emergency"
+      stop: true
+
+  - rule: Fever_Urgent
+    priority: 90
+    if: symptoms.fever and patient.age < 3
+    then:
+      result.priority: "urgent"
+
+  - rule: Chronic_Condition_Check
+    priority: 85
+    if: patient.has_chronic_condition and symptoms.breathing_difficulty
+    then:
+      result.priority: "urgent"
+
+  - rule: Routine
+    priority: 70
+    then:
+      result.priority: "routine"
+</code></pre>
+
+          </details>
+
+          <!-- 5.2 Antibiotic Stewardship -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">5.2 Antibiotic Stewardship</summary>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  FIRST_LINE_DAYS: 2
+
+rules:
+  - rule: Viral_Reject
+    priority: 100
+    if: assessment.bacterial == false
+    then:
+      result.recommend: "no_antibiotics"
+      stop: true
+
+  - rule: Allergy_Check
+    priority: 95
+    if: patient.allergy_penicillin
+    then:
+      result.recommend: "alternative_antibiotic"
+      stop: true
+
+  - rule: First_Line_Start
+    priority: 90
+    if: assessment.bacterial == true
+    then:
+      result.recommend: "start_first_line"
+
+  - rule: First_Line_Failed
+    priority: 85
+    if: symptoms.days > FIRST_LINE_DAYS and symptoms.no_improvement
+    then:
+      result.recommend: "escalate_second_line"
+</code></pre>
+
+          </details>
+
+          <!-- 5.3 Follow-up Scheduling -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">5.3 Follow-Up Scheduling</summary>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  HIGH_RISK_DAYS: 7
+  MEDIUM_RISK_DAYS: 14
+  LOW_RISK_DAYS: 30
+
+rules:
+  - rule: High_Risk
+    priority: 100
+    if: patient.risk == "high"
+    then: result.follow_up_days: HIGH_RISK_DAYS
+
+  - rule: Medium_Risk
+    priority: 90
+    if: patient.risk == "medium"
+    then: result.follow_up_days: MEDIUM_RISK_DAYS
+
+  - rule: Low_Risk
+    priority: 80
+    if: patient.risk == "low"
+    then: result.follow_up_days: LOW_RISK_DAYS
+</code></pre>
+
+          </details>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 6. INSURANCE -->
+        <!-- ============================== -->
+
+        <h3 class="text-2xl font-semibold mt-20 mb-4">6. Insurance</h3>
+
+        <p class="text-slate-700 dark:text-slate-300 mb-6">
+          Insurers must operationalise underwriting, pricing, and claims rules with precision.
+          SESL improves governance, reduces variation, and creates traceable decisions.
+        </p>
+
+        <div class="space-y-12">
+
+          <!-- 6.1 Auto -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">6.1 Auto Insurance Underwriting</summary>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  MIN_DRIVER_AGE: 21
+  HIGH_RISK_POSTCODES: ["AB1", "DD9"]
+  MAX_RECENT_CLAIMS: 2
+
+rules:
+  - rule: Age
+    priority: 100
+    if: driver.age < MIN_DRIVER_AGE
+    then: result.decision: "decline"
+
+  - rule: Claims
+    priority: 95
+    if: driver.recent_claims > MAX_RECENT_CLAIMS
+    then: result.decision: "decline"
+
+  - rule: High_Risk_Postcode
+    priority: 90
+    if: driver.postcode in HIGH_RISK_POSTCODES
+    then: result.decision: "review"
+
+  - rule: Accept
+    priority: 80
+    then: result.decision: "accept"
+</code></pre>
+
+          </details>
+
+          <!-- 6.2 Health Pricing -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">6.2 Health Policy Pricing</summary>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  BASE_PREMIUM: 100
+  AGE_50_LOAD: 1.4
+  SMOKER_LOAD: 1.3
+  REGION_LOADS:
+    north: 1.1
+    south: 1.0
+    central: 1.05
+
+rules:
+  - rule: Init
+    priority: 100
+    then: result.loading: 1.0
+
+  - rule: Age
+    priority: 95
+    if: member.age > 50
+    then: result.loading: result.loading * AGE_50_LOAD
+
+  - rule: Smoker
+    priority: 90
+    if: member.smoker
+    then: result.loading: result.loading * SMOKER_LOAD
+
+  - rule: Region
+    priority: 85
+    then: result.loading: result.loading * REGION_LOADS[member.region]
+</code></pre>
+
+          </details>
+
+          <!-- 6.3 Claims Fraud -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">6.3 Claims Fraud Scoring</summary>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  VALUE_POINTS: 40
+  DOC_MISMATCH_POINTS: 30
+  PRIOR_FRAUD_POINTS: 50
+
+rules:
+  - rule: Init
+    priority: 100
+    then: result.fraud_score: 0
+
+  - rule: High_Value
+    priority: 95
+    if: claim.amount > 10000
+    then: result.fraud_score: result.fraud_score + VALUE_POINTS
+
+  - rule: Doc_Mismatch
+    priority: 90
+    if: claim.doc_mismatch
+    then: result.fraud_score: result.fraud_score + DOC_MISMATCH_POINTS
+
+  - rule: Prior_Fraud
+    priority: 85
+    if: claimant.prior_fraud
+    then: result.fraud_score: result.fraud_score + PRIOR_FRAUD_POINTS
+</code></pre>
+
+          </details>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 7. RETAIL & E-COMMERCE -->
+        <!-- ============================== -->
+
+        <h3 class="text-2xl font-semibold mt-20 mb-4">7. Retail & E-Commerce</h3>
+
+        <p class="text-slate-700 dark:text-slate-300 mb-6">
+          Retailers must optimise promotions, segmentation, logistics, and returns across channels.
+          SESL unifies business logic across stores, apps, and warehouses.
+        </p>
+
+        <div class="space-y-12">
+
+          <!-- 7.1 RFM -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">7.1 RFM Segmentation</summary>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>rules:
+  - rule: Champion
+    priority: 100
+    if: customer.recency < 30 and customer.frequency > 10 and customer.monetary > 500
+    then: result.segment: "champion"
+
+  - rule: Loyal
+    priority: 90
+    if: customer.frequency > 5
+    then: result.segment: "loyal"
+
+  - rule: At_Risk
+    priority: 80
+    if: customer.recency > 90
+    then: result.segment: "at_risk"
+
+  - rule: Lapsed
+    priority: 70
+    if: customer.recency > 180
+    then: result.segment: "lapsed"
+</code></pre>
+
+          </details>
+
+          <!-- 7.2 Promotion Eligibility -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">7.2 Promotion Eligibility</summary>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  MIN_CART: 50
+  VIP_SEGMENTS: ["champion", "loyal"]
+
+rules:
+  - rule: Min_Cart
+    priority: 100
+    if: cart.total < MIN_CART
+    then:
+      result.discount: 0
+      result.reason: "Below threshold."
+      stop: true
+
+  - rule: VIP_Bonus
+    priority: 90
+    if: customer.segment in VIP_SEGMENTS
+    then:
+      result.discount: 15
+      stop: true
+
+  - rule: Standard
+    priority: 80
+    then: result.discount: 10
+</code></pre>
+
+          </details>
+
+          <!-- 7.3 Returns -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">7.3 Returns Policy</summary>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  RETURN_DAYS: 30
+  EXCLUDED_CATEGORIES: ["perishables", "custom_items"]
+
+rules:
+  - rule: Days_Check
+    priority: 100
+    if: order.days > RETURN_DAYS
+    then:
+      result.eligible: false
+      result.reason: "Exceeded return window."
+      stop: true
+
+  - rule: Excluded_Cat
+    priority: 95
+    if: order.category in EXCLUDED_CATEGORIES
+    then:
+      result.eligible: false
+      result.reason: "Category excluded."
+      stop: true
+
+  - rule: Condition_Check
+    priority: 90
+    if: item.condition != "good"
+    then:
+      result.eligible: false
+      result.reason: "Item condition unacceptable."
+      stop: true
+
+  - rule: Accept
+    priority: 80
+    then: result.eligible: true
+</code></pre>
+
+          </details>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 8. PENSIONS -->
+        <!-- ============================== -->
+
+        <h3 class="text-2xl font-semibold mt-20 mb-4">8. Pensions</h3>
+
+        <p class="text-slate-700 dark:text-slate-300 mb-6">
+          Pension schemes operate with strict rules for eligibility, contributions, transfers, and
+          retirement pathways. SESL provides transparent, auditable logic for administrators and trustees.
+        </p>
+
+        <div class="space-y-12">
+
+          <!-- 8.1 Retirement Eligibility -->
+          <details class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900/40 border">
+            <summary class="cursor-pointer text-xl font-semibold">8.1 Retirement Eligibility Assessment</summary>
+
+            <pre class="text-xs overflow-auto p-4 bg-black text-green-300 rounded-lg"><code>const:
+  NORMAL_RETIREMENT_AGE: 65
+  MIN_SERVICE_YEARS: 5
+  EARLY_RETIREMENT_AGE: 55
+  EARLY_PENALTY_RATE: 0.05
+
+rules:
+  - rule: Check_Service
+    priority: 100
+    if: member.service_years < MIN_SERVICE_YEARS
+    then:
+      result.eligible: false
+      result.reason: "Insufficient service years."
+      stop: true
+
+  - rule: Too_Young
+    priority: 95
+    if: member.age < EARLY_RETIREMENT_AGE
+    then:
+      result.eligible: false
+      result.reason: "Below early retirement age."
+      stop: true
+
+  - rule: Normal_Retirement
+    priority: 90
+    if: member.age >= NORMAL_RETIREMENT_AGE
+    then:
+      result.eligible: true
+      result.pathway: "normal"
+      result.penalty: 0
+
+  - rule: Early_Retirement
+    priority: 85
+    if: member.age >= EARLY_RETIREMENT_AGE and member.age < NORMAL_RETIREMENT_AGE
+    then:
+      let:
+        years_early: NORMAL_RETIREMENT_AGE - member.age
+      result.eligible: true
+      result.pathway: "early"
+      result.penalty: years_early * EARLY_PENALTY_RATE
+</code></pre>
+
+          </details>
+        </div>
       </div>
     </section>
-
-    <!-- Eligibility -->
-    <section id="eligibility" class="mb-12 p-6 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
-      <h2 class="text-2xl font-semibold mb-2">Eligibility Logic</h2>
-      <p class="text-slate-700 dark:text-slate-300">
-        SESL handles rule-driven eligibility checks for passports, benefits, grants, and regulatory processes.
-      </p>
-    </section>
-
-    <!-- Policy Automation -->
-    <section id="policy" class="mb-12 p-6 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
-      <h2 class="text-2xl font-semibold mb-2">Policy Automation</h2>
-      <p class="text-slate-700 dark:text-slate-300">
-        Turn large policy documents into auditable, deterministic rule engines.
-      </p>
-    </section>
-
-    <!-- Risk Scoring -->
-    <section id="risk" class="mb-12 p-6 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
-      <h2 class="text-2xl font-semibold mb-2">Risk & Scoring</h2>
-      <p class="text-slate-700 dark:text-slate-300">
-        SESL makes risk scoring predictable, transparent, and repeatable.
-      </p>
-    </section>
-
-    <!-- Pricing -->
-    <section id="pricing" class="mb-12 p-6 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
-      <h2 class="text-2xl font-semibold mb-2">Pricing Engines</h2>
-      <p class="text-slate-700 dark:text-slate-300">
-        Create deterministic price calculations with full audit trails.
-      </p>
-    </section>
-
   </main>
 
   <!-- FOOTER -->
-<footer class="border-t border-slate-300 dark:border-slate-800 py-16 px-4">
+  <footer class="border-t border-slate-300 dark:border-slate-800 py-16 px-4">
     <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
 
       <div>
         <h4 class="font-semibold mb-3">Product</h4>
         <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-          <li><a href="product.html" class="hover:text-brand-600">Overview</a></li>
-          <li><a href="product.html#features" class="hover:text-brand-600">Features</a></li>
-          <li><a href="#demo" class="hover:text-brand-600">Demo</a></li>
+          <li><a href="product.html">Overview</a></li>
+          <li><a href="product.html#features">Features</a></li>
+          <li><a href="#demo">Demo</a></li>
         </ul>
       </div>
 
       <div>
         <h4 class="font-semibold mb-3">Solutions</h4>
         <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-          <li><a href="solutions.html" class="hover:text-brand-600">Use Cases</a></li>
-          <li><a href="solutions.html#compliance" class="hover:text-brand-600">Compliance</a></li>
-          <li><a href="solutions.html#enterprise" class="hover:text-brand-600">Enterprise</a></li>
-          <li><a href="solutions.html#automation" class="hover:text-brand-600">Process Automation</a></li>
+          <li><a href="solutions.html">Use Cases</a></li>
+          <li><a href="solutions.html#compliance">Compliance</a></li>
+          <li><a href="solutions.html#enterprise">Enterprise</a></li>
+          <li><a href="solutions.html#automation">Process Automation</a></li>
         </ul>
       </div>
 
       <div>
         <h4 class="font-semibold mb-3">Resources</h4>
         <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-          <li><a href="resources.html" class="hover:text-brand-600">Documentation</a></li>
-          <li><a href="https://github.com/YOUR_REPO/releases" class="hover:text-brand-600">Download</a></li>
-          <li><a href="resources.html#connect" class="hover:text-brand-600">LLM Server</a></li>
-          <li><a href="resources.html#examples" class="hover:text-brand-600">Examples</a></li>
+          <li><a href="resources.html">Documentation</a></li>
+          <li><a href="#">Download</a></li>
+          <li><a href="resources.html#connect">LLM Server</a></li>
+          <li><a href="resources.html#examples">Examples</a></li>
         </ul>
       </div>
 
       <div>
         <h4 class="font-semibold mb-3">Company</h4>
         <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-          <li><a href="about.html" class="hover:text-brand-600">About SESL</a></li>
-          <li><a href="about.html#mission" class="hover:text-brand-600">Mission</a></li>
-          <li><a href="about.html#contact" class="hover:text-brand-600">Contact</a></li>
+          <li><a href="about.html">About SESL</a></li>
+          <li><a href="about.html#mission">Mission</a></li>
+          <li><a href="about.html#contact">Contact</a></li>
         </ul>
       </div>
 
     </div>
 
     <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-300 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
+
       <div class="flex items-center gap-3">
-        <img src="SESL Logo.png" class="h-7 block dark:hidden" />
-        <img src="SESL Logo Dark.png" class="h-7 hidden dark:block" />
+        <img src="SESL Logo.png" alt="SESL Logo" class="h-7 block dark:hidden" />
+        <img src="SESL Logo Dark.png" alt="SESL Logo Dark" class="h-7 hidden dark:block" />
         <span class="text-sm text-slate-600 dark:text-slate-400">Simple Expert System Language</span>
       </div>
 
       <div class="flex gap-4">
-        <a href="#" class="text-slate-600 hover:text-brand-600 dark:text-slate-400">Twitter</a>
-        <a href="#" class="text-slate-600 hover:text-brand-600 dark:text-slate-400">LinkedIn</a>
+        <a href="#" class="text-slate-600 dark:text-slate-400">Twitter</a>
+        <a href="#" class="text-slate-600 dark:text-slate-400">LinkedIn</a>
       </div>
+
     </div>
 
-    <div class="text-center mt-6 text-sm text-slate-500 dark:text-slate-500">
+    <div class="text-center mt-6 text-sm text-slate-500">
       © <span id="year"></span> Oblongix. All rights reserved.
     </div>
   </footer>
 
-  <!-- THEME + MOBILE MENU SCRIPT -->
+  <!-- JS -->
   <script>
     const btn = document.getElementById("themeToggle");
 
@@ -243,23 +1567,21 @@
       btn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙";
     }
 
-    btn.addEventListener("click", () => {
+    btn.onclick = () => {
       const isDark = document.documentElement.classList.toggle("dark");
       localStorage.setItem("theme", isDark ? "dark" : "light");
       updateThemeIcon();
-    });
+    };
 
     updateThemeIcon();
 
-    // MOBILE MENU TOGGLE
     const mobileBtn = document.getElementById("mobileMenuBtn");
     const mobileMenu = document.getElementById("mobileMenu");
-    mobileBtn.addEventListener("click", () => {
-      mobileMenu.classList.toggle("hidden");
-    });
+    mobileBtn.onclick = () => mobileMenu.classList.toggle("hidden");
 
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 
 </body>
+
 </html>

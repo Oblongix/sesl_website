@@ -147,11 +147,24 @@
   <section id="quickstart" class="mb-12 p-6 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800">
     <h2 class="text-2xl font-semibold mb-3">Quickstart</h2>
     <pre class="text-sm p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 overflow-x-auto">
-# Install SESL
-pip install sesl
-
 # Run a file
 sesl rules.sesl
+
+# Start an online session
+sesl --online
+
+# Run a batch job
+sesl --batch model.sesl
+
+# Show help without starting an online session
+sesl --batch help
+
+# Set a persistent variable
+sesl --batch "options test=Testing123"
+sesl --batch options
+sesl --batch "options delete test"
+sesl --batch options
+
     </pre>
   </section>
 
