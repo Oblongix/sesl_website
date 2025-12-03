@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>SESL – Simple Expert System Language</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="SESL is a deterministic, rule-based expert system language." />
+
+  <link rel="icon" type="image/x-icon" href="sesl.ico" />
 
   <!-- Load dark mode before rendering -->
   <script>
@@ -24,7 +27,9 @@
       darkMode: "class",
       theme: {
         extend: {
-          fontFamily: { sans: ["Inter", "system-ui", "Arial"] },
+          fontFamily: {
+            sans: ["Inter", "system-ui", "Arial"]
+          },
           colors: {
             brand: {
               300: "#a5b4fc",
@@ -38,7 +43,9 @@
   </script>
 
   <style>
-    .nav-group:hover .nav-menu { display: block; }
+    .nav-group:hover .nav-menu {
+      display: block;
+    }
   </style>
 </head>
 
@@ -50,8 +57,8 @@
 
       <!-- LOGO -->
       <a href="index.html" class="flex items-center gap-3">
-        <img src="SESL Logo.png" class="h-10 block dark:hidden" />
-        <img src="SESL Logo Dark.png" class="h-10 hidden dark:block" />
+        <img src="SESL Logo.png" class="h-10 block dark:hidden" alt="SESL Logo" />
+        <img src="SESL Logo Dark.png" class="h-10 hidden dark:block" alt="SESL Logo Dark" />
       </a>
 
       <!-- DESKTOP NAV -->
@@ -69,24 +76,21 @@
       <div class="flex items-center gap-4">
 
         <!-- LOGIN -->
-        <a href="login.html"
-          class="px-4 py-2 rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-200
+        <a href="login.html" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-200
                  dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800
                  text-sm font-medium transition-colors">
           Login
         </a>
 
         <!-- THEME BUTTON -->
-        <button id="themeToggle"
-          class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200 
+        <button id="themeToggle" class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200 
                  dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800
                  transition-colors">
           🌙
         </button>
 
         <!-- MOBILE MENU BUTTON -->
-        <button id="mobileMenuBtn"
-          class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700">
+        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700">
           ☰
         </button>
 
@@ -96,13 +100,12 @@
   </header>
 
   <!-- MOBILE MENU -->
-  <div id="mobileMenu"
-    class="hidden md:hidden flex-col bg-white dark:bg-slate-900 border-b border-slate-300 dark:border-slate-800 px-4 py-4 space-y-3 text-sm font-medium">
+  <div id="mobileMenu" class="hidden md:hidden flex-col bg-white dark:bg-slate-900 border-b border-slate-300 dark:border-slate-800 px-4 py-4 space-y-3 text-sm font-medium">
 
     <a href="index.html" class="block">Home</a>
     <a href="product.html" class="block">Product</a>
     <a href="solutions.html" class="block">Solutions</a>
-    <a href="customers.html" class = "block">Customers</a>
+    <a href="customers.html" class="block">Customers</a>
     <a href="resources.html" class="block">Resources</a>
     <a href="pricing.html" class="block">Pricing</a>
     <a href="about.html" class="block">About</a>
@@ -120,8 +123,8 @@
         </span>
       </h1>
 
-      <img src="SESL Logo.png" class="h-48 w-auto mx-auto mb-6 block dark:hidden" />
-      <img src="SESL Logo Dark.png" class="h-48 w-auto mx-auto mb-6 hidden dark:block" />
+      <img src="SESL Logo.png" class="h-48 w-auto mx-auto mb-6 block dark:hidden" alt="SESL Main Logo" />
+      <img src="SESL Logo Dark.png" class="h-48 w-auto mx-auto mb-6 hidden dark:block" alt="SESL Main Logo Dark" />
 
       <p class="text-lg text-slate-700 dark:text-slate-300 max-w-2xl mx-auto mb-10">
         SESL turns documents, text and processes into deterministic rules and facts -
@@ -132,15 +135,14 @@
       </p>
 
       <div class="flex flex-wrap justify-center gap-4">
-        <a href="#how"
-          class="px-6 py-3 rounded-full bg-brand-500 hover:bg-brand-300 text-white font-semibold transition-colors">
+        <a href="#how" class="px-6 py-3 rounded-full bg-brand-500 hover:bg-brand-300 text-white font-semibold transition-colors">
           How SESL Works
         </a>
 
-        <a href="https://github.com/YOUR_REPO/releases"
-          class="px-6 py-3 rounded-full bg-green-600 hover:bg-green-500 text-white font-semibold transition-colors">
+        <!-- DOWNLOAD BUTTON -->
+        <button id="downloadBtn" class="px-6 py-3 rounded-full bg-green-600 hover:bg-green-500 text-white font-semibold transition-colors">
           Download SESL
-        </a>
+        </button>
       </div>
 
     </div>
@@ -229,13 +231,7 @@
       </p>
 
       <div class="relative pb-[56.25%] h-0 overflow-hidden rounded-2xl shadow-lg border border-slate-300 dark:border-slate-800">
-        <iframe 
-          class="absolute top-0 left-0 w-full h-full"
-          src="https://www.youtube.com/embed/VIDEO_ID_HERE"
-          title="SESL Demo Video"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
+        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/VIDEO_ID_HERE" title="SESL Demo Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
         </iframe>
       </div>
 
@@ -269,7 +265,7 @@
         <h4 class="font-semibold mb-3">Resources</h4>
         <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
           <li><a href="resources.html" class="hover:text-brand-600">Documentation</a></li>
-          <li><a href="https://github.com/YOUR_REPO/releases" class="hover:text-brand-600">Download</a></li>
+          <li><a href="https://github.com/Oblongix/sesl/releases" class="hover:text-brand-600">Download</a></li>
           <li><a href="resources.html#connect" class="hover:text-brand-600">LLM Server</a></li>
           <li><a href="resources.html#examples" class="hover:text-brand-600">Examples</a></li>
         </ul>
@@ -288,8 +284,8 @@
 
     <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-300 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
       <div class="flex items-center gap-3">
-        <img src="SESL Logo.png" class="h-7 block dark:hidden" />
-        <img src="SESL Logo Dark.png" class="h-7 hidden dark:block" />
+        <img src="SESL Logo.png" class="h-7 block dark:hidden" alt="SESL Footer Logo" />
+        <img src="SESL Logo Dark.png" class="h-7 hidden dark:block" alt="SESL Footer Logo Dark" />
         <span class="text-sm text-slate-600 dark:text-slate-400">Simple Expert System Language</span>
       </div>
 
@@ -326,5 +322,52 @@
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 
+  <!-- DOWNLOAD MODAL -->
+  <div id="downloadModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+
+    <div class="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-xl w-full max-w-md">
+      <h2 class="text-xl font-semibold mb-4">Download SESL</h2>
+
+      <p class="text-sm mb-4 text-slate-600 dark:text-slate-400">
+        Enter your email and we’ll take you to the SESL download:
+      </p>
+
+      <form action="https://formspree.io/f/76576557575" method="POST" class="space-y-4">
+
+        <input type="email" name="email" required placeholder="you@example.com" class="w-full p-3 border border-slate-300 dark:border-slate-700 rounded-lg 
+               dark:bg-slate-800 dark:text-slate-100" />
+
+        <!-- Redirect to download -->
+        <input type="hidden" name="_redirect" value="https://github.com/Oblongix/sesl/releases/latest/download/sesl.exe">
+
+        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-500 text-white py-3 rounded-lg font-semibold">
+          Continue to Download
+        </button>
+      </form>
+
+      <button id="closeModal" class="mt-4 w-full py-2 text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400">
+        Cancel
+      </button>
+    </div>
+  </div>
+
+
+  <script>
+    const downloadBtn = document.getElementById("downloadBtn");
+    const downloadModal = document.getElementById("downloadModal");
+    const closeModal = document.getElementById("closeModal");
+
+    downloadBtn.addEventListener("click", () => {
+      downloadModal.classList.remove("hidden");
+      downloadModal.classList.add("flex");
+    });
+
+    closeModal.addEventListener("click", () => {
+      downloadModal.classList.add("hidden");
+      downloadModal.classList.remove("flex");
+    });
+  </script>
+
 </body>
+
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>SESL â€“ Resources</title>
+  <title>SESL ƒ?" Resources</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Load dark mode before rendering -->
@@ -78,13 +78,13 @@
         class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200
                dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800
                transition-colors">
-        ðŸŒ™
+        ÐYOT
       </button>
 
       <!-- MOBILE MENU BUTTON -->
       <button id="mobileMenuBtn"
         class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xl">
-        â˜°
+        ƒ~ø
       </button>
 
     </div>
@@ -113,20 +113,24 @@
   <!-- Documentation -->
   <section id="docs" class="mb-12 p-6 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800">
     <h2 class="text-2xl font-semibold mb-2">Documentation</h2>
+    <p class="text-slate-700 dark:text-slate-300 mb-4">Open the user guides directly from here.</p>
 
     <details class="mb-3">
-      <summary class="font-semibold">SESL User Guide</summary>
-      <p class="mt-2">SESL User Guide</p>
+      <summary class="font-semibold">SESL Overview</summary>
+      <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">High-level introduction to SESL and its product capabilities.</p>
+      <a href="product.html" class="inline-flex items-center mt-2 text-brand-600 hover:text-brand-500 dark:text-brand-300 text-sm font-semibold">View Product Overview</a>
     </details>
 
     <details class="mb-3">
       <summary class="font-semibold">SESL Command Line Interface / SESL Online and SESL Batch</summary>
-      <p class="mt-2">SESL CLI / Online / Batch</p>
+      <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">Step-by-step CLI commands, online mode, and batch automation.</p>
+      <a href="CLI_User_Guide.html" class="inline-flex items-center mt-2 text-brand-600 hover:text-brand-500 dark:text-brand-300 text-sm font-semibold">Open CLI User Guide</a>
     </details>
 
     <details class="mb-3">
       <summary class="font-semibold">SESL Language and Engine</summary>
-      <p class="mt-2">SESL Language</p>
+      <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">Language syntax, rule structure, engine behaviour, and examples.</p>
+      <a href="Language_User_Guide.html" class="inline-flex items-center mt-2 text-brand-600 hover:text-brand-500 dark:text-brand-300 text-sm font-semibold">Open Language User Guide</a>
     </details>
 
   </section>
@@ -250,7 +254,7 @@ sesl --batch options
     </div>
 
     <div class="text-center mt-6 text-sm text-slate-500 dark:text-slate-500">
-      Â© <span id="year"></span> Oblongix. All rights reserved.
+      ¶¸ <span id="year"></span> Oblongix. All rights reserved.
     </div>
   </footer>
 
@@ -259,7 +263,7 @@ sesl --batch options
   const btn = document.getElementById("themeToggle");
 
   function updateThemeIcon() {
-    btn.textContent = document.documentElement.classList.contains("dark") ? "â˜€ï¸" : "ðŸŒ™";
+    btn.textContent = document.documentElement.classList.contains("dark") ? "ƒ~?‹÷?" : "ÐYOT";
   }
 
   btn.addEventListener("click", () => {
