@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>SESL ƒ?" Resources</title>
+  <title>SESL - Resources</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Load dark mode before rendering -->
@@ -47,8 +47,8 @@
 
     <!-- LOGO -->
     <a href="index.html" class="flex items-center gap-3">
-      <img src="assets/SESL Logo.png" class="h-9 block dark:hidden">
-      <img src="assets/SESL Logo Dark.png" class="h-9 hidden dark:block">
+      <img src="assets/SESL Logo.png" class="h-9 block dark:hidden" alt="SESL logo light">
+      <img src="assets/SESL Logo Dark.png" class="h-9 hidden dark:block" alt="SESL logo dark">
     </a>
 
     <!-- NAV (DESKTOP) -->
@@ -56,9 +56,7 @@
       <a href="index.html">Home</a>
       <a href="product.html">Product</a>
       <a href="solutions.html">Solutions</a>
-      <a href="customers.html">Customers</a>
       <a href="resources.html" class="text-brand-600 dark:text-brand-300 font-semibold">Resources</a>
-      <a href="pricing.html">Pricing</a>
       <a href="about.html">About</a>
     </nav>
 
@@ -78,13 +76,13 @@
         class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200
                dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800
                transition-colors">
-        ÐYOT
+        Light
       </button>
 
       <!-- MOBILE MENU BUTTON -->
       <button id="mobileMenuBtn"
         class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xl">
-        ƒ~ø
+        &#8801;
       </button>
 
     </div>
@@ -99,58 +97,72 @@
   <a href="index.html" class="block">Home</a>
   <a href="product.html" class="block">Product</a>
   <a href="solutions.html" class="block">Solutions</a>
-  <a href="customers.html" class="block">Customers</a>
   <a href="resources.html" class="block text-brand-600 dark:text-brand-300">Resources</a>
-  <a href="pricing.html" class="block">Pricing</a>
   <a href="about.html" class="block">About</a>
 
 </div>
 
-<main class="max-w-5xl mx-auto px-4 py-20">
+<main class="pb-24 px-4 border-t border-slate-200 dark:border-slate-800">
+  <div class="max-w-7xl mx-auto grid gap-10 lg:grid-cols-[280px,1fr]">
 
-  <h1 class="text-4xl font-bold mb-10">Resources</h1>
+    <aside class="lg:sticky lg:top-24 self-start">
+      <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
+        <h2 class="text-sm font-semibold tracking-wide text-slate-500 dark:text-slate-400 mb-3 uppercase">Table of contents</h2>
+        <nav class="space-y-2 text-sm">
+          <a href="#docs" class="block hover:text-brand-600">Documentation</a>
+          <a href="#connect" class="block hover:text-brand-600">Connecting</a>
+          <a href="#quickstart" class="block hover:text-brand-600">Quickstart</a>
+          <a href="#faq" class="block hover:text-brand-600">FAQ</a>
+          <a href="#changelog" class="block hover:text-brand-600">Changelog</a>
+        </nav>
+      </div>
+    </aside>
 
-  <!-- Documentation -->
-  <section id="docs" class="mb-12 p-6 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800">
-    <h2 class="text-2xl font-semibold mb-2">Documentation</h2>
-    <p class="text-slate-700 dark:text-slate-300 mb-4">Open the user guides directly from here.</p>
+    <article class="prose prose-slate dark:prose-invert max-w-none">
+      <h1 class="text-4xl font-bold mb-4">Resources</h1>
+      <p class="text-slate-700 dark:text-slate-300 mb-10">
+        Everything you need to learn, connect, and run SESL: user guides, connection details, quickstart commands, FAQs, and release notes.
+      </p>
 
-    <details class="mb-3">
-      <summary class="font-semibold">SESL Overview</summary>
-      <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">High-level introduction to SESL and its product capabilities.</p>
-      <a href="product.html" class="inline-flex items-center mt-2 text-brand-600 hover:text-brand-500 dark:text-brand-300 text-sm font-semibold">View Product Overview</a>
-    </details>
+      <!-- Documentation -->
+      <section id="docs" class="mb-12 p-6 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800">
+        <h2 class="text-2xl font-semibold mb-2">Documentation</h2>
+        <p class="text-slate-700 dark:text-slate-300 mb-4">Open the user guides directly from here.</p>
 
-    <details class="mb-3">
-      <summary class="font-semibold">SESL Command Line Interface / SESL Online and SESL Batch</summary>
-      <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">Step-by-step CLI commands, online mode, and batch automation.</p>
-      <a href="guides/CLI_User_Guide.html" class="inline-flex items-center mt-2 text-brand-600 hover:text-brand-500 dark:text-brand-300 text-sm font-semibold">Open CLI User Guide</a>
-    </details>
+        <details class="mb-3">
+          <summary class="font-semibold">SESL Overview - High-level introduction to SESL and its product capabilities</summary>
+          <a href="Product_User_Guide.html" class="inline-flex items-center mt-2 text-brand-600 hover:text-brand-500 dark:text-brand-300 text-sm font-semibold">Open Product Overview</a>
+        </details>
 
-    <details class="mb-3">
-      <summary class="font-semibold">SESL Language and Engine</summary>
-      <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">Language syntax, rule structure, engine behaviour, and examples.</p>
-      <a href="guides/Language_User_Guide.html" class="inline-flex items-center mt-2 text-brand-600 hover:text-brand-500 dark:text-brand-300 text-sm font-semibold">Open Language User Guide</a>
-    </details>
+        <details class="mb-3">
+          <summary class="font-semibold">SESL Command Line Interface - CLI commands, online mode, and batch automation</summary>
+          <a href="guides/CLI_User_Guide.html" class="inline-flex items-center mt-2 text-brand-600 hover:text-brand-500 dark:text-brand-300 text-sm font-semibold">Open CLI User Guide</a>
+        </details>
 
-  </section>
+        <details class="mb-3">
+          <summary class="font-semibold">SESL Language and Engine - Language syntax, rule structure, engine behaviour, and examples</summary>
+          <a href="guides/Language_User_Guide.html" class="inline-flex items-center mt-2 text-brand-600 hover:text-brand-500 dark:text-brand-300 text-sm font-semibold">Open Language User Guide</a>
+        </details>
 
-  <!-- Connect -->
-  <section id="connect" class="mb-12 p-6 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800">
-    <h2 class="text-2xl font-semibold mb-2">Connecting to SESL</h2>
-    <details class="mb-3">
-      <summary class="font-semibold">Connecting from OpenAI ChatGPT</summary>
-      <p class="mt-2">Use the following API call to connect to SESL:</p>
-      <pre class="mt-2 p-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 overflow-x-auto text-sm">
+      </section>
 
+      <!-- Connect -->
+      <section id="connect" class="mb-12 p-6 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800">
+        <h2 class="text-2xl font-semibold mb-2">Connecting to SESL MCP</h2>
+        <details class="mb-3">
+          <summary class="font-semibold">Connecting from OpenAI ChatGPT</summary>
+          <p class="mt-2">Use the following API call to connect to SESL:</p>
+          <pre class="mt-2 p-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 overflow-x-auto text-sm">
+        TBA
       </pre>
-    </details>
-  </section>
+        </details>
+      </section>
 
-  <!-- Quickstart -->
-  <section id="quickstart" class="mb-12 p-6 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800">
-    <h2 class="text-2xl font-semibold mb-3">Quickstart</h2>
-    <pre class="text-sm p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 overflow-x-auto">
+      <!-- Quickstart -->
+      <section id="quickstart" class="mb-12 p-6 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800">
+        <h2 class="text-2xl font-semibold mb-3">Quickstart</h2>
+        <p class="text-slate-700 dark:text-slate-300 mb-4">More details can be found in the User Guides above.</p>
+        <pre class="text-sm p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 overflow-x-auto">
 # Run a file
 sesl rules.sesl
 
@@ -169,31 +181,45 @@ sesl --batch options
 sesl --batch "options delete test"
 sesl --batch options
 
-    </pre>
-  </section>
+        </pre>
+      </section>
 
-  <!-- FAQ -->
-  <section id="faq" class="mb-12 p-6 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800">
-    <h2 class="text-2xl font-semibold mb-3">FAQ</h2>
+      <!-- FAQ -->
+      <section id="faq" class="mb-12 p-6 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800">
+        <h2 class="text-2xl font-semibold mb-3">FAQ</h2>
 
-    <details class="mb-3">
-      <summary class="font-semibold">What is SESL?</summary>
-      <p class="mt-2">A deterministic expert system language.</p>
-    </details>
+        <details class="mb-3">
+          <summary class="font-semibold">What is SESL?</summary>
+          <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+            SESL (Simple Expert System Language) is a deterministic, rule-based expert system. You express decisions as structured rules and scenarios, and SESLâ€™s engine evaluates them the same way every timeâ€”no randomness and no hallucinations. It pairs readable models with an explainable rule trace so you can show exactly how each conclusion was reached.
+          </p>
+        </details>
 
-    <details class="mb-3">
-      <summary class="font-semibold">How does SESL differ from LLMs?</summary>
-      <p class="mt-2">SESL is rule-based, deterministic, and explainable.</p>
-    </details>
+        <details class="mb-3">
+          <summary class="font-semibold">What does SESL do?</summary>
+          <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+            SESL turns documents, policies, or business logic into executable rules that produce consistent answers. It supports forward-chaining evaluation, priorities, linting for safety, dependency graphs, and rich monitoring outputs. Typical uses include eligibility checks, compliance and policy enforcement, pricing and discounts, risk scoring, routing decisions, and any workflow where repeatable, auditable logic matters.
+          </p>
+        </details>
 
-  </section>
+        <details class="mb-3">
+          <summary class="font-semibold">How does SESL differ from LLMs?</summary>
+          <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+            SESL is a deterministic rules engine: the same inputs always yield the same outputs, with a full explanation of which rules fired. Large Language Models generate probabilistic text and can hallucinate; SESL does not. You can pair SESL with LLMs (for example, to draft rules), but SESL is the source of truth for the decision logic and evidence trail.
+          </p>
+        </details>
 
-  <!-- Changelog -->
-  <section id="changelog" class="p-6 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800">
-    <h2 class="text-2xl font-semibold mb-2">Changelog</h2>
-    <p>Track new releases and updates here.</p>
-  </section>
+      </section>
 
+      <!-- Changelog -->
+      <section id="changelog" class="p-6 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800">
+        <h2 class="text-2xl font-semibold mb-2">Changelog</h2>
+        <ul class="list-disc ml-5 space-y-2 text-sm text-slate-700 dark:text-slate-300">
+          <li><strong>v0.0.1</strong> â€” 2025-12-05: Initial public site release and documentation links.</li>
+        </ul>
+      </section>
+    </article>
+  </div>
 </main>
 
   <!-- FOOTER -->
@@ -242,8 +268,8 @@ sesl --batch options
 
     <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-300 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
       <div class="flex items-center gap-3">
-        <img src="assets/SESL Logo.png" class="h-7 block dark:hidden" />
-        <img src="assets/SESL Logo Dark.png" class="h-7 hidden dark:block" />
+        <img src="assets/SESL Logo.png" class="h-7 block dark:hidden" alt="SESL logo light" />
+        <img src="assets/SESL Logo Dark.png" class="h-7 hidden dark:block" alt="SESL logo dark" />
         <span class="text-sm text-slate-600 dark:text-slate-400">Simple Expert System Language</span>
       </div>
 
@@ -254,7 +280,7 @@ sesl --batch options
     </div>
 
     <div class="text-center mt-6 text-sm text-slate-500 dark:text-slate-500">
-      ¶¸ <span id="year"></span> Oblongix. All rights reserved.
+      Â© <span id="year"></span> Oblongix. All rights reserved.
     </div>
   </footer>
 
@@ -262,9 +288,9 @@ sesl --batch options
 <script>
   const btn = document.getElementById("themeToggle");
 
-  function updateThemeIcon() {
-    btn.textContent = document.documentElement.classList.contains("dark") ? "ƒ~?‹÷?" : "ÐYOT";
-  }
+  const updateThemeIcon = () => {
+    btn.textContent = document.documentElement.classList.contains("dark") ? "Dark" : "Light";
+  };
 
   btn.addEventListener("click", () => {
     const isDark = document.documentElement.classList.toggle("dark");
@@ -286,4 +312,3 @@ sesl --batch options
 
 </body>
 </html>
-

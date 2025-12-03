@@ -56,9 +56,7 @@
       <a href="index.html">Home</a>
       <a href="product.html">Product</a>
       <a href="solutions.html">Solutions</a>
-      <a href="customers.html">Customers</a>
       <a href="resources.html">Resources</a>
-      <a href="pricing.html">Pricing</a>
       <a href="about.html" class="text-brand-600 dark:text-brand-300 font-semibold">About</a>
     </nav>
 
@@ -99,52 +97,81 @@
   <a href="index.html" class="block">Home</a>
   <a href="product.html" class="block">Product</a>
   <a href="solutions.html" class="block">Solutions</a>
-  <a href="customers.html" class="block">Customers</a>
   <a href="resources.html" class="block">Resources</a>
-  <a href="pricing.html" class="block">Pricing</a>
   <a href="about.html" class="block text-brand-600 dark:text-brand-300">About</a>
 
 </div>
 
 <!-- MAIN CONTENT -->
-<main class="max-w-5xl mx-auto px-4 py-20">
-  <h1 class="text-4xl font-bold mb-10">About SESL</h1>
+<main class="pb-24 px-4 border-t border-slate-200 dark:border-slate-800">
+  <div class="max-w-7xl mx-auto grid gap-10 lg:grid-cols-[280px,1fr]">
 
-  <section class="mb-12 p-6 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
-    <h2 class="text-2xl font-semibold mb-2">Our Mission</h2>
-    <p>To bring deterministic, transparent, explainable reasoning to automated decision systems.</p>
-  </section>
+    <aside class="lg:sticky lg:top-24 self-start">
+      <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
+        <h2 class="text-sm font-semibold tracking-wide text-slate-500 dark:text-slate-400 mb-3 uppercase">Table of contents</h2>
+        <nav class="space-y-2 text-sm">
+          <a href="#mission" class="block hover:text-brand-600">Mission</a>
+          <a href="#founders" class="block hover:text-brand-600">Founders</a>
+          <a href="#roadmap" class="block hover:text-brand-600">Roadmap</a>
+          <a href="#team" class="block hover:text-brand-600">Who we are</a>
+          <a href="#contact" class="block hover:text-brand-600">Contact</a>
+        </nav>
+      </div>
+    </aside>
 
-  <section class="mb-12 p-6 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
-    <h2 class="text-2xl font-semibold mb-2">Founders</h2>
-    <p>Vince Powell has spent over 25 years working in businesses developing, delivering and using technology to grow businesses and make them more efficent. 
-      Unusally while holding senior business rules, Vince continues to be deeply engaged with the technology.
-      Fustrated with the lack of transparency and explainability in AI systems, and concerned with the effort (and cost) involved in trying to them to answer correctly.
-      Vince founded SESL to create a solution that prioritises certainty, clarity and explainability in automated decision-making.
-    </p>
-  </section>
+    <article class="prose prose-slate dark:prose-invert max-w-none">
+      <h1 class="text-4xl font-bold mb-10">About SESL</h1>
 
-  <section class="mb-12 p-6 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
-    <h2 class="text-2xl font-semibold mb-2">Roadmap</h2>
-    <p>We are at the start of our journey. Having developed the core rules engine, the user interface (the CLI and the MCP server)
-      and run over 10,000 tests we want to get the technology out to people to use and develop industry specific solutions.</p>
-    <p class="mt-3">We don't plan to make any substantive changes to the engine or the language (other than bug fixes and small additions) in the short term,
-      but do see value in having more tools to manage the rules and scenarios, and improving the presentation of the rule tracing and fact usage.</p>
-    <p class="mt-3">We would be delighted to hear from you if you have any requests, suggestions or even just comments !</p>
-  </section>
+      <section id="mission" class="mb-12 p-6 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
+        <h2 class="text-2xl font-semibold mb-2">Our Mission</h2>
+        <p>To bring deterministic, transparent, explainable reasoning to automated decision systems.</p>
+      </section>
 
-  <section class="mb-12 p-6 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
-    <h2 class="text-2xl font-semibold mb-2">Who are we?</h2>
-    <p>SESL is part of a group of solutions produced and managed by the Oblongix business. Oblongix was established to provide advanced business analytical solutions.
-      The team consists of experienced technical and business proffesionals, who bring a unique blend of knowledge, experience and relationships to the market, 
-      often taking new novell approaches to solving complex (and often quoted "unsolveable") business problems.  
-    </p>
-  </section>
+      <section id="founders" class="mb-12 p-6 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
+        <h2 class="text-2xl font-semibold mb-2">Founders</h2>
+        <p>Vince Powell has spent over 25 years working in businesses developing, delivering and using technology to grow businesses and make them more efficent. 
+          Unusally while holding senior business rules, Vince continues to be deeply engaged with the technology.
+          Fustrated with the lack of transparency and explainability in AI systems, and concerned with the effort (and cost) involved in trying to them to answer correctly.
+          Vince founded SESL to create a solution that prioritises certainty, clarity and explainability in automated decision-making.
+        </p>
+      </section>
 
-  <section class="p-6 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
-    <h2 class="text-2xl font-semibold mb-2">Contact</h2>
-    <p>Email: @vincent.powell@oblongix</p>
-  </section>
+      <section id="roadmap" class="mb-12 p-6 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
+        <h2 class="text-2xl font-semibold mb-2">Roadmap</h2>
+        <p>We are at the start of our journey. Having developed the core rules engine, the user interface (the CLI and the MCP server)
+          and run over 10,000 tests we want to get the technology out to people to use and develop industry specific solutions.</p>
+        <p class="mt-3"><h3 class="font-bold">SESL Language - Open Source with Commercial Licence</h3>Our initial focus is to give people access ot the language. We don't plan to make any substantive changes to the engine or the language (other than bug fixes and small additions) in the short term,
+          but do see value in having more tools to manage the rules and scenarios, and improving the presentation of the rule tracing and fact usage.</p>
+        <p class="mt-3"><h3 class="font-bold">SESL MCP - Charge per use</h3>The SESL MCP is available as a demonstration, the solution provides a direct connection between tools like 
+          chatGPT, Cluade, Gemini or others and SESL. From this you can both create rules directly from documents as well as run SESL models and get SESL to provide 
+         answers which can then be added to further analysis or reports. We plan to enhance the MCP with more features and capabilities over time.</p>
+        <p class="mt-3"><h3 class="font-bold">Industry Template Modeals - Charge per use</h3>We intend to offer partners the ability to publish there SESL templates
+        on the Platform and recieve revenue from their use by others. Think of this as a kind of app store.</p>
+        <p class="mt-3"><h3 class="font-bold">SESL Platform - SaaS Licence (some free components)</h3>Work has already started on the management platform for SESL. From the platform you will be able to create and test
+          models (as you do locally using the CLI); create and configure, MCP servers; Allocate models to MCP servers; Manage a library of models and share them 
+          with others; Manage and monitor the running of models allowing models to be tracked and audited; and finaly manage users of the models; and as mentioned early we will 
+          also have a template store to both publish templates and for others to pay for their use.</p>
+         <p class="mt-3"><h3 class="font-bold">SESL API - Charged per use</h3>The SESL API will provide another alternative to run models. Intended for use in application where high volume
+          and fast response is expected.</p>
+        <p class="mt-3"><h3>We welcome your suggestions</h3>We would be delighted to hear from you if you have any requests, suggestions or even just comments !</p>
+      </section>
+
+      <section id="team" class="mb-12 p-6 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
+        <h2 class="text-2xl font-semibold mb-2">Who are we?</h2>
+        <p>SESL is part of a group of solutions produced and managed by the Oblongix business. Oblongix was established to provide advanced business analytical solutions.
+          The team consists of experienced technical and business proffesionals, who bring a unique blend of knowledge, experience and relationships to the market, 
+          often taking new novell approaches to solving complex (and often quoted "unsolveable") business problems.  We are currently exploring problems ranging from the
+          commercial use of Quantum Computing, Collaborative Agent Consulting solutions, Business Behavioural Analytics using real time Agentic modelling, Genetic Algorthms
+          for optimisation, through to advanced hardware based solutions for private and commercial digital intruder detection.
+        </p>
+      </section>
+
+      <section id="contact" class="p-6 rounded-xl bg-slate-100 border border-slate-300 dark:bg-slate-900/40 dark:border-slate-800">
+        <h2 class="text-2xl font-semibold mb-2">Contact</h2>
+        <p>Email: @vincent.powell@oblongix</p>
+      </section>
+    </article>
+  </div>
 </main>
 
 <!-- FOOTER -->

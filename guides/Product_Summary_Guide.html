@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>SESL - Product</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Highlight.js Theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+
+  <!-- Highlight.js Core + YAML Language -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      hljs.highlightAll();
+    });
+  </script>
+
+  <!-- Load dark mode before rendering -->
+  <script>
+    const savedTheme = localStorage.getItem("theme");
+    if (
+      savedTheme === "dark" ||
+      (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind brand colors -->
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              300: "#a5b4fc",
+              500: "#6366f1",
+              600: "#4f46e5"
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+</head>
+
+<body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+
+  <!-- HEADER -->
+  <header class="border-b border-slate-300 bg-white/80 backdrop-blur sticky top-0 z-40 dark:border-slate-800 dark:bg-slate-950/80">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+
+      <!-- LOGO -->
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="assets/SESL Logo.png" class="h-9 block dark:hidden">
+        <img src="assets/SESL Logo Dark.png" class="h-9 hidden dark:block">
+      </a>
+
+      <!-- NAV (DESKTOP) -->
+      <nav class="hidden md:flex gap-8 text-sm font-medium">
+        <a href="index.html">Home</a>
+        <a href="product.html" class="text-brand-600 dark:text-brand-300 font-semibold">Product</a>
+        <a href="solutions.html">Solutions</a>
+        <a href="resources.html">Resources</a>
+        <a href="about.html">About</a>
+      </nav>
+
+      <!-- RIGHT SIDE -->
+      <div class="flex items-center gap-4">
+
+        <!-- LOGIN -->
+        <a href="login.html" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-200
+                 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800
+                 text-sm font-medium transition-colors">
+          Login
+        </a>
+
+        <!-- THEME BUTTON -->
+                <button id="themeToggle" class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200
+                 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors">
+          Light
+        </button>
+
+        <!-- MOBILE MENU BUTTON -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xl">
+          &#8801;
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div id="mobileMenu" class="hidden md:hidden flex-col bg-white dark:bg-slate-900 border-b border-slate-300 dark:border-slate-800 px-4 py-4 space-y-3 text-sm font-medium">
+
+    <a href="index.html" class="block">Home</a>
+    <a href="product.html" class="block text-brand-600 dark:text-brand-300">Product</a>
+    <a href="solutions.html" class="block">Solutions</a>
+    <a href="resources.html" class="block">Resources</a>
+    <a href="about.html" class="block">About</a>
+
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <main class="pb-24 px-4 border-t border-slate-200 dark:border-slate-800">
+  <div class="max-w-7xl mx-auto grid gap-10 lg:grid-cols-[280px,1fr]">
+
+    <aside class="lg:sticky lg:top-24 self-start">
+      <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
+        <h2 class="text-sm font-semibold tracking-wide text-slate-500 dark:text-slate-400 mb-3 uppercase">Table of contents</h2>
+        <nav class="space-y-2 text-sm">
+          <a href="#intro" class="block hover:text-brand-600">Overview</a>
+          <a href="#usage" class="block hover:text-brand-600">How to Use SESL</a>
+          <a href="#language" class="block hover:text-brand-600">SESL Language</a>
+          <a href="#cli" class="block hover:text-brand-600">CLI Tools</a>
+          <a href="#linter" class="block hover:text-brand-600">SESL Linter</a>
+          <a href="#graph" class="block hover:text-brand-600">Rule Dependency Graph</a>
+        </nav>
+      </div>
+    </aside>
+
+    <article class="prose prose-slate dark:prose-invert max-w-none">
+
+    <!-- INTRO -->
+    <section>
+      <h1 id="intro" class="text-4xl font-bold mb-4">SESL Product Overview</h1>
+      <p class="text-slate-700 dark:text-slate-300 mb-10">
+        This guide walks through SESL’s product capabilities: how to use the CLI and online modes, how the language is structured, linting and graphing tools, and examples for running SESL in real scenarios.
+      </p>
+      <p class="text-lg text-slate-700 dark:text-slate-300 mb-10">
+        SESL is a deterministic, rule-based expert system language that turns structured content
+        into reliable, traceable decision logic.
+      </p>
+
+      <div class="p-8 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800 space-y-8">
+
+        <div>
+          <h2 class="text-2xl font-semibold mb-3">– Deterministic</h2>
+          <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+            SESL uses a forward-chaining rules engine that produces the same result every time —
+            no randomness, no hallucinations, no inconsistencies. SESL integrates with most AI
+            platforms to convert documents or text into SESL rules.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-semibold mb-3">– Explainable</h2>
+          <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+            SESL provides rule-level trace output showing exactly how a result was reached.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-semibold mb-3">– Readable and Extensible</h2>
+          <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+            SESL uses a human-friendly syntax and scales to thousands of rules.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- USAGE -->
+    <section id="usage">
+      <h2 class="text-3xl font-semibold mb-10">How to Use SESL</h2>
+
+      <div class="space-y-10">
+
+        <div class="p-8 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800">
+          <h3 class="text-2xl font-semibold mb-3">Using SESL with an LLM</h3>
+          <p class="mb-3 text-slate-700 dark:text-slate-300">
+            Connect SESL to ChatGPT or Claude via MCP SESL tool.
+            When you call SESL as part of a prompt SESL will respond with using the correct tool for the task.
+            Note, when you run a SESL Model, the Model is not run in chatGPT, but in SESL's own server passing the correct results back to chatGPT.
+            This ensure chatGPT only has the correct results and does not just analyse the language behind the rules.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+            <!-- Item 1 -->
+            <div class="space-y-2">
+              <img src="assets/sesl in chatgpt 1.png" alt="Screenshot of SESL generating rules" class="rounded-lg border border-slate-300 dark:border-slate-700 shadow-sm w-full">
+              <p class="text-sm text-center text-slate-700 dark:text-slate-300">Generate rules</p>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="space-y-2">
+              <img src="assets/sesl in chatgpt 2.png" alt="Screenshot of SESL editing a scenario" class="rounded-lg border border-slate-300 dark:border-slate-700 shadow-sm w-full">
+              <p class="text-sm text-center text-slate-700 dark:text-slate-300">Build a scenario</p>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="space-y-2">
+              <img src="assets/sesl in chatgpt 3.png" alt="Screenshot of SESL evaluating results" class="rounded-lg border border-slate-300 dark:border-slate-700 shadow-sm w-full">
+              <p class="text-sm text-center text-slate-700 dark:text-slate-300">Evaluate results</p>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="p-8 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800 space-y-6">
+          <h3 class="text-2xl font-semibold mb-3">Run SESL Locally</h3>
+          <p class="text-slate-700 dark:text-slate-300">
+            SESL runs on your PC using the CLI or any text editor.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <img src="assets/sesl in dos windows.png" alt="Screenshot of SESL running in a Windows command prompt" class="rounded-lg border border-slate-300 dark:border-slate-700 shadow-sm">
+
+            <img src="assets/sesl in vscode.png" alt="Screenshot of SESL in a vs-code editor" class="rounded-lg border border-slate-300 dark:border-slate-700 shadow-sm">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- LANGUAGE SECTION -->
+    <section id="language">
+      <h2 class="text-3xl font-semibold mb-10">SESL Language</h2>
+
+      <div class="space-y-10">
+
+        <div class="p-8 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800">
+          <h3 class="text-2xl font-semibold mb-3">Structure of a SESL program</h3>
+
+          <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+            A SESL model is a structured YAML file that defines rules, facts (scenarios), and optional constants.
+            Providing a simple structure for allowing decision logic, inputs, and shared values to stay organised and easy to maintain.
+            <br><br>
+            The rules section contains each rule’s name, conditions (if), actions (then), optional LET formulas,
+            priorities, explanations, and an optional stop flag;
+            rules fire in priority order using forward-chaining so one rule’s output can influence another.
+            <br><br>
+            The facts section provides one or more scenarios—each with input data, an optional name, a result object
+            (where outputs are written), and automatically injected constants.
+            The constants section stores shared configuration values accessible to all rules.
+            Finally, all outputs are written into the scenario’s result object, which may also include engine metadata
+            such as starting facts, LET dumps, monitoring traces, and support tracking, keeping all conclusions and
+            debugging information in one place.
+          </p>
+
+          <pre class="text-sm mt-6 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 overflow-x-auto overflow-y-auto max-h-[20rem] whitespace-pre">
+<code class="language-yaml">
+const:
+  MIN_ADULT_AGE: 16
+
+rules:
+
+  - rule: check_age
+    priority: 10
+    if:
+      - applicant.age &lt; MIN_ADULT_AGE
+    then:
+      result.eligible: false
+    because: "Applicant is under the required adult age."
+
+  - rule: check_nationality
+    priority: 20
+    if:
+      - applicant.nationality != "British"
+    then:
+      result.eligible: false
+    because: "Applicant is not a British national."
+
+  - rule: check_previous_passport
+    priority: 30
+    if:
+      - applicant.has_previous_passport == true
+    then:
+      result.eligible: false
+    because: "Applicant has already had a UK passport."
+
+  - rule: verify_documents
+    priority: 40
+    if:
+      all:
+        - docs.birth_certificate == true
+        - docs.identity_evidence == true
+        - docs.photo_ok == true
+    then:
+      facts.docs_ok: true
+    because: "All required documents are provided."
+
+  - rule: final_decision
+    priority: 100
+    if:
+      - facts.docs_ok == true
+      - result.eligible != false
+    then:
+      result.eligible: true
+    because: "All requirements satisfied."
+
+facts:
+  - name: Scenario1
+    applicant:
+      age: 22
+      nationality: "British"
+      has_previous_passport: false
+    docs:
+      birth_certificate: true
+      identity_evidence: true
+      photo_ok: true
+</code>
+          </pre>
+
+          <br><br>
+
+          <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+            In summary, a SESL model cleanly separates rule logic, scenario data, and shared constants while providing
+            a dedicated result structure for outputs. This organisation makes SESL models easy to read,
+            easy to test, and highly maintainable, while supporting powerful reasoning features like LET formulas,
+            priority handling, and truth-maintenance tracking.
+          </p>
+        </div>
+        <div class="p-8 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800">
+          <h3 class="text-2xl font-semibold mb-3">How SESL processes rules</h3>
+
+          <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+            The rules engine starts by loading the rules you wrote in YAML.
+            Each rule has conditions (the “IF”), actions (the “THEN”), optional LET formulas, and a priority.
+            The engine turns each rule’s conditions into a logic structure (like a tree of AND/OR/NOT blocks)
+            so it can evaluate them quickly and consistently.
+            LET expressions are also prepared in advance so the engine can compute temporary values for each rule during processing.
+            <br><br>
+            When the engine runs a scenario, it enters a loop that keeps applying rules until nothing changes anymore.
+            For each rule, the engine first calculates the LET values for that rule, then tests whether the rule’s conditions are true
+            using the current facts. If the conditions match, the rule is allowed to fire.
+            The engine also keeps track of which parts of the data changed so it doesn’t waste time re-evaluating conditions unnecessarily.
+            <br><br>
+            If a rule fires, the engine performs its actions—which means it writes new values into the scenario facts
+            (usually inside the result section). If a higher-priority rule has already written to the same output,
+            the lower-priority rule is skipped for that specific value.
+            The engine also uses a simple “truth maintenance system” to record which rules are supporting each result;
+            if a rule later stops being true, the results depending on that rule can automatically be removed.
+            <br><br>
+            The engine keeps looping through all rules until it reaches a stable state—meaning no rule changed anything
+            during that iteration. When this happens, it stops and returns the final results.
+            If a monitor is turned on, the engine also produces a step-by-step explanation showing which rules were evaluated,
+            which ones fired, which actions were taken, and why.
+            This makes it easy to understand exactly how the engine arrived at its final answer.
+            <br><br>
+            The engine uses a forward-chaining approach where it repeatedly applies rules to the current facts until no more changes occur,
+            gradually building up conclusions step by step.
+            Unlike a RETE engine—which builds an optimized network of condition nodes for extremely fast pattern-matching
+            across large rule sets—this engine uses a simpler but more transparent evaluation cycle:
+            each rule is checked in priority order, with dependency tracking to avoid unnecessary re-evaluation,
+            LET expressions for per-rule computed values, and a truth-maintenance system to ensure results remain logically consistent
+            when rules stop applying.
+            This design trades RETE’s heavy optimisation structures for clarity, easier debugging, and deterministic behaviour,
+            while still achieving efficient re-runs by only re-evaluating conditions linked to recently changed parts of the fact set.
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- CLI -->
+    <section id="cli">
+      <h2 class="text-3xl font-semibold mb-6">SESL Online and Batch tools</h2>
+
+      <div class="rounded-xl bg-slate-100 border border-slate-300 p-8 dark:bg-slate-900/40 dark:border-slate-800">
+
+
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-8">
+          The SESL tool can operate in two distinct execution styles—online mode and batch mode—each designed for a different workflow.
+          Both modes use the same underlying SESL rule engine, but they differ in how users interact with models,
+          how commands are processed, and whether the tool behaves conversationally or automatically.
+          Understanding the difference between these two modes helps users choose the workflow best suited to development,
+          debugging, automation, or testing.
+        </p>
+
+        <!-- ONLINE MODE -->
+        <h3 class="text-2xl font-semibold mb-3">Online Mode</h3>
+
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+          In online mode, the SESL tool enters a fully interactive environment where the user types commands one at a time
+          and receives immediate feedback. This mode is designed for hands-on exploration: you can load or create models,
+          edit rules and scenarios, inspect their contents, and run inference repeatedly as you iterate.
+          Online mode also includes conveniences like tab-completion, colorized output, option substitution, and confirmation prompts.
+          It behaves like a live workspace where the model evolves continuously based on user input.
+        </p>
+
+        <p class="font-medium mb-2">Example (starting online mode):</p>
+
+        <pre class="text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-4 overflow-x-auto mb-6">
+$ sesl --online
+SESL> LOAD my_model.sesl
+SESL> LIST
+SESL> RUN DESCRIBE
+        </pre>
+
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+          During interactive execution, online mode supports rich debugging tools. Running scenarios with
+          <code class="text-brand-600 dark:text-brand-300">RUN DESCRIBE</code> reveals the rule-firing trace, detailed summaries,
+          support structures, and explanations of the final results. Errors are surfaced immediately, and because the session
+          preserves the model in memory, users can fix issues and retry quickly. This makes online mode ideal for building,
+          experimenting with, and refining SESL models.
+        </p>
+
+        <p class="font-medium mb-2">Example (editing and re-running a scenario interactively):</p>
+
+        <pre class="text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-4 overflow-x-auto mb-10">
+SESL> ADD FACT DemoScenario temperature=15
+SESL> RUN SCENARIO DemoScenario DESCRIBE
+SESL> DELETE FACT DemoScenario temperature
+SESL> RUN
+        </pre>
+
+
+        <!-- BATCH MODE -->
+        <h3 class="text-2xl font-semibold mb-3">Batch Mode</h3>
+
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+          In contrast, batch mode is completely non-interactive. It executes a sequence of SESL commands automatically,
+          with all confirmations answered “yes” behind the scenes. Commands are provided as a single
+          <code class="text-brand-600 dark:text-brand-300">--batch</code> string, which may contain multiple semicolon-separated instructions.
+          Batch mode is built for automation—running tests, transforming models, validating files, or processing SESL logic inside scripts
+          or pipelines.
+        </p>
+
+        <p class="font-medium mb-2">Example (batch mode with multiple commands):</p>
+
+        <pre class="text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-4 overflow-x-auto mb-6">
+$ sesl model.sesl --batch "LIST; RUN; LINT ERRORS"
+        </pre>
+
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+          Batch mode’s behavior is entirely deterministic: it never pauses for input, never asks questions,
+          and only prints the results of executing the commands. It can load a file at the start or begin with an empty model.
+          This makes it well suited for CI systems, automated workflows, regression testing, and other scenarios where SESL logic
+          must run unattended. While online mode is optimized for interactive editing and debugging, batch mode is optimized for
+          repeatable and scripted execution.
+        </p>
+
+        <p class="font-medium mb-2">Example (batch mode used in automation):</p>
+
+        <pre class="text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-4 overflow-x-auto">
+$ sesl --batch "NEW; ADD RULE myrule: {...}; SAVE out.sesl"
+        </pre>
+
+      </div>
+    </section>
+
+    <section id="linter">
+
+      <h2 class="text-3xl font-semibold mb-6">SESL Linter</h2>
+
+      <div class="rounded-xl bg-slate-100 border border-slate-300 p-8 dark:bg-slate-900/40 dark:border-slate-800">
+
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+          The SESL Linter performs static analysis on your SESL models to detect mistakes before you run them.
+          It inspects rules, conditions, LET expressions, constants, and scenarios to catch structural issues,
+          missing references, impossible conditions, and unused fields. This ensures your SESL model is clean,
+          correct, and predictable before it reaches execution.
+        </p>
+
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+          The linter checks for a wide range of issues, including:
+        </p>
+
+        <ul class="list-disc ml-6 text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+          <li>Unknown fact or result paths referenced in conditions</li>
+          <li>Unknown <code>CONST</code> references or LET dependencies</li>
+          <li>Impossible or invalid rule conditions</li>
+          <li>Rules that never fire (dead rules)</li>
+          <li>Unused constants or unused scenario fields</li>
+          <li>Conflicting rules writing to the same <code>result</code> path</li>
+          <li>Duplicate rule names</li>
+          <li>Empty scenarios or scenarios with never-read facts</li>
+          <li>LET expressions with invalid syntax or obvious runtime errors (e.g., divide by zero)</li>
+        </ul>
+
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+          These rules come directly from the SESL linter core, ensuring strict consistency with SESL’s execution
+          semantics. The linter enforces strict identifier rules, requiring that unquoted tokens in conditions and
+          actions refer to known facts, LET names, result fields, or constants. This prevents subtle runtime bugs
+          caused by typos or missing quotes. :contentReference[oaicite:2]{index=2}
+        </p>
+
+        <p class="font-medium mb-2">Example (run the linter):</p>
+        <pre class="text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-4 overflow-x-auto">
+$ sesl model.sesl --batch "LINT ERRORS"
+    </pre>
+
+      </div>
+    </section>
+    <section id="graph">
+      <h2 class="text-3xl font-semibold mb-6">Rule Dependency Graph</h2>
+
+      <div class="rounded-xl bg-slate-100 border border-slate-300 p-8 dark:bg-slate-900/40 dark:border-slate-800">
+
+
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+          SESL can generate a visual GraphViz dependency graph showing how rules relate to each other.
+          This graph helps you understand the flow of logic: which rules depend on which facts,
+          which rules produce results that other rules consume, and how data moves through
+          your SESL model.
+        </p>
+
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+          The graph generator reads every rule's conditions, LET expressions, and result writes to build a map of:
+        </p>
+
+        <ul class="list-disc ml-6 text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+          <li>Rule → Fact dependencies</li>
+          <li>Rule → Rule dependencies via <code>result.x</code> reads</li>
+          <li>Fact nodes referenced by conditions</li>
+          <li>Priority-based color coding for rules</li>
+        </ul>
+
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+          Each rule is displayed as a rectangular node, colored based on its priority, while facts become oval nodes.
+          Edges between rules reveal how data flows and where dependencies exist. The result is a clear, visual way to
+          see the structure of your rule system—especially useful for large models with many interacting rules.
+          :contentReference[oaicite:3]{index=3}
+        </p>
+
+        <p class="font-medium mb-2">Example (generate a graph):</p>
+        <pre class="text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-4 overflow-x-auto">
+$ sesl model.sesl --batch "GRAPH DEPENDENCIES &gt; graph.dot"
+$ dot -Tpng graph.dot -o graph.png
+    </pre>
+
+      </div>
+    </section>
+
+
+      </article>
+  </div>
+</main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-300 dark:border-slate-800 py-16 px-4">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+
+      <div>
+        <h4 class="font-semibold mb-3">Product</h4>
+        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li><a href="product.html" class="hover:text-brand-600">Overview</a></li>
+          <li><a href="product.html#features" class="hover:text-brand-600">Features</a></li>
+          <li><a href="#demo" class="hover:text-brand-600">Demo</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold mb-3">Solutions</h4>
+        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li><a href="solutions.html" class="hover:text-brand-600">Use Cases</a></li>
+          <li><a href="solutions.html#compliance" class="hover:text-brand-600">Compliance</a></li>
+          <li><a href="solutions.html#enterprise" class="hover:text-brand-600">Enterprise</a></li>
+          <li><a href="solutions.html#automation" class="hover:text-brand-600">Process Automation</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold mb-3">Resources</h4>
+        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li><a href="resources.html" class="hover:text-brand-600">Documentation</a></li>
+          <li><a href="https://github.com/YOUR_REPO/releases" class="hover:text-brand-600">Download</a></li>
+          <li><a href="resources.html#connect" class="hover:text-brand-600">LLM Server</a></li>
+          <li><a href="resources.html#examples" class="hover:text-brand-600">Examples</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold mb-3">Company</h4>
+        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li><a href="about.html" class="hover:text-brand-600">About SESL</a></li>
+          <li><a href="about.html#mission" class="hover:text-brand-600">Mission</a></li>
+          <li><a href="about.html#contact" class="hover:text-brand-600">Contact</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-300 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-3">
+        <img src="assets/SESL Logo.png" class="h-7 block dark:hidden" />
+        <img src="assets/SESL Logo Dark.png" class="h-7 hidden dark:block" />
+        <span class="text-sm text-slate-600 dark:text-slate-400">Simple Expert System Language</span>
+      </div>
+
+      <div class="flex gap-4">
+        <a href="#" class="text-slate-600 hover:text-brand-600 dark:text-slate-400">Twitter</a>
+        <a href="#" class="text-slate-600 hover:text-brand-600 dark:text-slate-400">LinkedIn</a>
+      </div>
+    </div>
+
+                        <div class="text-center mt-6 text-sm text-slate-500 dark:text-slate-500">(c) <span id="year"></span> Oblongix. All rights reserved.</div>
+  </footer>
+
+  <!-- THEME + MOBILE MENU SCRIPT -->
+  <script>
+    const btn = document.getElementById("themeToggle");
+
+    function updateThemeIcon() {
+      btn.textContent = document.documentElement.classList.contains("dark") ? "Dark" : "Light";
+    }
+
+    btn.addEventListener("click", () => {
+      const isDark = document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      updateThemeIcon();
+    });
+
+    updateThemeIcon();
+
+    // Mobile menu
+    const mobileBtn = document.getElementById("mobileMenuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    mobileBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+
+</html>
+
+

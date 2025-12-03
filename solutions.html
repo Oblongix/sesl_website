@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>SESL – Solutions</title>
+  <title>SESL - Solutions</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Load dark mode before rendering -->
@@ -52,9 +52,7 @@
         <a href="index.html">Home</a>
         <a href="product.html">Product</a>
         <a href="solutions.html" class="text-brand-600 dark:text-brand-300 font-semibold">Solutions</a>
-        <a href="customers.html">Customers</a>
         <a href="resources.html">Resources</a>
-        <a href="pricing.html">Pricing</a>
         <a href="about.html">About</a>
       </nav>
 
@@ -65,13 +63,13 @@
           Login
         </a>
 
-        <button id="themeToggle" class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200
+                <button id="themeToggle" class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200
                  dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors" aria-label="Toggle theme">
-          🌙
+          Light
         </button>
 
-        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xl" aria-label="Open mobile menu">
-          ☰
+                        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xl" aria-label="Open mobile menu">
+          &#8801;
         </button>
       </div>
     </div>
@@ -82,14 +80,32 @@
     <a href="index.html">Home</a>
     <a href="product.html">Product</a>
     <a href="solutions.html" class="text-brand-600 dark:text-brand-300">Solutions</a>
-    <a href="customers.html">Customers</a>
     <a href="resources.html">Resources</a>
-    <a href="pricing.html">Pricing</a>
     <a href="about.html">About</a>
   </div>
 
   <!-- CONTENT -->
-  <main class="max-w-5xl mx-auto px-4 py-20">
+  <main class="pb-24 px-4 border-t border-slate-200 dark:border-slate-800">
+  <div class="max-w-7xl mx-auto grid gap-10 lg:grid-cols-[280px,1fr]">
+
+    <aside class="lg:sticky lg:top-24 self-start">
+      <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
+        <h2 class="text-sm font-semibold tracking-wide text-slate-500 dark:text-slate-400 mb-3 uppercase">Table of contents</h2>
+        <nav class="space-y-2 text-sm">
+          <a href="#industry-sectors" class="block hover:text-brand-600">Intro: Industry use cases</a>
+          <a href="#law" class="block hover:text-brand-600">1. Law &amp; Legal Services</a>
+          <a href="#tax" class="block hover:text-brand-600">2. Tax</a>
+          <a href="#government" class="block hover:text-brand-600">3. Government &amp; Public Services</a>
+          <a href="#banking" class="block hover:text-brand-600">4. Banking &amp; Financial Services</a>
+          <a href="#healthcare" class="block hover:text-brand-600">5. Healthcare</a>
+          <a href="#insurance" class="block hover:text-brand-600">6. Insurance</a>
+          <a href="#retail" class="block hover:text-brand-600">7. Retail &amp; E-Commerce</a>
+          <a href="#pensions" class="block hover:text-brand-600">8. Pensions</a>
+        </nav>
+      </div>
+    </aside>
+
+    <article class="prose prose-slate dark:prose-invert max-w-none">
     <h1 class="text-4xl font-bold mb-10">Solutions</h1>
 
     <section id="industry-sectors" class="py-20 border-t border-slate-300 dark:border-slate-800">
@@ -114,62 +130,11 @@
           where
         </p>
 
-        <section class="mb-12">
-          <div class="p-6 bg-slate-100 border border-slate-300 rounded-xl 
-              dark:bg-slate-900/40 dark:border-slate-800">
-
-            <ul class="space-y-2 text-slate-700 dark:text-slate-300 leading-relaxed">
-
-            
-              <li><a href="#industry-sectors" class="text-brand-600 dark:text-brand-300 hover:underline font-semibold">
-                  Industry-Specific Use Cases
-                </a></li>
-
-              <ul class="ml-4 space-y-2 text-slate-600 dark:text-slate-400">
-
-                <li><a href="#law" class="text-brand-600 dark:text-brand-300 hover:underline">
-                    1. Law & Legal Services
-                  </a></li>
-
-                <li><a href="#tax" class="text-brand-600 dark:text-brand-300 hover:underline">
-                    2. Tax
-                  </a></li>
-
-                <li><a href="#government" class="text-brand-600 dark:text-brand-300 hover:underline">
-                    3. Government & Public Services
-                  </a></li>
-
-                <li><a href="#banking" class="text-brand-600 dark:text-brand-300 hover:underline">
-                    4. Banking & Financial Services
-                  </a></li>
-
-                <li><a href="#healthcare" class="text-brand-600 dark:text-brand-300 hover:underline">
-                    5. Healthcare
-                  </a></li>
-
-                <li><a href="#insurance" class="text-brand-600 dark:text-brand-300 hover:underline">
-                    6. Insurance
-                  </a></li>
-
-                <li><a href="#retail" class="text-brand-600 dark:text-brand-300 hover:underline">
-                    7. Retail & E-Commerce
-                  </a></li>
-
-                <li><a href="#pensions" class="text-brand-600 dark:text-brand-300 hover:underline">
-                    8. Pensions
-                  </a></li>
-
-              </ul>
-            </ul>
-
-          </div>
-        </section>
-
         <!-- ============================== -->
         <!-- 1. LAW & LEGAL SERVICES        -->
         <!-- ============================== -->
 
-        <h3 class="text-2xl font-semibold mt-20 mb-4">1. Law & Legal Services</h3>
+        <h3 id="law" class="text-2xl font-semibold mt-20 mb-4">1. Law & Legal Services</h3>
 
         <p class="text-slate-700 dark:text-slate-300 mb-6">
           Legal teams face increasing pressure to standardise reasoning, reduce risk, and ensure
@@ -430,7 +395,7 @@ facts:
         <!-- 2. TAX                         -->
         <!-- ============================== -->
 
-        <h3 class="text-2xl font-semibold mt-20 mb-4">2. Tax</h3>
+        <h3 id="tax" class="text-2xl font-semibold mt-20 mb-4">2. Tax</h3>
 
         <p class="text-slate-700 dark:text-slate-300 mb-6">
           Tax determinations rely on precise rules, consistent application, and strong documentation.
@@ -745,7 +710,7 @@ facts:
         <!-- 3. GOVERNMENT & PUBLIC SERVICES -->
         <!-- ============================== -->
 
-        <h3 class="text-2xl font-semibold mt-20 mb-4">3. Government & Public Services</h3>
+        <h3 id="government" class="text-2xl font-semibold mt-20 mb-4">3. Government & Public Services</h3>
 
         <p class="text-slate-700 dark:text-slate-300 mb-6">
           Public agencies face increasing pressure to demonstrate fairness, auditability, and
@@ -936,7 +901,7 @@ rules:
         <!-- 4. BANKING & FINANCIAL SERVICES -->
         <!-- ============================== -->
 
-        <h3 class="text-2xl font-semibold mt-20 mb-4">4. Banking & Financial Services</h3>
+        <h3 id="banking" class="text-2xl font-semibold mt-20 mb-4">4. Banking & Financial Services</h3>
 
         <p class="text-slate-700 dark:text-slate-300 mb-6">
           Banks operate under intense regulatory scrutiny. SESL provides a transparent logic layer
@@ -1090,7 +1055,7 @@ rules:
         <!-- 5. HEALTHCARE -->
         <!-- ============================== -->
 
-        <h3 class="text-2xl font-semibold mt-20 mb-4">5. Healthcare</h3>
+        <h3 id="healthcare" class="text-2xl font-semibold mt-20 mb-4">5. Healthcare</h3>
 
         <p class="text-slate-700 dark:text-slate-300 mb-6">
           SESL ensures safe and consistent triage, stewardship, and scheduling logic across clinical
@@ -1208,7 +1173,7 @@ rules:
         <!-- 6. INSURANCE -->
         <!-- ============================== -->
 
-        <h3 class="text-2xl font-semibold mt-20 mb-4">6. Insurance</h3>
+        <h3 id="insurance" class="text-2xl font-semibold mt-20 mb-4">6. Insurance</h3>
 
         <p class="text-slate-700 dark:text-slate-300 mb-6">
           Insurers must operationalise underwriting, pricing, and claims rules with precision.
@@ -1434,7 +1399,7 @@ rules:
         <!-- 8. PENSIONS -->
         <!-- ============================== -->
 
-        <h3 class="text-2xl font-semibold mt-20 mb-4">8. Pensions</h3>
+        <h3 id="pensions" class="text-2xl font-semibold mt-20 mb-4">8. Pensions</h3>
 
         <p class="text-slate-700 dark:text-slate-300 mb-6">
           Pension schemes operate with strict rules for eligibility, contributions, transfers, and
@@ -1493,7 +1458,9 @@ rules:
         </div>
       </div>
     </section>
-  </main>
+      </article>
+  </div>
+</main>
 
   <!-- FOOTER -->
   <footer class="border-t border-slate-300 dark:border-slate-800 py-16 px-4">
@@ -1554,9 +1521,7 @@ rules:
 
     </div>
 
-    <div class="text-center mt-6 text-sm text-slate-500">
-      © <span id="year"></span> Oblongix. All rights reserved.
-    </div>
+        <div class="text-center mt-6 text-sm text-slate-500">&#169; <span id="year"></span> Oblongix. All rights reserved.</div>
   </footer>
 
   <!-- JS -->
@@ -1564,7 +1529,7 @@ rules:
     const btn = document.getElementById("themeToggle");
 
     function updateThemeIcon() {
-      btn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙";
+      btn.textContent = document.documentElement.classList.contains("dark") ? "Dark" : "Light";
     }
 
     btn.onclick = () => {
@@ -1585,3 +1550,20 @@ rules:
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

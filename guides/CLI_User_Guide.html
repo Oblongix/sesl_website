@@ -1,445 +1,440 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>SESL Command Line Interface – Full User Guide</title>
-<style>
-body { font-family: Arial, sans-serif; line-height: 1.6; margin: 40px; }
-code, pre { background: #f8f8f8; padding: 6px; border: 1px solid #ddd; display: block; white-space: pre-wrap; }
-h1, h2, h3, h4 { color: #003366; }
-table { border-collapse: collapse; width: 100%; margin: 20px 0; }
-table, th, td { border: 1px solid #666; padding: 6px; }
-</style>
+  <meta charset="UTF-8" />
+  <title>SESL CLI User Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Comprehensive SESL CLI user guide covering online, batch, and file execution modes." />
+
+  <!-- Load dark mode before rendering -->
+  <script>
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            brand: { 300: "#a5b4fc", 500: "#6366f1", 600: "#4f46e5" }
+          },
+          fontFamily: { sans: ["Inter", "system-ui", "Arial"] }
+        }
+      }
+    };
+  </script>
 </head>
-<body>
 
-<h1>SESL Command Line Interface – Comprehensive User Guide</h1>
+<body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased">
 
-<p>This document provides a complete, detailed, fully structured guide for the Simple Expert System Language Command Line Interface. It explains the purpose, operation, commands, modes, behaviours, engine interaction, and examples demonstrating real-world use.</p>
+<!-- HEADER -->
+<header class="border-b border-slate-300 bg-white/80 backdrop-blur sticky top-0 z-40 dark:border-slate-800 dark:bg-slate-950/80">
+  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
 
-<hr>
+    <!-- LOGO -->
+    <a href="../index.html" class="flex items-center gap-3">
+      <img src="../assets/SESL Logo.png" class="h-10 block dark:hidden" alt="SESL logo light" />
+      <img src="../assets/SESL Logo Dark.png" class="h-10 hidden dark:block" alt="SESL logo dark" />
+    </a>
 
-<h2 id="toc">Table of Contents</h2>
-<ul>
-  <li><a href="#intro">1. Introduction</a></li>
-  <li><a href="#modes">2. Operating Modes</a></li>
-  <li><a href="#install">3. Installation and Requirements</a></li>
-  <li><a href="#startup">4. Start-Up and Environment Behaviour</a></li>
-  <li><a href="#config">5. Engine Configuration System</a></li>
-  <li><a href="#lifecycle">6. Command Processing Lifecycle</a></li>
-  <li><a href="#commands">7. Full SESL Command Reference</a></li>
-  <li><a href="#dotpath">8. Dot-Path Editing</a></li>
-  <li><a href="#yamlmerge">9. YAML Merging</a></li>
-  <li><a href="#engine">10. How SESL Processes a Model</a></li>
-  <li><a href="#output">11. Output Structure</a></li>
-  <li><a href="#examples">12. End-to-End Examples</a></li>
-  <li><a href="#best">13. Best Practices</a></li>
-  <li><a href="#conclusion">14. Conclusion</a></li>
-</ul>
+    <!-- DESKTOP NAV -->
+    <nav class="hidden md:flex gap-8 text-sm font-medium">
+      <a href="../index.html">Home</a>
+      <a href="../product.html">Product</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../customers.html">Customers</a>
+      <a href="../resources.html" class="text-brand-600 dark:text-brand-300 font-semibold">Resources</a>
+      <a href="../pricing.html">Pricing</a>
+      <a href="../about.html">About</a>
+    </nav>
 
-<hr>
+    <!-- RIGHT SIDE -->
+    <div class="flex items-center gap-4">
+      <a href="../login.html"
+         class="px-4 py-2 rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-200
+                dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800
+                text-sm font-medium transition-colors">
+        Login
+      </a>
 
-<h2 id="intro">1. Introduction</h2>
+      <button id="themeToggle"
+        class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200 
+               dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors"
+        type="button">
+        �YOT
+      </button>
 
-<p>The SESL command line interface is the primary tool used to load, inspect, edit, validate, run, and analyse SESL models. A SESL model describes rules, scenarios, and facts written in a human-readable YAML format. The command line interface provides full control over the lifecycle of these models.</p>
+      <!-- MOBILE MENU BUTTON -->
+      <button id="mobileMenuBtn"
+        class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xl"
+        type="button">
+        �~�
+      </button>
+    </div>
 
-<p>The command line interface supports:</p>
-<ul>
-<li>Interactive editing</li>
-<li>Template-driven model creation</li>
-<li>Scenario manipulation</li>
-<li>Rule manipulation</li>
-<li>Model execution</li>
-<li>Tracing and debugging</li>
-<li>Batch automation</li>
-</ul>
+  </div>
+</header>
 
-<p>Users include analysts, rule authors, software engineers, quality assurance professionals, and automated test systems.</p>
+<!-- MOBILE MENU -->
+<div id="mobileMenu"
+  class="hidden md:hidden flex-col bg-white dark:bg-slate-900 border-b border-slate-300 dark:border-slate-800 px-4 py-4 space-y-3 text-sm font-medium">
 
-<hr>
+  <a href="../index.html" class="block">Home</a>
+  <a href="../product.html" class="block">Product</a>
+  <a href="../solutions.html" class="block">Solutions</a>
+  <a href="../customers.html" class="block">Customers</a>
+  <a href="../resources.html" class="block text-brand-600 dark:text-brand-300">Resources</a>
+  <a href="../pricing.html" class="block">Pricing</a>
+  <a href="../about.html" class="block">About</a>
 
-<h2 id="modes">2. Operating Modes</h2>
+</div>
 
-<h3>2.1 Online Mode</h3>
-<p>Online mode provides an interactive command shell for live editing and execution.</p>
+<!-- HERO -->
+<section class="pt-24 pb-10 px-4 text-center">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-4xl sm:text-5xl font-semibold mb-6">SESL CLI User Guide</h1>
+    <p class="text-lg text-slate-700 dark:text-slate-300">
+      A complete guide to the SESL command line: online mode, batch mode, file execution, configuration, and troubleshooting.
+    </p>
+  </div>
+</section>
 
-<pre><code>sesl --online
+<!-- MAIN CONTENT -->
+<main class="pb-24 px-4 border-t border-slate-200 dark:border-slate-800">
+  <div class="max-w-7xl mx-auto grid gap-10 lg:grid-cols-[280px,1fr]">
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="lg:sticky lg:top-24 self-start">
+      <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
+        <h2 class="text-sm font-semibold tracking-wide text-slate-500 dark:text-slate-400 mb-3 uppercase">
+          Table of contents
+        </h2>
+        <nav class="space-y-2 text-sm">
+          <a href="#intro" class="block hover:text-brand-600">1. Introduction</a>
+          <a href="#modes" class="block hover:text-brand-600">2. Operating modes</a>
+          <a href="#install" class="block hover:text-brand-600">3. Installation</a>
+          <a href="#startup" class="block hover:text-brand-600">4. Start-up & environment</a>
+          <a href="#config" class="block hover:text-brand-600">5. Engine configuration</a>
+          <a href="#lifecycle" class="block hover:text-brand-600">6. Command lifecycle</a>
+          <a href="#commands" class="block hover:text-brand-600">7. Command reference</a>
+          <a href="#dotpath" class="block hover:text-brand-600">8. Dot-path editing</a>
+          <a href="#yamlmerge" class="block hover:text-brand-600">9. YAML merging</a>
+          <a href="#output" class="block hover:text-brand-600">10. Output structure</a>
+          <a href="#cheatsheet" class="block hover:text-brand-600">11. CLI cheat sheet</a>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- GUIDE BODY -->
+    <article class="prose prose-slate dark:prose-invert max-w-none">
+
+      <section id="intro" class="scroll-mt-24">
+        <h2 class="text-3xl font-semibold mb-4">1. Introduction</h2>
+        <p>
+          The SESL CLI is the primary tool for loading, inspecting, editing, validating, and running SESL models. It works with the same models used by the engine and provides rich tracing, linting, and automation features.
+        </p>
+        <ul>
+          <li>Interactive editing of rules, scenarios, and facts.</li>
+          <li>Template-driven creation of new models.</li>
+          <li>Batch-friendly execution with deterministic outputs.</li>
+          <li>Full traces, driver trees, and monitor output for explainability.</li>
+        </ul>
+      </section>
+
+      <section id="modes" class="mt-12 scroll-mt-24">
+        <h2 class="text-3xl font-semibold mb-4">2. Operating modes</h2>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">2.1 Online mode</h3>
+        <p>Interactive shell with completion, prompts, and live updates.</p>
+        <pre><code>sesl --online
 sesl
 </code></pre>
 
-<p>Features include:</p>
-<ul>
-<li>Automatic command completion</li>
-<li>Colour output</li>
-<li>Real-time confirmation prompts</li>
-<li>Dynamic updates to the loaded model</li>
-<li>Multiline YAML entry</li>
-<li>In-memory editing</li>
-</ul>
-
-<h3>2.2 Batch Mode</h3>
-<p>Batch mode executes commands non-interactively with automatic confirmation.</p>
-
-<pre><code>sesl --batch "LOAD file.sesl; RUN"
+        <h3 class="text-2xl font-semibold mt-6 mb-3">2.2 Batch mode</h3>
+        <p>Non-interactive execution with automatic confirmations, ideal for CI and scripts.</p>
+        <pre><code>sesl --batch "LOAD model.sesl; RUN DESCRIBE"
 </code></pre>
 
-<p>Useful for automated testing, scripting, continuous integration, and reproducible runs.</p>
+        <h3 class="text-2xl font-semibold mt-6 mb-3">2.3 File-execution mode</h3>
+        <p>Loads and runs a SESL file directly.</p>
+        <pre><code>sesl model.sesl
+</code></pre>
+      </section>
 
-<h3>2.3 File-Execution Mode</h3>
-<p>Loads and runs a SESL file directly.</p>
+      <section id="install" class="mt-12 scroll-mt-24">
+        <h2 class="text-3xl font-semibold mb-4">3. Installation and requirements</h2>
+        <ul>
+          <li>Python 3.10 or newer.</li>
+          <li>Required libraries: YAML parser, colour support.</li>
+        </ul>
+        <p>Install from PyPI (replace with your package name if different):</p>
+        <pre><code>pip install sesl
+</code></pre>
+        <p>Quick check:</p>
+        <pre><code>sesl --online
+</code></pre>
+      </section>
 
-<pre><code>sesl model.sesl
+      <section id="startup" class="mt-12 scroll-mt-24">
+        <h2 class="text-3xl font-semibold mb-4">4. Start-up and environment</h2>
+        <p>Environment variables can override defaults:</p>
+        <ul>
+          <li><code>SESL_STRICT_OPERANDS</code>: require explicit operand types.</li>
+          <li><code>SESL_STRICT_PATHS</code>: prevent writes to missing structures.</li>
+          <li><code>SESL_AUTO_CREATE_PATHS</code>: auto-create parent paths.</li>
+          <li><code>SESL_ERROR_STYLE</code>: fancy or plain errors.</li>
+          <li><code>SESL_CONFLICT_POLICY</code>: error, warn, or ignore conflicts.</li>
+        </ul>
+      </section>
+
+      <section id="config" class="mt-12 scroll-mt-24">
+        <h2 class="text-3xl font-semibold mb-4">5. Engine configuration</h2>
+        <p>Configuration layers:</p>
+        <ol>
+          <li>Engine defaults.</li>
+          <li>Environment variable overrides.</li>
+          <li>Command-line flags.</li>
+          <li>Interactive <code>options</code> values.</li>
+        </ol>
+        <p>Key flags:</p>
+<pre><code>--strict-operands     # enforce operand typing
+--strict-paths        # disallow missing parents
+--auto-create-paths   # create missing parents
+--conflict-policy warn|error
+--error-style fancy|plain
+--max-iter 50         # limit forward chaining passes
+</code></pre>
+      </section>
+
+      <section id="lifecycle" class="mt-12 scroll-mt-24">
+        <h2 class="text-3xl font-semibold mb-4">6. Command lifecycle</h2>
+        <ol>
+          <li>Parse and normalise command text.</li>
+          <li>Substitute <code>%OPTION%</code> tokens.</li>
+          <li>Licence and safety checks.</li>
+          <li>Dispatch to a handler.</li>
+          <li>Validate model edits.</li>
+          <li>Print coloured output and traces.</li>
+        </ol>
+      </section>
+
+      <section id="commands" class="mt-12 scroll-mt-24">
+        <h2 class="text-3xl font-semibold mb-4">7. Command reference</h2>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-2">7.1 File and model</h3>
+<pre><code>LOAD model.sesl           # load and validate
+SAVE model.sesl           # save current model
+NEW                       # start empty model
+NEW template.seslt        # create from template with %OPTION% substitutions
+DIR                       # list SESL files
+CD path/to/dir            # change working directory
 </code></pre>
 
-<p>Supports:</p>
-<ul>
-<li>--trace</li>
-<li>--no_tms</li>
-<li>--max_iter</li>
-<li>--graph</li>
-</ul>
-
-<hr>
-
-<h2 id="install">3. Installation and Requirements</h2>
-
-<p>Requirements:</p>
-<ul>
-<li>Python 3.10 or newer</li>
-<li>YAML library</li>
-<li>Colourama library</li>
-</ul>
-
-<p>To install SESL:</p>
-
-<pre><code>pip install sesl
+        <h3 class="text-2xl font-semibold mt-6 mb-2">7.2 Metadata</h3>
+<pre><code>ADD META key=value
+META DELETE key
 </code></pre>
 
-<p>Verify installation:</p>
-<pre><code>sesl --online
+        <h3 class="text-2xl font-semibold mt-6 mb-2">7.3 Listing</h3>
+<pre><code>LIST                      # summary
+LIST ALL                  # full YAML
+LIST RULE rule_name
+LIST SCENARIO scenario
+LIST FACT scenario
+LIST FACT ALL
 </code></pre>
 
-<hr>
-
-<h2 id="startup">4. Start-Up and Environment Behaviour</h2>
-
-<p>Several environment variables modify engine behaviour:</p>
-
-<table>
-<thead><tr><th>Variable</th><th>Effect</th></tr></thead>
-<tbody>
-<tr><td>SESL_STRICT_OPERANDS</td><td>Require explicit operand types</td></tr>
-<tr><td>SESL_STRICT_PATHS</td><td>Disable/enable auto path creation</td></tr>
-<tr><td>SESL_AUTO_CREATE_PATHS</td><td>Automatically create missing structures</td></tr>
-<tr><td>SESL_ERROR_STYLE</td><td>Fancy or plain errors</td></tr>
-<tr><td>SESL_CONFLICT_POLICY</td><td>Error, warn, or ignore</td></tr>
-</tbody>
-</table>
-
-<p>Licence behaviour is enforced by the command line interface. After expiry, on Tuesday through Friday only commands beginning with “RUN” or the command “EXIT” are permitted.</p>
-
-<hr>
-
-<h2 id="config">5. Engine Configuration System</h2>
-<p>The engine configuration controls rule execution behaviour. The command line interface constructs an engine configuration by layering:</p>
-
-<ol>
-<li>Engine defaults</li>
-<li>Environment variable overrides</li>
-<li>Command line flags overrides</li>
-<li>Interactive options</li>
-</ol>
-
-<h3>Important configuration items:</h3>
-
-<table>
-<thead><tr><th>Setting</th><th>Description</th></tr></thead>
-<tbody>
-<tr><td>strict_operands</td><td>Disallows implicit operand conversion</td></tr>
-<tr><td>strict_paths</td><td>Disallows writing to nonexistent nested structures</td></tr>
-<tr><td>auto_create_paths</td><td>Automatically creates nested structures</td></tr>
-<tr><td>strict_actions</td><td>Literal fallback rules for actions</td></tr>
-<tr><td>conflict_policy</td><td>Handle simultaneous writes</td></tr>
-<tr><td>error_style</td><td>Fancy or plain formatting</td></tr>
-</tbody>
-</table>
-
-<hr>
-
-<h2 id="lifecycle">6. Command Processing Lifecycle</h2>
-
-<p>Each command follows this lifecycle:</p>
-<ol>
-<li>Command text normalised</li>
-<li>Substitution of %OPTION% tokens</li>
-<li>Licence check</li>
-<li>Dispatcher selects handler</li>
-<li>Validation of model modifications</li>
-<li>Colour-coded result printed</li>
-</ol>
-
-<hr>
-
-<h2 id="commands">7. Full SESL Command Reference</h2>
-
-<p>This section documents every SESL command in the command line interface.</p>
-
-<h3>7.1 File and Model Management</h3>
-
-<h4>LOAD &lt;file&gt;</h4>
-<p>Loads and validates a SESL file into memory.</p>
-
-<pre><code>LOAD model.sesl
+        <h3 class="text-2xl font-semibold mt-6 mb-2">7.4 Copy</h3>
+<pre><code>COPY MODEL new_name
+COPY RULE old [new]
+COPY SCENARIO old [new]
+COPY FACT scenario [newScenario]
 </code></pre>
 
-<h4>SAVE &lt;file&gt;</h4>
-<p>Validates and writes the current model.</p>
-
-<h4>NEW</h4>
-<p>Creates an empty model:</p>
-<pre><code>{ rules: [], facts: [] }
+        <h3 class="text-2xl font-semibold mt-6 mb-2">7.5 Facts editing</h3>
+<pre><code>ADD FACT Scenario1 key.path=value
+ADD FACT Scenario1            # prompts for multiline YAML until END
+DELETE FACT Scenario1 key.path
 </code></pre>
 
-<h4>NEW &lt;template.seslt&gt;</h4>
-<p>Loads a template, substitutes %OPTION% markers, validates, and creates a new model.</p>
+        <h3 class="text-2xl font-semibold mt-6 mb-2">7.6 Rule editing</h3>
+<pre><code>ADD RULE                     # inline or multiline YAML
+DELETE RULE rule_name
+</code></pre>
 
-<h4>ADD MODEL &lt;name&gt;</h4>
-<p>Sets the model name.</p>
+        <h3 class="text-2xl font-semibold mt-6 mb-2">7.7 Scenario editing</h3>
+<pre><code>ADD SCENARIO Name            # optionally with YAML body
+DELETE SCENARIO Name
+</code></pre>
 
-<h4>ADD MODEL (multiline)</h4>
-<p>Prompts user to enter YAML until “END”.</p>
+        <h3 class="text-2xl font-semibold mt-6 mb-2">7.8 Execution</h3>
+<pre><code>RUN                          # run all scenarios
+RUN DESCRIBE                 # full trace/monitor
+RUN SCENARIO Name            # single scenario
+RUN SCENARIO Name DESCRIBE
+RUN DRIVER                   # driver tree summary
+RUN REASON                   # rule firing reasons
+</code></pre>
 
-<h4>DIR</h4>
-<p>Lists SESL files in the current directory.</p>
+        <h3 class="text-2xl font-semibold mt-6 mb-2">7.9 Linting</h3>
+<pre><code>LINT
+LINT ERRORS
+LINT WARNINGS
+</code></pre>
 
-<h4>CD &lt;directory&gt;</h4>
-<p>Changes the current working directory of the command line interface process.</p>
+        <h3 class="text-2xl font-semibold mt-6 mb-2">7.10 Options & colour</h3>
+<pre><code>OPTIONS                      # list saved options
+OPTIONS key=value            # persist option
+OPTIONS DELETE key
+COLOUR ON | COLOUR OFF
+</code></pre>
+      </section>
 
-<hr>
-
-<h3>7.2 Metadata</h3>
-
-<h4>ADD META key=value</h4>
-<p>Updates or creates metadata.</p>
-
-<h4>META DELETE key</h4>
-<p>Deletes a metadata entry.</p>
-
-<hr>
-
-<h3>7.3 Listing</h3>
-
-<h4>LIST</h4>
-<p>Shows model name, rules, and scenarios.</p>
-
-<h4>LIST ALL</h4>
-<p>Prints full YAML model.</p>
-
-<h4>LIST RULE &lt;name&gt;</h4>
-
-<h4>LIST SCENARIO &lt;name&gt;</h4>
-
-<h4>LIST FACT &lt;scenario&gt;</h4>
-
-<h4>LIST FACT ALL</h4>
-
-<hr>
-
-<h3>7.4 Copy Commands</h3>
-
-<p>Copies deep structures, preserves YAML verbatim.</p>
-
-<ul>
-<li>COPY MODEL &lt;new&gt;</li>
-<li>COPY RULE &lt;old&gt; [new]</li>
-<li>COPY SCENARIO &lt;old&gt; [new]</li>
-<li>COPY FACT &lt;scenario&gt; [newScenario]</li>
-</ul>
-
-<hr>
-
-<h3>7.5 Facts Editing</h3>
-
-<h4>ADD FACT &lt;scenario&gt; key.path=value</h4>
-<p>Updates nested facts using dot-path.</p>
-
-<h4>ADD FACT &lt;scenario&gt;</h4>
-<p>Prompts for multiline YAML until “END”.</p>
-
-<h4>ADD FACT &lt;scenario&gt; &lt;yaml&gt;</h4>
-
-<h4>DELETE FACT &lt;scenario&gt; &lt;key or key.path&gt;</h4>
-
-<hr>
-
-<h3>7.6 Rule Editing</h3>
-
-<h4>ADD RULE</h4>
-<p>Supports inline or multiline YAML.</p>
-
-<h4>DELETE RULE &lt;name&gt;</h4>
-
-<hr>
-
-<h3>7.7 Scenario Editing</h3>
-
-<h4>ADD SCENARIO &lt;name&gt;</h4>
-
-<h4>ADD SCENARIO (YAML)</h4>
-
-<h4>DELETE SCENARIO &lt;name&gt;</h4>
-
-<hr>
-
-<h3>7.8 Execution Commands</h3>
-
-<h4>RUN</h4>
-<p>Runs all scenarios and prints results.</p>
-
-<h4>RUN REASON</h4>
-<p>Shows rule firing reasons.</p>
-
-<h4>RUN DRIVER</h4>
-<p>Shows driver tree summarising rule actions.</p>
-
-<h4>RUN DESCRIBE</h4>
-<p>Displays full trace and monitor steps.</p>
-
-<h4>RUN SCENARIO &lt;name&gt;</h4>
-
-<h4>RUN SCENARIO DESCRIBE / REASON / DRIVER</h4>
-
-<hr>
-
-<h3>7.9 Lint Commands</h3>
-
-<h4>LINT</h4>
-<p>Runs the SESL static linter.</p>
-
-<h4>LINT ERRORS</h4>
-<h4>LINT WARNINGS</h4>
-
-<hr>
-
-<h3>7.10 Options and Colour</h3>
-
-<h4>OPTIONS</h4>
-<p>Shows saved options.</p>
-
-<h4>OPTIONS key=value</h4>
-<p>Saves option to persistent config.</p>
-
-<h4>OPTIONS DELETE &lt;key&gt;</h4>
-
-<h4>COLOUR ON / COLOUR OFF</h4>
-
-<hr>
-
-<h3>7.11 HELP / EXIT</h3>
-
-<hr>
-
-<h2 id="dotpath">8. Dot-Path Editing</h2>
-
-<p>Dot-paths allow nested structures:</p>
+      <section id="dotpath" class="mt-12 scroll-mt-24">
+        <h2 class="text-3xl font-semibold mb-4">8. Dot-path editing</h2>
+        <p>Use dot-paths to target nested structures; list indices expand automatically:</p>
 <pre><code>ADD FACT Scenario1 person.address.street="High Road"
+ADD FACT Scenario1 items.0.name="Apple"
 </code></pre>
+      </section>
 
-<p>List segments create or modify lists:</p>
-
-<pre><code>ADD FACT Scenario1 items.0.name="Apple"
-</code></pre>
-
-<p>The command line interface supports automatic list expansion and parent creation, depending on configuration and user confirmations.</p>
-
-<hr>
-
-<h2 id="yamlmerge">9. YAML Merging</h2>
-
-<p>YAML fragments are merged into scenarios:</p>
+      <section id="yamlmerge" class="mt-12 scroll-mt-24">
+        <h2 class="text-3xl font-semibold mb-4">9. YAML merging</h2>
+        <p>Merge inline or multiline YAML into a scenario:</p>
 <pre><code>ADD FACT ScenarioA { income: 50000, debts: 12000 }
-</code></pre>
 
-<p>Multiline mode:</p>
-<pre><code>ADD FACT ScenarioA
+ADD FACT ScenarioA
 income: 50000
 expenses:
   utilities: 200
   food: 150
 END
 </code></pre>
+      </section>
 
-<hr>
+      <section id="output" class="mt-12 scroll-mt-24">
+        <h2 class="text-3xl font-semibold mb-4">10. Output structure</h2>
+        <ul>
+          <li>Result facts (often under <code>result</code>).</li>
+          <li>Metrics: iterations, rules evaluated/fired, elapsed ms.</li>
+          <li>Support data (<code>_sesl.support</code>) for explainability.</li>
+          <li>Monitor/trace blocks for step-by-step reasoning.</li>
+          <li>Driver trees and reasons for quick summaries.</li>
+        </ul>
+      </section>
+      <section id=\"cheatsheet\" class=\"mt-12 scroll-mt-24\">
+        <h2 class=\"text-3xl font-semibold mb-4\">11. CLI cheat sheet</h2>
+        <p class=\"mb-4\">Copy/paste-friendly commands for common tasks:</p>
+<pre><code># Start interactive shell
+sesl --online
 
-<h2 id="engine">10. How SESL Processes a Model</h2>
+# Run a model once (file mode)
+sesl model.sesl
 
-<ol>
-<li>Model YAML converted to internal condition and action structures</li>
-<li>Scenarios expanded and deep-copied</li>
-<li>Monitor created (optional)</li>
-<li>Forward chaining begins</li>
-<li>Conditions evaluated in dependency order</li>
-<li>Rules fire, update facts, and generate support structures</li>
-<li>Termination when no new facts change</li>
-<li>Metrics collected</li>
-</ol>
+# Batch with trace
+sesl --batch "LOAD model.sesl; RUN DESCRIBE"
 
-<hr>
+# Lint for errors only
+sesl --batch "LOAD model.sesl; LINT ERRORS"
 
-<h2 id="output">11. Output Structure</h2>
+# Single scenario with reasons
+sesl --batch "LOAD model.sesl; RUN SCENARIO Demo REASON"
 
-<p>Results include:</p>
+# Save strict options
+sesl --batch "OPTIONS strict_paths=true; OPTIONS strict_operands=true"
+</code></pre>
+      </section>    </article>
+  </div>
+</main>
 
-<ul>
-<li>Result facts</li>
-<li>Metrics (iterations, rules fired, elapsed milliseconds)</li>
-<li>Support structure</li>
-<li>Monitor steps</li>
-<li>Driver tree</li>
-<li>Reasons</li>
-<li>Trace</li>
-</ul>
+<!-- FOOTER -->
+<footer class="border-t border-slate-300 dark:border-slate-800 py-16 px-4">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
 
-<hr>
+    <div>
+      <h4 class="font-semibold mb-3">Product</h4>
+      <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+        <li><a href="../product.html" class="hover:text-brand-600">Overview</a></li>
+        <li><a href="../product.html#features" class="hover:text-brand-600">Features</a></li>
+        <li><a href="#demo" class="hover:text-brand-600">Demo</a></li>
+      </ul>
+    </div>
 
-<h2 id="examples">12. End-to-End Examples</h2>
+    <div>
+      <h4 class="font-semibold mb-3">Solutions</h4>
+      <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+        <li><a href="../solutions.html" class="hover:text-brand-600">Use Cases</a></li>
+        <li><a href="../solutions.html#compliance" class="hover:text-brand-600">Compliance</a></li>
+        <li><a href="../solutions.html#enterprise" class="hover:text-brand-600">Enterprise</a></li>
+        <li><a href="../solutions.html#automation" class="hover:text-brand-600">Process Automation</a></li>
+      </ul>
+    </div>
 
-<p>Below are five business examples demonstrating SESL command line usage.</p>
+    <div>
+      <h4 class="font-semibold mb-3">Resources</h4>
+      <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+        <li><a href="../resources.html" class="hover:text-brand-600">Documentation</a></li>
+        <li><a href="https://github.com/YOUR_REPO/releases" class="hover:text-brand-600">Download</a></li>
+        <li><a href="../resources.html#connect" class="hover:text-brand-600">LLM Server</a></li>
+        <li><a href="../resources.html#examples" class="hover:text-brand-600">Examples</a></li>
+      </ul>
+    </div>
 
-<h3>Example 1 – Insurance Risk Score</h3>
-<p>Model loads, facts added, rule fires to calculate risk category.</p>
+    <div>
+      <h4 class="font-semibold mb-3">Company</h4>
+      <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+        <li><a href="../about.html" class="hover:text-brand-600">About SESL</a></li>
+        <li><a href="../about.html#mission" class="hover:text-brand-600">Mission</a></li>
+        <li><a href="../about.html#contact" class="hover:text-brand-600">Contact</a></li>
+      </ul>
+    </div>
 
-<h3>Example 2 – Banking Credit Decision</h3>
+  </div>
 
-<h3>Example 3 – Retail Discount Rules</h3>
+  <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-300 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
+    <div class="flex items-center gap-3">
+      <img src="../assets/SESL Logo.png" class="h-7 block dark:hidden" alt="SESL logo light" />
+      <img src="../assets/SESL Logo Dark.png" class="h-7 hidden dark:block" alt="SESL logo dark" />
+      <span class="text-sm text-slate-600 dark:text-slate-400">Simple Expert System Language</span>
+    </div>
 
-<h3>Example 4 – Logistics Delivery Routing</h3>
+    <div class="flex gap-4">
+      <a href="#" class="text-slate-600 hover:text-brand-600 dark:text-slate-400">Twitter</a>
+      <a href="#" class="text-slate-600 hover:text-brand-600 dark:text-slate-400">LinkedIn</a>
+    </div>
+  </div>
 
-<h3>Example 5 – Compliance Rule Checking</h3>
+  <div class="text-center mt-6 text-sm text-slate-500 dark:text-slate-500">
+    �� <span id="year"></span> Oblongix. All rights reserved.
+  </div>
+</footer>
 
-<p>Each example includes model fragments, commands, and output interpretation.</p>
+<script>
+  // Theme toggle
+  const btn = document.getElementById("themeToggle");
+  btn.addEventListener("click", () => {
+    const isDark = document.documentElement.classList.toggle("dark");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+    btn.textContent = isDark ? "�~?��?" : "�YOT";
+  });
+  btn.textContent = document.documentElement.classList.contains("dark") ? "�~?��?" : "�YOT";
 
-<hr>
+  // Mobile menu
+  const mobileBtn = document.getElementById("mobileMenuBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+  mobileBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
 
-<h2 id="best">13. Best Practices</h2>
-
-<ul>
-<li>Keep model and scenarios small and modular</li>
-<li>Avoid long dot-paths; use structured inputs</li>
-<li>Use linting frequently</li>
-<li>Prefer templates for large models</li>
-<li>Use batch mode for reproducibility</li>
-</ul>
-
-<hr>
-
-<h2 id="conclusion">14. Conclusion</h2>
-
-<p>The SESL command line interface is a powerful, full-featured environment for developing, validating, executing, and analysing SESL models. Its combination of interactive editing, batch automation, deep tracing, and structural introspection make it suitable for expert system development, business rules processing, and automated decision workflows.</p>
-
-<hr>
-
-<p><a href="#toc">Back to top</a></p>
+  // Year
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
