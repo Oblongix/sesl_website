@@ -7,7 +7,7 @@ Simple Expert System Language (SESL) is a deterministic, rule-based expert syste
 - `index.html`: Home/hero, core features, how SESL works, video placeholder, download modal, dark-mode toggle.
 - `product.html`: Product overview plus sections for usage (LLM + local), language structure examples, CLI online vs batch modes, linter, and dependency graphing.
 - `solutions.html`, `customers.html`, `resources.html`, `pricing.html`, `about.html`: Additional marketing and documentation pages referenced from the navigation.
-- `CLI_User_Guide.html`, `Language_User_Guide.html`: Empty placeholders ready for future docs.
+- `guides/CLI_User_Guide.html`, `guides/Language_User_Guide.html`: User guide placeholders linked from the Resources page.
 
 ## Running Locally
 - No build step: open `index.html` in a browser or serve the folder with any static server.
@@ -15,12 +15,11 @@ Simple Expert System Language (SESL) is a deterministic, rule-based expert syste
 - Dark mode is toggled in-page and remembered via `localStorage`.
 
 ## Downloads & Forms
-- The “Download SESL” modal posts to Formspree and redirects to the SESL GitHub releases URL (`_redirect` hidden field). Update the Formspree endpoint or redirect as needed.
+- The "Download SESL" modal posts to Formspree and redirects to the SESL GitHub releases URL (`_redirect` hidden field). Update the Formspree endpoint or redirect as needed.
 
 ## Assets
-- Logos: `SESL Logo.png`, `SESL Logo Dark.png`, `SESLIcon.ico`.
-- Screenshots: `sesl in chatgpt *.png`, `sesl in dos windows.png`, `sesl in vscode.png`.
-- Examples: `passport_example.sesl`, customer policy HTML files and logos.
+- Stored under `assets/` (logos, favicon, screenshots, and customer logos).
+- Examples: `passport_example.sesl`, customer policy HTML files.
 
 ## Editing Tips
 - Keep content ASCII and reuse the existing Tailwind/Highlight.js CDNs for consistency.

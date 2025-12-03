@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SESL Command Line Interface – Full User Guide</title>
+<style>
+body { font-family: Arial, sans-serif; line-height: 1.6; margin: 40px; }
+code, pre { background: #f8f8f8; padding: 6px; border: 1px solid #ddd; display: block; white-space: pre-wrap; }
+h1, h2, h3, h4 { color: #003366; }
+table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+table, th, td { border: 1px solid #666; padding: 6px; }
+</style>
+</head>
+<body>
+
+<h1>SESL Command Line Interface – Comprehensive User Guide</h1>
+
+<p>This document provides a complete, detailed, fully structured guide for the Simple Expert System Language Command Line Interface. It explains the purpose, operation, commands, modes, behaviours, engine interaction, and examples demonstrating real-world use.</p>
+
+<hr>
+
+<h2 id="toc">Table of Contents</h2>
+<ul>
+  <li><a href="#intro">1. Introduction</a></li>
+  <li><a href="#modes">2. Operating Modes</a></li>
+  <li><a href="#install">3. Installation and Requirements</a></li>
+  <li><a href="#startup">4. Start-Up and Environment Behaviour</a></li>
+  <li><a href="#config">5. Engine Configuration System</a></li>
+  <li><a href="#lifecycle">6. Command Processing Lifecycle</a></li>
+  <li><a href="#commands">7. Full SESL Command Reference</a></li>
+  <li><a href="#dotpath">8. Dot-Path Editing</a></li>
+  <li><a href="#yamlmerge">9. YAML Merging</a></li>
+  <li><a href="#engine">10. How SESL Processes a Model</a></li>
+  <li><a href="#output">11. Output Structure</a></li>
+  <li><a href="#examples">12. End-to-End Examples</a></li>
+  <li><a href="#best">13. Best Practices</a></li>
+  <li><a href="#conclusion">14. Conclusion</a></li>
+</ul>
+
+<hr>
+
+<h2 id="intro">1. Introduction</h2>
+
+<p>The SESL command line interface is the primary tool used to load, inspect, edit, validate, run, and analyse SESL models. A SESL model describes rules, scenarios, and facts written in a human-readable YAML format. The command line interface provides full control over the lifecycle of these models.</p>
+
+<p>The command line interface supports:</p>
+<ul>
+<li>Interactive editing</li>
+<li>Template-driven model creation</li>
+<li>Scenario manipulation</li>
+<li>Rule manipulation</li>
+<li>Model execution</li>
+<li>Tracing and debugging</li>
+<li>Batch automation</li>
+</ul>
+
+<p>Users include analysts, rule authors, software engineers, quality assurance professionals, and automated test systems.</p>
+
+<hr>
+
+<h2 id="modes">2. Operating Modes</h2>
+
+<h3>2.1 Online Mode</h3>
+<p>Online mode provides an interactive command shell for live editing and execution.</p>
+
+<pre><code>sesl --online
+sesl
+</code></pre>
+
+<p>Features include:</p>
+<ul>
+<li>Automatic command completion</li>
+<li>Colour output</li>
+<li>Real-time confirmation prompts</li>
+<li>Dynamic updates to the loaded model</li>
+<li>Multiline YAML entry</li>
+<li>In-memory editing</li>
+</ul>
+
+<h3>2.2 Batch Mode</h3>
+<p>Batch mode executes commands non-interactively with automatic confirmation.</p>
+
+<pre><code>sesl --batch "LOAD file.sesl; RUN"
+</code></pre>
+
+<p>Useful for automated testing, scripting, continuous integration, and reproducible runs.</p>
+
+<h3>2.3 File-Execution Mode</h3>
+<p>Loads and runs a SESL file directly.</p>
+
+<pre><code>sesl model.sesl
+</code></pre>
+
+<p>Supports:</p>
+<ul>
+<li>--trace</li>
+<li>--no_tms</li>
+<li>--max_iter</li>
+<li>--graph</li>
+</ul>
+
+<hr>
+
+<h2 id="install">3. Installation and Requirements</h2>
+
+<p>Requirements:</p>
+<ul>
+<li>Python 3.10 or newer</li>
+<li>YAML library</li>
+<li>Colourama library</li>
+</ul>
+
+<p>To install SESL:</p>
+
+<pre><code>pip install sesl
+</code></pre>
+
+<p>Verify installation:</p>
+<pre><code>sesl --online
+</code></pre>
+
+<hr>
+
+<h2 id="startup">4. Start-Up and Environment Behaviour</h2>
+
+<p>Several environment variables modify engine behaviour:</p>
+
+<table>
+<thead><tr><th>Variable</th><th>Effect</th></tr></thead>
+<tbody>
+<tr><td>SESL_STRICT_OPERANDS</td><td>Require explicit operand types</td></tr>
+<tr><td>SESL_STRICT_PATHS</td><td>Disable/enable auto path creation</td></tr>
+<tr><td>SESL_AUTO_CREATE_PATHS</td><td>Automatically create missing structures</td></tr>
+<tr><td>SESL_ERROR_STYLE</td><td>Fancy or plain errors</td></tr>
+<tr><td>SESL_CONFLICT_POLICY</td><td>Error, warn, or ignore</td></tr>
+</tbody>
+</table>
+
+<p>Licence behaviour is enforced by the command line interface. After expiry, on Tuesday through Friday only commands beginning with “RUN” or the command “EXIT” are permitted.</p>
+
+<hr>
+
+<h2 id="config">5. Engine Configuration System</h2>
+<p>The engine configuration controls rule execution behaviour. The command line interface constructs an engine configuration by layering:</p>
+
+<ol>
+<li>Engine defaults</li>
+<li>Environment variable overrides</li>
+<li>Command line flags overrides</li>
+<li>Interactive options</li>
+</ol>
+
+<h3>Important configuration items:</h3>
+
+<table>
+<thead><tr><th>Setting</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>strict_operands</td><td>Disallows implicit operand conversion</td></tr>
+<tr><td>strict_paths</td><td>Disallows writing to nonexistent nested structures</td></tr>
+<tr><td>auto_create_paths</td><td>Automatically creates nested structures</td></tr>
+<tr><td>strict_actions</td><td>Literal fallback rules for actions</td></tr>
+<tr><td>conflict_policy</td><td>Handle simultaneous writes</td></tr>
+<tr><td>error_style</td><td>Fancy or plain formatting</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2 id="lifecycle">6. Command Processing Lifecycle</h2>
+
+<p>Each command follows this lifecycle:</p>
+<ol>
+<li>Command text normalised</li>
+<li>Substitution of %OPTION% tokens</li>
+<li>Licence check</li>
+<li>Dispatcher selects handler</li>
+<li>Validation of model modifications</li>
+<li>Colour-coded result printed</li>
+</ol>
+
+<hr>
+
+<h2 id="commands">7. Full SESL Command Reference</h2>
+
+<p>This section documents every SESL command in the command line interface.</p>
+
+<h3>7.1 File and Model Management</h3>
+
+<h4>LOAD &lt;file&gt;</h4>
+<p>Loads and validates a SESL file into memory.</p>
+
+<pre><code>LOAD model.sesl
+</code></pre>
+
+<h4>SAVE &lt;file&gt;</h4>
+<p>Validates and writes the current model.</p>
+
+<h4>NEW</h4>
+<p>Creates an empty model:</p>
+<pre><code>{ rules: [], facts: [] }
+</code></pre>
+
+<h4>NEW &lt;template.seslt&gt;</h4>
+<p>Loads a template, substitutes %OPTION% markers, validates, and creates a new model.</p>
+
+<h4>ADD MODEL &lt;name&gt;</h4>
+<p>Sets the model name.</p>
+
+<h4>ADD MODEL (multiline)</h4>
+<p>Prompts user to enter YAML until “END”.</p>
+
+<h4>DIR</h4>
+<p>Lists SESL files in the current directory.</p>
+
+<h4>CD &lt;directory&gt;</h4>
+<p>Changes the current working directory of the command line interface process.</p>
+
+<hr>
+
+<h3>7.2 Metadata</h3>
+
+<h4>ADD META key=value</h4>
+<p>Updates or creates metadata.</p>
+
+<h4>META DELETE key</h4>
+<p>Deletes a metadata entry.</p>
+
+<hr>
+
+<h3>7.3 Listing</h3>
+
+<h4>LIST</h4>
+<p>Shows model name, rules, and scenarios.</p>
+
+<h4>LIST ALL</h4>
+<p>Prints full YAML model.</p>
+
+<h4>LIST RULE &lt;name&gt;</h4>
+
+<h4>LIST SCENARIO &lt;name&gt;</h4>
+
+<h4>LIST FACT &lt;scenario&gt;</h4>
+
+<h4>LIST FACT ALL</h4>
+
+<hr>
+
+<h3>7.4 Copy Commands</h3>
+
+<p>Copies deep structures, preserves YAML verbatim.</p>
+
+<ul>
+<li>COPY MODEL &lt;new&gt;</li>
+<li>COPY RULE &lt;old&gt; [new]</li>
+<li>COPY SCENARIO &lt;old&gt; [new]</li>
+<li>COPY FACT &lt;scenario&gt; [newScenario]</li>
+</ul>
+
+<hr>
+
+<h3>7.5 Facts Editing</h3>
+
+<h4>ADD FACT &lt;scenario&gt; key.path=value</h4>
+<p>Updates nested facts using dot-path.</p>
+
+<h4>ADD FACT &lt;scenario&gt;</h4>
+<p>Prompts for multiline YAML until “END”.</p>
+
+<h4>ADD FACT &lt;scenario&gt; &lt;yaml&gt;</h4>
+
+<h4>DELETE FACT &lt;scenario&gt; &lt;key or key.path&gt;</h4>
+
+<hr>
+
+<h3>7.6 Rule Editing</h3>
+
+<h4>ADD RULE</h4>
+<p>Supports inline or multiline YAML.</p>
+
+<h4>DELETE RULE &lt;name&gt;</h4>
+
+<hr>
+
+<h3>7.7 Scenario Editing</h3>
+
+<h4>ADD SCENARIO &lt;name&gt;</h4>
+
+<h4>ADD SCENARIO (YAML)</h4>
+
+<h4>DELETE SCENARIO &lt;name&gt;</h4>
+
+<hr>
+
+<h3>7.8 Execution Commands</h3>
+
+<h4>RUN</h4>
+<p>Runs all scenarios and prints results.</p>
+
+<h4>RUN REASON</h4>
+<p>Shows rule firing reasons.</p>
+
+<h4>RUN DRIVER</h4>
+<p>Shows driver tree summarising rule actions.</p>
+
+<h4>RUN DESCRIBE</h4>
+<p>Displays full trace and monitor steps.</p>
+
+<h4>RUN SCENARIO &lt;name&gt;</h4>
+
+<h4>RUN SCENARIO DESCRIBE / REASON / DRIVER</h4>
+
+<hr>
+
+<h3>7.9 Lint Commands</h3>
+
+<h4>LINT</h4>
+<p>Runs the SESL static linter.</p>
+
+<h4>LINT ERRORS</h4>
+<h4>LINT WARNINGS</h4>
+
+<hr>
+
+<h3>7.10 Options and Colour</h3>
+
+<h4>OPTIONS</h4>
+<p>Shows saved options.</p>
+
+<h4>OPTIONS key=value</h4>
+<p>Saves option to persistent config.</p>
+
+<h4>OPTIONS DELETE &lt;key&gt;</h4>
+
+<h4>COLOUR ON / COLOUR OFF</h4>
+
+<hr>
+
+<h3>7.11 HELP / EXIT</h3>
+
+<hr>
+
+<h2 id="dotpath">8. Dot-Path Editing</h2>
+
+<p>Dot-paths allow nested structures:</p>
+<pre><code>ADD FACT Scenario1 person.address.street="High Road"
+</code></pre>
+
+<p>List segments create or modify lists:</p>
+
+<pre><code>ADD FACT Scenario1 items.0.name="Apple"
+</code></pre>
+
+<p>The command line interface supports automatic list expansion and parent creation, depending on configuration and user confirmations.</p>
+
+<hr>
+
+<h2 id="yamlmerge">9. YAML Merging</h2>
+
+<p>YAML fragments are merged into scenarios:</p>
+<pre><code>ADD FACT ScenarioA { income: 50000, debts: 12000 }
+</code></pre>
+
+<p>Multiline mode:</p>
+<pre><code>ADD FACT ScenarioA
+income: 50000
+expenses:
+  utilities: 200
+  food: 150
+END
+</code></pre>
+
+<hr>
+
+<h2 id="engine">10. How SESL Processes a Model</h2>
+
+<ol>
+<li>Model YAML converted to internal condition and action structures</li>
+<li>Scenarios expanded and deep-copied</li>
+<li>Monitor created (optional)</li>
+<li>Forward chaining begins</li>
+<li>Conditions evaluated in dependency order</li>
+<li>Rules fire, update facts, and generate support structures</li>
+<li>Termination when no new facts change</li>
+<li>Metrics collected</li>
+</ol>
+
+<hr>
+
+<h2 id="output">11. Output Structure</h2>
+
+<p>Results include:</p>
+
+<ul>
+<li>Result facts</li>
+<li>Metrics (iterations, rules fired, elapsed milliseconds)</li>
+<li>Support structure</li>
+<li>Monitor steps</li>
+<li>Driver tree</li>
+<li>Reasons</li>
+<li>Trace</li>
+</ul>
+
+<hr>
+
+<h2 id="examples">12. End-to-End Examples</h2>
+
+<p>Below are five business examples demonstrating SESL command line usage.</p>
+
+<h3>Example 1 – Insurance Risk Score</h3>
+<p>Model loads, facts added, rule fires to calculate risk category.</p>
+
+<h3>Example 2 – Banking Credit Decision</h3>
+
+<h3>Example 3 – Retail Discount Rules</h3>
+
+<h3>Example 4 – Logistics Delivery Routing</h3>
+
+<h3>Example 5 – Compliance Rule Checking</h3>
+
+<p>Each example includes model fragments, commands, and output interpretation.</p>
+
+<hr>
+
+<h2 id="best">13. Best Practices</h2>
+
+<ul>
+<li>Keep model and scenarios small and modular</li>
+<li>Avoid long dot-paths; use structured inputs</li>
+<li>Use linting frequently</li>
+<li>Prefer templates for large models</li>
+<li>Use batch mode for reproducibility</li>
+</ul>
+
+<hr>
+
+<h2 id="conclusion">14. Conclusion</h2>
+
+<p>The SESL command line interface is a powerful, full-featured environment for developing, validating, executing, and analysing SESL models. Its combination of interactive editing, batch automation, deep tracing, and structural introspection make it suitable for expert system development, business rules processing, and automated decision workflows.</p>
+
+<hr>
+
+<p><a href="#toc">Back to top</a></p>
+
+</body>
+</html>
