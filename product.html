@@ -84,11 +84,13 @@
           Login
         </a>
 
-        <!-- THEME BUTTON -->
-        <button id="themeToggle" class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200
-                 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors">
-          Light
-        </button>
+         <!-- THEME BUTTON -->
+      <button id="themeToggle"
+        class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200
+               dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800
+               transition-colors">
+        🌙
+      </button>
 
         <!-- MOBILE MENU BUTTON -->
         <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xl">
@@ -370,30 +372,30 @@
   </footer>
   
   <!-- THEME + MOBILE MENU SCRIPT -->
-  <script>
-    const btn = document.getElementById("themeToggle");
+<script>
+  const btn = document.getElementById("themeToggle");
 
-    function updateThemeIcon() {
-      btn.textContent = document.documentElement.classList.contains("dark") ? "Dark" : "Light";
-    }
+  function updateThemeIcon() {
+    btn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙";
+  }
 
-    btn.addEventListener("click", () => {
-      const isDark = document.documentElement.classList.toggle("dark");
-      localStorage.setItem("theme", isDark ? "dark" : "light");
-      updateThemeIcon();
-    });
-
+  btn.addEventListener("click", () => {
+    const isDark = document.documentElement.classList.toggle("dark");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
     updateThemeIcon();
+  });
 
-    // Mobile menu
-    const mobileBtn = document.getElementById("mobileMenuBtn");
-    const mobileMenu = document.getElementById("mobileMenu");
-    mobileBtn.addEventListener("click", () => {
-      mobileMenu.classList.toggle("hidden");
-    });
+  updateThemeIcon();
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+  // Mobile Menu
+  const mobileBtn = document.getElementById("mobileMenuBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  mobileBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+</script>
 
 </body>
 

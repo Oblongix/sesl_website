@@ -71,12 +71,12 @@
         Login
       </a>
 
-      <!-- THEME BUTTON -->
+       <!-- THEME BUTTON -->
       <button id="themeToggle"
         class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200
                dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800
                transition-colors">
-        Light
+        🌙
       </button>
 
       <!-- MOBILE MENU BUTTON -->
@@ -127,23 +127,13 @@
       <!-- Documentation -->
       <section id="docs" class="mb-12 p-6 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800">
         <h2 class="text-2xl font-semibold mb-2">Documentation</h2>
-        <p class="text-slate-700 dark:text-slate-300 mb-4">Open the user guides directly from here.</p>
-
-        <details class="mb-3">
-          <summary class="font-semibold">SESL Overview - High-level introduction to SESL and its product capabilities</summary>
-          <a href="Product_User_Guide.html" class="inline-flex items-center mt-2 text-brand-600 hover:text-brand-500 dark:text-brand-300 text-sm font-semibold">Open Product Overview</a>
-        </details>
-
-        <details class="mb-3">
-          <summary class="font-semibold">SESL Command Line Interface - CLI commands, online mode, and batch automation</summary>
-          <a href="guides/CLI_User_Guide.html" class="inline-flex items-center mt-2 text-brand-600 hover:text-brand-500 dark:text-brand-300 text-sm font-semibold">Open CLI User Guide</a>
-        </details>
-
-        <details class="mb-3">
-          <summary class="font-semibold">SESL Language and Engine - Language syntax, rule structure, engine behaviour, and examples</summary>
-          <a href="guides/Language_User_Guide.html" class="inline-flex items-center mt-2 text-brand-600 hover:text-brand-500 dark:text-brand-300 text-sm font-semibold">Open Language User Guide</a>
-        </details>
-
+        <p class="text-slate-700 dark:text-slate-300 mb-6">Open the user guides directly from here.</p>
+          <h3 class="font-semibold">SESL Overview - High-level introduction to SESL and its product capabilities</h3>
+          <a href="Product_User_Guide.html" class="inline-flex items-center mt-2 mb-6 text-brand-600 hover:text-brand-500 dark:text-brand-300 text-sm font-semibold">Open Product Overview</a>
+          <h3 class="font-semibold">SESL Command Line Interface - CLI commands, online mode, and batch automation</h3>
+          <a href="guides/CLI_User_Guide.html" class="inline-flex items-center mb-6 text-brand-600 hover:text-brand-500 dark:text-brand-300 text-sm font-semibold">Open CLI User Guide</a>
+          <h3 class="font-semibold">SESL Language and Engine - Language syntax, rule structure, engine behaviour, and examples</h3>
+          <a href="guides/Language_User_Guide.html" class="inline-flex items-center mb-6 text-brand-600 hover:text-brand-500 dark:text-brand-300 text-sm font-semibold">Open Language User Guide</a>       
       </section>
 
       <!-- Connect -->
@@ -279,9 +269,9 @@ sesl --batch options
 <script>
   const btn = document.getElementById("themeToggle");
 
-  const updateThemeIcon = () => {
-    btn.textContent = document.documentElement.classList.contains("dark") ? "Dark" : "Light";
-  };
+  function updateThemeIcon() {
+    btn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙";
+  }
 
   btn.addEventListener("click", () => {
     const isDark = document.documentElement.classList.toggle("dark");
@@ -290,16 +280,17 @@ sesl --batch options
   });
 
   updateThemeIcon();
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-  // MOBILE MENU TOGGLE
+  // Mobile Menu
   const mobileBtn = document.getElementById("mobileMenuBtn");
   const mobileMenu = document.getElementById("mobileMenu");
+
   mobileBtn.addEventListener("click", () => {
     mobileMenu.classList.toggle("hidden");
   });
-
-  document.getElementById("year").textContent = new Date().getFullYear();
 </script>
+
 
 </body>
 </html>
