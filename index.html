@@ -74,17 +74,16 @@
       <div class="flex items-center gap-4">
 
         <!-- LOGIN -->
-        <a id="loginBtn" href="login.html" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-200
+        <a id="loginBtn" href="#" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-200
                  dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800
                  text-sm font-medium transition-colors">
           Login
         </a>
-        <a id="logoutBtn" href="login.html" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-200
+        <button id="logoutBtn" type="button" class="hidden px-4 py-2 rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-200
                  dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800
                  text-sm font-medium transition-colors">
           Logout
-        </a>
-        <button id="" class="hidden ...">Logout</button>
+        </button>
 
         <!-- THEME BUTTON -->
         <button id="themeToggle" class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200 
@@ -426,8 +425,6 @@
       downloadModal.classList.remove("flex");
     });
   </script>
-
-  <div id="authModal"> ... </div>
 
   <script type="module" src="/js/firebase-init.js"></script>
   <script type="module" src="/js/auth.js"></script>

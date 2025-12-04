@@ -1,8 +1,10 @@
 import { 
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+  sendEmailVerification
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { auth, firebaseSignOut as signOut } from "./firebase-init.js";
 
 // Modal elements
 const authModal = document.getElementById("authModal");
@@ -21,10 +23,21 @@ document.getElementById("goLogin2")?.addEventListener("click", showLogin);
 document.getElementById("goReset")?.addEventListener("click", showReset);
 
 // Open modal from login button
-document.getElementById("loginBtn")?.addEventListener("click", () => {
+document.getElementById("loginBtn")?.addEventListener("click", (e) => {
+  e.preventDefault();
   authModal.classList.remove("hidden");
   authModal.classList.add("flex");
   showLogin();
+});
+
+// Logout
+document.getElementById("logoutBtn")?.addEventListener("click", async (e) => {
+  e.preventDefault();
+  try {
+    await signOut(auth);
+  } catch (err) {
+    alert(err.message);
+  }
 });
 
 // Close modal
@@ -63,7 +76,12 @@ loginForm?.addEventListener("submit", async (e) => {
   const password = document.getElementById("loginPassword").value;
 
   try {
-    await signInWithEmailAndPassword(auth, email, password);
+    const { user } = await signInWithEmailAndPassword(auth, email, password);
+    if (!user.emailVerified) {
+      await signOut(auth);
+      alert("Please verify your email before logging in.");
+      return;
+    }
     closeModal();
     alert("Logged in");
   } catch (err) {
@@ -80,8 +98,11 @@ registerForm?.addEventListener("submit", async (e) => {
 
   try {
     await createUserWithEmailAndPassword(auth, email, password);
+    if (auth.currentUser) {
+      await sendEmailVerification(auth.currentUser);
+    }
     closeModal();
-    alert("Account created");
+    alert("Account created. Check your email to verify before logging in.");
   } catch (err) {
     alert(err.message);
   }
