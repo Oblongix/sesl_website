@@ -85,13 +85,13 @@
         </a>
 
         <!-- THEME BUTTON -->
-                <button id="themeToggle" class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200
+        <button id="themeToggle" class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200
                  dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors">
           Light
         </button>
 
         <!-- MOBILE MENU BUTTON -->
-                <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xl">
+        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xl">
           &#8801;
         </button>
       </div>
@@ -111,244 +111,212 @@
 
   <!-- PAGE CONTENT -->
   <main class="pb-24 px-4 border-t border-slate-200 dark:border-slate-800">
-  <div class="max-w-7xl mx-auto grid gap-10 lg:grid-cols-[280px,1fr]">
+    <div class="max-w-7xl mx-auto grid gap-10 lg:grid-cols-[280px,1fr]">
 
-    <aside class="lg:sticky lg:top-24 self-start">
-      <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
-        <h2 class="text-sm font-semibold tracking-wide text-slate-500 dark:text-slate-400 mb-3 uppercase">Table of contents</h2>
-        <nav class="space-y-2 text-sm">
-          <a href="#intro" class="block hover:text-brand-600">Overview</a>
-          <a href="#language" class="block hover:text-brand-600">SESL Language / CLI</a>
-          <a href="#MCP" class="block hover:text-brand-600">MCP Interface</a>
-          <a href="#platform" class="block hover:text-brand-600">SESL Platform</a>
-          <a href="#API" class="block hover:text-brand-600">API Interface</a>
-          <a href="#servers" class="block hover:text-brand-600">Dedicated Servers</a>
-        </nav>
-      </div>
-    </aside>
+      <aside class="lg:sticky lg:top-24 self-start">
+        <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
+          <h2 class="text-sm font-semibold tracking-wide text-slate-500 dark:text-slate-400 mb-3 uppercase">Table of contents</h2>
+          <nav class="space-y-2 text-sm">
+            <a href="#intro" class="block hover:text-brand-600">Overview</a>
+            <a href="#language" class="block hover:text-brand-600">SESL Language / CLI</a>
+            <a href="#MCP" class="block hover:text-brand-600">MCP Interface</a>
+            <a href="#platform" class="block hover:text-brand-600">SESL Platform</a>
+            <a href="#API" class="block hover:text-brand-600">API Interface</a>
+            <a href="#servers" class="block hover:text-brand-600">Dedicated Servers</a>
+          </nav>
+        </div>
+      </aside>
 
-    <article class="prose prose-slate dark:prose-invert max-w-none">
+      <article class="prose prose-slate dark:prose-invert max-w-none">
 
-    <!-- INTRO -->
-<section>
-  <h1 id="intro" class="text-4xl font-bold mb-8">Product</h1>
+        <!-- INTRO -->
+        <section>
+          <h1 id="intro" class="text-4xl font-bold mb-8 mt-24">Product</h1>
+          <p class="text-lg text-slate-700 dark:text-slate-300 mb-6">
+            SESL (Simple Expert Language System) is a deterministic, rule-based expert system language that turns structured content
+            into reliable, traceable decision logic. It is designed for tasks where explainability, consistency, and auditability are critical.
+          </p>
+          <p class="text-slate-700 dark:text-slate-300 mb-6">
+            When used with Large Laguage Models (LLMs), SESL enables organisations to overcome the limitations of generative AI by
+            embedding deterministic expert logic within flexible natural language workflows. This hybrid approach combines the strengths of both
+            expert systems and generative AI, delivering reliable outcomes while retaining the adaptability of LLMs.
+          </p>
+          <p class="text-slate-700 dark:text-slate-300 mb-6">
+            The following gives an insight into SESL and the product roadmap for SESL’s product capabilities.
+          </p>
 
-  <p class="text-slate-700 dark:text-slate-300 mb-6">
-    The following gives an insight to SESL and the product roadmap from SESL’s product capabilities:
-    how to use the CLI and online modes, how the language operates through to the platform.
-  </p>
+          <!-- THREE COLUMN FEATURE BLOCK -->
+          <div class="grid md:grid-cols-3 gap-6 mt-12">
+            <!-- CARD 1 -->
+            <div class="p-6 rounded-xl border border-slate-300 dark:border-slate-700 bg-brand-500 text-white dark:bg-brand-600">
+              <h2 class="text-2xl font-semibold mb-3 text-center">Deterministic</h2>
+              <p class="leading-relaxed">
+                SESL uses an advanced rules engine that produces the same result every time —
+                no randomness, no hallucinations, no inconsistencies. SESL integrates with most AI
+                platforms to convert documents or text into SESL rules.
+              </p>
+            </div>
+            <!-- CARD 2 -->
+            <div class="p-6 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-900 text-white dark:bg-slate-800">
+              <h2 class="text-2xl font-semibold mb-3 text-center">Repeatable</h2>
+              <p class="leading-relaxed">
+                However many times you run the model SESL will always return the same output for the same input.
+                You can define many different scenarios to test against the rules in your model and be sure of consistent results.
+              </p>
+            </div>
+            <!-- CARD 3 -->
+            <div class="p-6 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-white">
+              <h2 class="text-2xl font-semibold mb-3 text-center">Explainable</h2>
+              <p class="leading-relaxed">
+                SESL uses a human-friendly language which is simple and easy to read. When you run a model SESL provides detailed
+                rule-level trace output showing exactly how a result was reached allowing you to precisely review and audit any decision.
+              </p>
+            </div>
 
-  <p class="text-lg text-slate-700 dark:text-slate-300 mb-12">
-    SESL is a deterministic, rule-based expert system language that turns structured content
-    into reliable, traceable decision logic.
-  </p>
+          </div>
+        </section>
 
-  <!-- THREE COLUMN FEATURE BLOCK -->
-  <div class="grid md:grid-cols-3 gap-6">
+        <!-- USAGE -->
 
-    <!-- CARD 1 -->
-    <div class="p-6 rounded-xl border border-slate-300 dark:border-slate-700 bg-brand-500 text-white dark:bg-brand-600">
-      <h2 class="text-2xl font-semibold mb-3">Deterministic</h2>
-      <p class="leading-relaxed">
-        SESL uses a forward-chaining rules engine that produces the same result every time —
-        no randomness, no hallucinations, no inconsistencies. SESL integrates with most AI
-        platforms to convert documents or text into SESL rules.
-      </p>
-    </div>
+        <!-- SESL LANGUAGE / CLI -->
+        <section id="language" class="mt-20">
+          <div class="grid md:grid-cols-2 gap-10 items-center">
+            <!-- IMAGE LEFT -->
+            <div>
+              <img src="assets/sesl-language.png" class="rounded-xl border border-slate-300 dark:border-slate-800 shadow-sm" alt="SESL Language and CLI">
+            </div>
+            <!-- TEXT -->
+            <div>
+              <h2 class="text-3xl font-bold mb-4">SESL Language & CLI</h2>
+              <p class="text-slate-700 dark:text-slate-300 mb-3">
+                The SESL Language is the core of the SESL ecosystem — a deterministic, structured rule language that transforms written policies,
+                regulations, or operational decision flows into fully executable logic.</p>
+              <p class="text-slate-700 dark:text-slate-300 mb-3">The language is intentionally stable, readable, and extensible,
+                ensuring that rules authored today remain compatible in the long term. This stability allows organisations to build industry solutions
+                on top of SESL without worrying about breaking changes or unpredictable behaviour.
+              </p>
+              <p class="text-slate-700 dark:text-slate-300 mb-3">The SESL language provides a complete environment for developing and testing expert
+                system models. Users can execute scenarios, validate rule behaviour, inspect fact changes, and view detailed trace explanations.
+                While the language itself is largely complete, future enhancements will introduce improved tools for rule navigation,
+                bulk scenario management, and richer visualisation of model execution.
+              </p>
+            </div>
+          </div>
+        </section>
 
-    <!-- CARD 2 -->
-    <div class="p-6 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-900 text-white dark:bg-slate-800">
-      <h2 class="text-2xl font-semibold mb-3">Explainable</h2>
-      <p class="leading-relaxed">
-        SESL provides rule-level trace output showing exactly how a result was reached.
-      </p>
-    </div>
+        <!-- MCP INTERFACE -->
+        <section id="MCP" class="mt-24">
+          <div class="grid md:grid-cols-2 gap-10 items-center">
+            <!-- TEXT FIRST (ALTERNATE) -->
+            <div>
+              <h2 class="text-3xl font-bold mb-4">SESL connects to LLM AI (MCP)</h2>
+              <p class="text-slate-700 dark:text-slate-300 mb-3">
+                Using AI tools like chatGPT has become commonplace for many knowledge workers. While its easy to generate SESL models from LLM tools, 
+                the SESL MCP (Model Context Protocol) interface provides a real-time connection between SESL and LLM Tools such as ChatGPT, Claude,
+                and Gemini.</p>
+                <p  class="text-slate-700 dark:text-slate-300 mb-3">Through MCP, users can generate SESL rules directly from documents or websites, ask questions of SESL models, run the models  
+                and embed deterministic expert logic inside natural language workflows. This bridges the gap between explainable expert systems
+                and flexible generative reasoning.</p>
+              <p class="text-slate-700 dark:text-slate-300"> 
+                MCP is currently already available as a demonstration service and will be rolled out into production in Q1 2026.</p>
+            </div>
+            <!-- IMAGE RIGHT -->
+            <div>
+              <img src="assets/sesl-mcp.png" class="rounded-xl border border-slate-300 dark:border-slate-800 shadow-sm" alt="SESL MCP">
+            </div>
+          </div>
+        </section>
 
-    <!-- CARD 3 -->
-    <div class="p-6 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-white">
-      <h2 class="text-2xl font-semibold mb-3">Readable & Extensible</h2>
-      <p class="leading-relaxed">
-        SESL uses a human-friendly syntax and scales to thousands of rules.
-      </p>
-    </div>
+        <!-- SESL PLATFORM -->
+        <section id="platform" class="mt-24">
+          <div class="grid md:grid-cols-2 gap-10 items-center">
+            <!-- IMAGE LEFT -->
+            <div>
+              <img src="assets/sesl-platform.png" class="rounded-xl border border-slate-300 dark:border-slate-800 shadow-sm"
+              alt="SESL Platform">
+            </div>
+            <!-- TEXT -->
+            <div>
+              <h2 class="text-3xl font-bold mb-4">SESL Platform</h2>
+              <p class="text-slate-700 dark:text-slate-300 mb-3">
+              The SESL Platform is being developed as a comprehensive SaaS management layer for creating, testing, deploying,
+              and governing SESL models. It provides a unified interface for configuring MCP servers, orchestrating models,
+              managing version libraries, and monitoring execution activity at scale. Beyond core model operations, the platform
+              will also support auditing, access control, team collaboration, and more.</p>
+              <p class="text-slate-700 dark:text-slate-300 mb-3">
+                The platform will additionally include an industry template marketplace where partners can publish SESL solutions.
+                These templates can be reused and monetised—similar to an app store—enabling the growth of specialised SESL ecosystems
+                designed for common business processes, proprietary knowledge (IP), government workflows, and highly regulated or
+                expert-driven industries.</p>
+              <p class="text-slate-700 dark:text-slate-300">The platform will be released in early Q1 2026</p>
+            </div>
+          </div>
+        </section>
 
-  </div>
+        <!-- API INTERFACE -->
+        <section id="API" class="mt-32">
+          <div class="grid md:grid-cols-2 gap-10 items-center">
+            <!-- TEXT FIRST (ALTERNATE) -->
+            <div>
+              <h2 class="text-3xl font-bold mb-4">SESL API</h2>
+              <p class="text-slate-700 dark:text-slate-300 mb-3">The SESL API provides a production-ready interface for
+                executing SESL models at high volume and low latency.</p>
+                
+              <p class="text-slate-700 dark:text-slate-300 mb-3"> Designed for operational systems, the API allows applications 
+                to pre store models which can be called repeatedly, making it ideal for compliance checks, 
+                financial assessments, eligibility engines, workflow automation, and other transactional logic.
+              </p>
+              <p class="text-slate-700 dark:text-slate-300 mb-3">
+                With usage-based billing, the SESL API is optimised for scenarios where large throughput, fast responses, and consistent 
+                outputs are essential. Future API updates will introduce model lifecycle management endpoints, richer trace
+                delivery options, and improved integration patterns for enterprise developers.
+              </p>
+              <p class="text-slate-700 dark:text-slate-300">SESL API will be released in Q2 2026</p>
+            </div>
+            <!-- IMAGE RIGHT -->
+            <div>
+              <img src="assets/sesl-api.png" class="rounded-xl border border-slate-300 dark:border-slate-800 shadow-sm"
+              alt="SESL API">
+            </div>
 
-</section>
+          </div>
+        </section>
 
-
-    <!-- USAGE -->
-
-    <!-- SESL LANGUAGE / CLI -->
-<section id="language" class="mt-20">
-  <div class="grid md:grid-cols-2 gap-10 items-center">
-
-    <!-- IMAGE LEFT -->
-    <div>
-      <img src="assets/sesl-language.png"
-           class="rounded-xl border border-slate-300 dark:border-slate-800 shadow-sm"
-           alt="SESL Language and CLI">
-    </div>
-
-    <!-- TEXT -->
-    <div>
-      <h2 class="text-3xl font-bold mb-4">SESL Language & CLI</h2>
-      <p class="text-slate-700 dark:text-slate-300">
-        The SESL Language is the core of the SESL ecosystem — a deterministic, structured
-        rule language that transforms written policies, regulations, or operational
-        decision flows into fully executable logic. The language is intentionally stable,
-        readable, and extensible, ensuring that rules authored today remain compatible in
-        the long term. This stability allows organisations to build industry solutions
-        on top of SESL without worrying about breaking changes or unpredictable behaviour.
-      </p>
-      <p class="text-slate-700 dark:text-slate-300">
-        The SESL CLI provides a complete environment for developing and testing expert
-        system models. Users can execute scenarios, validate rule behaviour, inspect
-        fact changes, and view detailed trace explanations. While the language itself is
-        largely complete, future enhancements will introduce improved tools for rule
-        navigation, bulk scenario management, and richer visualisation of model execution.
-      </p>
-    </div>
-
-  </div>
-</section>
-
-<!-- MCP INTERFACE -->
-<section id="MCP" class="mt-32">
-  <div class="grid md:grid-cols-2 gap-10 items-center">
-
-    <!-- TEXT FIRST (ALTERNATE) -->
-    <div>
-      <h2 class="text-3xl font-bold mb-4">SESL MCP</h2>
-      <p class="text-slate-700 dark:text-slate-300">
-        The SESL MCP interface provides a real-time connection between SESL and modern
-        AI models such as ChatGPT, Claude, and Gemini. Through MCP, users can generate
-        SESL rules directly from documents, ask questions of SESL models, and embed
-        deterministic expert logic inside natural language workflows. This bridges the
-        gap between explainable expert systems and flexible generative reasoning.
-      </p>
-      <p class="text-slate-700 dark:text-slate-300">
-        MCP is already available as a demonstration service and supports rule creation,
-        trace inspection, and full model execution. Over time, additional capabilities
-        will be added — including deeper model introspection, collaborative authoring,
-        improved monitoring, and advanced rule-generation pipelines for enterprise use.
-      </p>
-    </div>
-
-    <!-- IMAGE RIGHT -->
-    <div>
-      <img src="assets/sesl-mcp.png"
-           class="rounded-xl border border-slate-300 dark:border-slate-800 shadow-sm"
-           alt="SESL MCP">
-    </div>
-
-  </div>
-</section>
-
-<!-- SESL PLATFORM -->
-<section id="platform" class="mt-32">
-  <div class="grid md:grid-cols-2 gap-10 items-center">
-
-    <!-- IMAGE LEFT -->
-    <div>
-      <img src="assets/sesl-platform.png"
-           class="rounded-xl border border-slate-300 dark:border-slate-800 shadow-sm"
-           alt="SESL Platform">
-    </div>
-
-    <!-- TEXT -->
-    <div>
-      <h2 class="text-3xl font-bold mb-4">SESL Platform</h2>
-      <p class="text-slate-700 dark:text-slate-300">
-        The SESL Platform is being developed as a full SaaS management layer for
-        creating, testing, deploying, and governing SESL models. It allows users to
-        configure MCP servers, orchestrate models, manage version libraries, and monitor
-        execution activity — all within a unified interface. The platform reduces the
-        operational overhead of running multiple expert-system models at scale.
-      </p>
-      <p class="text-slate-700 dark:text-slate-300">
-        In addition to model management, the platform will support auditing, access
-        control, team collaboration, and an industry template store where partners can
-        publish SESL solutions. These templates can be reused by others and monetised
-        similarly to an app marketplace — enabling the growth of specialised SESL
-        ecosystems tailored for regulated and high-expertise industries.
-      </p>
-    </div>
-
-  </div>
-</section>
-
-<!-- API INTERFACE -->
-<section id="API" class="mt-32">
-  <div class="grid md:grid-cols-2 gap-10 items-center">
-
-    <!-- TEXT FIRST (ALTERNATE) -->
-    <div>
-      <h2 class="text-3xl font-bold mb-4">SESL API</h2>
-      <p class="text-slate-700 dark:text-slate-300">
-        The SESL API provides a production-ready interface for executing SESL models at
-        high volume and low latency. Designed for operational systems, the API allows
-        applications to perform deterministic evaluations in real time — making it ideal
-        for compliance checks, financial assessments, eligibility engines, workflow
-        automation, and other transactional logic.
-      </p>
-      <p class="text-slate-700 dark:text-slate-300">
-        With usage-based billing, the SESL API is optimised for scenarios where large
-        throughput, fast responses, and consistent outputs are essential. Future API
-        updates will introduce model lifecycle management endpoints, richer trace
-        delivery options, and improved integration patterns for enterprise developers.
-      </p>
-    </div>
-
-    <!-- IMAGE RIGHT -->
-    <div>
-      <img src="assets/sesl-api.png"
-           class="rounded-xl border border-slate-300 dark:border-slate-800 shadow-sm"
-           alt="SESL API">
-    </div>
-
-  </div>
-</section>
-
-<!-- DEDICATED SERVERS -->
-<section id="servers" class="mt-32 mb-20">
-  <div class="grid md:grid-cols-2 gap-10 items-center">
-
-    <!-- IMAGE LEFT -->
-    <div>
-      <img src="assets/sesl-servers.png"
-           class="rounded-xl border border-slate-300 dark:border-slate-800 shadow-sm"
-           alt="SESL Dedicated Servers">
-    </div>
-
-    <!-- TEXT -->
-    <div>
-      <h2 class="text-3xl font-bold mb-4">Dedicated SESL Servers</h2>
-      <p class="text-slate-700 dark:text-slate-300">
-        Dedicated SESL servers provide isolated, high-performance environments for
-        organisations that require strict security, predictable throughput, or
-        regulatory-grade operational controls. These servers support continuous or
-        high-frequency model execution and can be configured to meet the needs of
-        mission-critical systems where consistency is mandatory.
-      </p>
-      <p class="text-slate-700 dark:text-slate-300">
-        With full operational monitoring, auditing, and model allocation management,
-        dedicated servers give enterprises the confidence to run SESL at scale. Whether
-        supporting compliance decisions, operational scoring, or domain-specific
-        regulatory evaluations, dedicated SESL infrastructure ensures reliability,
-        traceability, and long-term governance.
-      </p>
-    </div>
-
-  </div>
-</section>
-
+        <!-- DEDICATED SERVERS -->
+        <section id="servers" class="mt-32 mb-20">
+          <div class="grid md:grid-cols-2 gap-10 items-center">
+            <!-- IMAGE LEFT -->
+            <div>
+              <img src="assets/sesl-servers.png" class="rounded-xl border border-slate-300 dark:border-slate-800 shadow-sm"
+              alt="SESL Dedicated Servers">
+            </div>
+            <!-- TEXT -->
+            <div>
+              <h2 class="text-3xl font-bold mb-4">Dedicated SESL Servers</h2>
+              <p class="text-slate-700 dark:text-slate-300 mb-3">
+                Dedicated SESL servers provide isolated, high-performance environments for
+                organisations that require strict security, predictable throughput, or
+                regulatory-grade operational controls. These servers can support continuous or
+                high-frequency model execution and can be configured to meet the needs of
+                mission-critical systems where consistency is mandatory.
+              </p>
+              <p class="text-slate-700 dark:text-slate-300 mb-3">
+                With full operational monitoring, auditing, and model allocation management,
+                dedicated servers give enterprises the confidence to run SESL at scale. Whether
+                supporting compliance decisions, operational scoring, or domain-specific
+                regulatory evaluations, dedicated SESL infrastructure ensures reliability,
+                traceability, and long-term governance.
+              </p>
+              <p class="text-slate-700 dark:text-slate-300">Dedicated Servers will be released in Q2 2026</p>
+            </div>
+          </div>
+        </section>
 
       </article>
-  </div>
-</main>
+    </div>
+  </main>
 
-  <!-- FOOTER -->
+    <!-- FOOTER -->
   <footer class="border-t border-slate-300 dark:border-slate-800 py-16 px-4">
     <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
 
@@ -356,8 +324,6 @@
         <h4 class="font-semibold mb-3">Product</h4>
         <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
           <li><a href="product.html" class="hover:text-brand-600">Overview</a></li>
-          <li><a href="product.html#features" class="hover:text-brand-600">Features</a></li>
-          <li><a href="#demo" class="hover:text-brand-600">Demo</a></li>
         </ul>
       </div>
 
@@ -365,9 +331,6 @@
         <h4 class="font-semibold mb-3">Solutions</h4>
         <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
           <li><a href="solutions.html" class="hover:text-brand-600">Use Cases</a></li>
-          <li><a href="solutions.html#compliance" class="hover:text-brand-600">Compliance</a></li>
-          <li><a href="solutions.html#enterprise" class="hover:text-brand-600">Enterprise</a></li>
-          <li><a href="solutions.html#automation" class="hover:text-brand-600">Process Automation</a></li>
         </ul>
       </div>
 
@@ -375,9 +338,6 @@
         <h4 class="font-semibold mb-3">Resources</h4>
         <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
           <li><a href="resources.html" class="hover:text-brand-600">Documentation</a></li>
-          <li><a href="https://github.com/YOUR_REPO/releases" class="hover:text-brand-600">Download</a></li>
-          <li><a href="resources.html#connect" class="hover:text-brand-600">LLM Server</a></li>
-          <li><a href="resources.html#examples" class="hover:text-brand-600">Examples</a></li>
         </ul>
       </div>
 
@@ -385,7 +345,6 @@
         <h4 class="font-semibold mb-3">Company</h4>
         <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
           <li><a href="about.html" class="hover:text-brand-600">About SESL</a></li>
-          <li><a href="about.html#mission" class="hover:text-brand-600">Mission</a></li>
           <li><a href="about.html#contact" class="hover:text-brand-600">Contact</a></li>
         </ul>
       </div>
@@ -394,8 +353,8 @@
 
     <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-300 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
       <div class="flex items-center gap-3">
-        <img src="assets/SESL Logo.png" class="h-7 block dark:hidden" />
-        <img src="assets/SESL Logo Dark.png" class="h-7 hidden dark:block" />
+        <img src="assets/SESL Logo.png" class="h-7 block dark:hidden" alt="SESL Footer Logo" />
+        <img src="assets/SESL Logo Dark.png" class="h-7 hidden dark:block" alt="SESL Footer Logo Dark" />
         <span class="text-sm text-slate-600 dark:text-slate-400">Simple Expert System Language</span>
       </div>
 
@@ -405,9 +364,11 @@
       </div>
     </div>
 
-                        <div class="text-center mt-6 text-sm text-slate-500 dark:text-slate-500">(c) <span id="year"></span> Oblongix. All rights reserved.</div>
+    <div class="text-center mt-6 text-sm text-slate-500 dark:text-slate-500">
+      © <span id="year"></span> Oblongix. All rights reserved.
+    </div>
   </footer>
-
+  
   <!-- THEME + MOBILE MENU SCRIPT -->
   <script>
     const btn = document.getElementById("themeToggle");

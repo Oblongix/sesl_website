@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>SESL CLI User Guide</title>
@@ -22,9 +23,15 @@
       theme: {
         extend: {
           colors: {
-            brand: { 300: "#a5b4fc", 500: "#6366f1", 600: "#4f46e5" }
+            brand: {
+              300: "#a5b4fc",
+              500: "#6366f1",
+              600: "#4f46e5"
+            }
           },
-          fontFamily: { sans: ["Inter", "system-ui", "Arial"] }
+          fontFamily: {
+            sans: ["Inter", "system-ui", "Arial"]
+          }
         }
       }
     };
@@ -33,202 +40,193 @@
 
 <body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased">
 
-<!-- HEADER -->
-<header class="border-b border-slate-300 bg-white/80 backdrop-blur sticky top-0 z-40 dark:border-slate-800 dark:bg-slate-950/80">
-  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+  <!-- HEADER -->
+  <header class="border-b border-slate-300 bg-white/80 backdrop-blur sticky top-0 z-40 dark:border-slate-800 dark:bg-slate-950/80">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
 
-    <!-- LOGO -->
-    <a href="../index.html" class="flex items-center gap-3">
-      <img src="../assets/SESL Logo.png" class="h-10 block dark:hidden" alt="SESL logo light" />
-      <img src="../assets/SESL Logo Dark.png" class="h-10 hidden dark:block" alt="SESL logo dark" />
-    </a>
-
-    <!-- DESKTOP NAV -->
-    <nav class="hidden md:flex gap-8 text-sm font-medium">
-      <a href="../index.html">Home</a>
-      <a href="../product.html">Product</a>
-      <a href="../solutions.html">Solutions</a>
-      <a href="../customers.html">Customers</a>
-      <a href="../resources.html" class="text-brand-600 dark:text-brand-300 font-semibold">Resources</a>
-      <a href="../pricing.html">Pricing</a>
-      <a href="../about.html">About</a>
-    </nav>
-
-    <!-- RIGHT SIDE -->
-    <div class="flex items-center gap-4">
-      <a href="../login.html"
-         class="px-4 py-2 rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-200
-                dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800
-                text-sm font-medium transition-colors">
-        Login
+      <!-- LOGO -->
+      <a href="../index.html" class="flex items-center gap-3">
+        <img src="../assets/SESL Logo.png" class="h-10 block dark:hidden" alt="SESL logo light" />
+        <img src="../assets/SESL Logo Dark.png" class="h-10 hidden dark:block" alt="SESL logo dark" />
       </a>
 
-      <button id="themeToggle"
-        class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200 
-               dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors"
-        type="button">
-        �YOT
-      </button>
+      <!-- DESKTOP NAV -->
+      <nav class="hidden md:flex gap-8 text-sm font-medium">
+        <a href="../index.html">Home</a>
+        <a href="../product.html">Product</a>
+        <a href="../solutions.html">Solutions</a>
+        <a href="../resources.html" class="text-brand-600 dark:text-brand-300 font-semibold">Resources</a>
+        <a href="../about.html">About</a>
+      </nav>
 
-      <!-- MOBILE MENU BUTTON -->
-      <button id="mobileMenuBtn"
-        class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xl"
-        type="button">
-        �~�
-      </button>
-    </div>
+      <!-- RIGHT SIDE -->
+      <div class="flex items-center gap-4">
+        <a href="../login.html" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-200
+                dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800
+                text-sm font-medium transition-colors">
+          Login
+        </a>
 
-  </div>
-</header>
+        <button id="themeToggle" class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200 
+               dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors" type="button">
+          �YOT
+        </button>
 
-<!-- MOBILE MENU -->
-<div id="mobileMenu"
-  class="hidden md:hidden flex-col bg-white dark:bg-slate-900 border-b border-slate-300 dark:border-slate-800 px-4 py-4 space-y-3 text-sm font-medium">
-
-  <a href="../index.html" class="block">Home</a>
-  <a href="../product.html" class="block">Product</a>
-  <a href="../solutions.html" class="block">Solutions</a>
-  <a href="../customers.html" class="block">Customers</a>
-  <a href="../resources.html" class="block text-brand-600 dark:text-brand-300">Resources</a>
-  <a href="../pricing.html" class="block">Pricing</a>
-  <a href="../about.html" class="block">About</a>
-
-</div>
-
-<!-- HERO -->
-<section class="pt-24 pb-10 px-4 text-center">
-  <div class="max-w-3xl mx-auto">
-    <h1 class="text-4xl sm:text-5xl font-semibold mb-6">SESL CLI User Guide</h1>
-    <p class="text-lg text-slate-700 dark:text-slate-300">
-      A complete guide to the SESL command line: online mode, batch mode, file execution, configuration, and troubleshooting.
-    </p>
-  </div>
-</section>
-
-<!-- MAIN CONTENT -->
-<main class="pb-24 px-4 border-t border-slate-200 dark:border-slate-800">
-  <div class="max-w-7xl mx-auto grid gap-10 lg:grid-cols-[280px,1fr]">
-
-    <!-- TABLE OF CONTENTS -->
-    <aside class="lg:sticky lg:top-24 self-start">
-      <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
-        <h2 class="text-sm font-semibold tracking-wide text-slate-500 dark:text-slate-400 mb-3 uppercase">
-          Table of contents
-        </h2>
-        <nav class="space-y-2 text-sm">
-          <a href="#intro" class="block hover:text-brand-600">1. Introduction</a>
-          <a href="#modes" class="block hover:text-brand-600">2. Operating modes</a>
-          <a href="#install" class="block hover:text-brand-600">3. Installation</a>
-          <a href="#startup" class="block hover:text-brand-600">4. Start-up & environment</a>
-          <a href="#config" class="block hover:text-brand-600">5. Engine configuration</a>
-          <a href="#lifecycle" class="block hover:text-brand-600">6. Command lifecycle</a>
-          <a href="#commands" class="block hover:text-brand-600">7. Command reference</a>
-          <a href="#dotpath" class="block hover:text-brand-600">8. Dot-path editing</a>
-          <a href="#yamlmerge" class="block hover:text-brand-600">9. YAML merging</a>
-          <a href="#output" class="block hover:text-brand-600">10. Output structure</a>
-          <a href="#cheatsheet" class="block hover:text-brand-600">11. CLI cheat sheet</a>
-        </nav>
+        <!-- MOBILE MENU BUTTON -->
+        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xl" type="button">
+          �~�
+        </button>
       </div>
-    </aside>
 
-    <!-- GUIDE BODY -->
-    <article class="prose prose-slate dark:prose-invert max-w-none">
+    </div>
+  </header>
 
-      <section id="intro" class="scroll-mt-24">
-        <h2 class="text-3xl font-semibold mb-4">1. Introduction</h2>
-        <p>
-          The SESL CLI is the primary tool for loading, inspecting, editing, validating, and running SESL models. It works with the same models used by the engine and provides rich tracing, linting, and automation features.
-        </p>
-        <ul>
-          <li>Interactive editing of rules, scenarios, and facts.</li>
-          <li>Template-driven creation of new models.</li>
-          <li>Batch-friendly execution with deterministic outputs.</li>
-          <li>Full traces, driver trees, and monitor output for explainability.</li>
-        </ul>
-      </section>
+  <!-- MOBILE MENU -->
+  <div id="mobileMenu" class="hidden md:hidden flex-col bg-white dark:bg-slate-900 border-b border-slate-300 dark:border-slate-800 px-4 py-4 space-y-3 text-sm font-medium">
 
-      <section id="modes" class="mt-12 scroll-mt-24">
-        <h2 class="text-3xl font-semibold mb-4">2. Operating modes</h2>
+    <a href="../index.html" class="block">Home</a>
+    <a href="../product.html" class="block">Product</a>
+    <a href="../solutions.html" class="block">Solutions</a>
+    <a href="../resources.html" class="block text-brand-600 dark:text-brand-300">Resources</a>
+    <a href="../about.html" class="block">About</a>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">2.1 Online mode</h3>
-        <p>Interactive shell with completion, prompts, and live updates.</p>
-        <pre><code>sesl --online
+  </div>
+
+  <!-- HERO -->
+  <section class="pt-24 pb-10 px-4 text-center">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-4xl sm:text-5xl font-semibold mb-6">SESL CLI User Guide</h1>
+      <p class="text-lg text-slate-700 dark:text-slate-300">
+        A complete guide to the SESL command line: online mode, batch mode, file execution, configuration, and troubleshooting.
+      </p>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="pb-24 px-4 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto grid gap-10 lg:grid-cols-[280px,1fr]">
+
+      <!-- TABLE OF CONTENTS -->
+      <aside class="lg:sticky lg:top-24 self-start">
+        <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
+          <h2 class="text-sm font-semibold tracking-wide text-slate-500 dark:text-slate-400 mb-3 uppercase">
+            Table of contents
+          </h2>
+          <nav class="space-y-2 text-sm">
+            <a href="#intro" class="block hover:text-brand-600">1. Introduction</a>
+            <a href="#modes" class="block hover:text-brand-600">2. Operating modes</a>
+            <a href="#install" class="block hover:text-brand-600">3. Installation</a>
+            <a href="#startup" class="block hover:text-brand-600">4. Start-up & environment</a>
+            <a href="#config" class="block hover:text-brand-600">5. Engine configuration</a>
+            <a href="#lifecycle" class="block hover:text-brand-600">6. Command lifecycle</a>
+            <a href="#commands" class="block hover:text-brand-600">7. Command reference</a>
+            <a href="#dotpath" class="block hover:text-brand-600">8. Dot-path editing</a>
+            <a href="#yamlmerge" class="block hover:text-brand-600">9. YAML merging</a>
+            <a href="#output" class="block hover:text-brand-600">10. Output structure</a>
+            <a href="#cheatsheet" class="block hover:text-brand-600">11. CLI cheat sheet</a>
+            <a href="#callfrompython" class="block hover:text-brand-600">12. Call SESL from Python</a>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- GUIDE BODY -->
+      <article class="prose prose-slate dark:prose-invert max-w-none">
+
+        <section id="intro" class="scroll-mt-24">
+          <h2 class="text-3xl font-semibold mb-4">1. Introduction</h2>
+          <p>
+            The SESL CLI is the primary tool for loading, inspecting, editing, validating, and running SESL models. It works with the same models used by the engine and provides rich tracing, linting, and automation features.
+          </p>
+          <ol>
+            <li>Interactive editing of rules, scenarios, and facts.</li>
+            <li>Template-driven creation of new models.</li>
+            <li>Batch-friendly execution with deterministic outputs.</li>
+            <li>Full traces, driver trees, and monitor output for explainability.</li>
+          </ol>
+        </section>
+
+        <section id="modes" class="mt-12 scroll-mt-24">
+          <h2 class="text-3xl font-semibold mb-4">2. Operating modes</h2>
+
+          <h3 class="text-2xl font-semibold mt-6 mb-3">2.1 Online mode</h3>
+          <p>Interactive shell with completion, prompts, and live updates.</p>
+          <pre><code>sesl --online
 sesl
 </code></pre>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">2.2 Batch mode</h3>
-        <p>Non-interactive execution with automatic confirmations, ideal for CI and scripts.</p>
-        <pre><code>sesl --batch "LOAD model.sesl; RUN DESCRIBE"
+          <h3 class="text-2xl font-semibold mt-6 mb-3">2.2 Batch mode</h3>
+          <p>Non-interactive execution with automatic confirmations, ideal for CI and scripts.</p>
+          <pre><code>sesl --batch "LOAD model.sesl; RUN DESCRIBE"
 </code></pre>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">2.3 File-execution mode</h3>
-        <p>Loads and runs a SESL file directly.</p>
-        <pre><code>sesl model.sesl
+          <h3 class="text-2xl font-semibold mt-6 mb-3">2.3 File-execution mode</h3>
+          <p>Loads and runs a SESL file directly.</p>
+          <pre><code>sesl model.sesl
 </code></pre>
-      </section>
+        </section>
 
-      <section id="install" class="mt-12 scroll-mt-24">
-        <h2 class="text-3xl font-semibold mb-4">3. Installation and requirements</h2>
-        <ul>
-          <li>Python 3.10 or newer.</li>
-          <li>Required libraries: YAML parser, colour support.</li>
-        </ul>
-        <p>Install from PyPI (replace with your package name if different):</p>
-        <pre><code>pip install sesl
+        <section id="install" class="mt-12 scroll-mt-24">
+          <h2 class="text-3xl font-semibold mb-4">3. Installation and requirements</h2>
+          <ol>
+            <li>Python 3.10 or newer.</li>
+            <li>Required libraries: YAML parser, colour support.</li>
+          </ol>
+          <p>Install from PyPI (replace with your package name if different):</p>
+          <pre><code>pip install sesl
 </code></pre>
-        <p>Quick check:</p>
-        <pre><code>sesl --online
+          <p>Quick check:</p>
+          <pre><code>sesl --online
 </code></pre>
-      </section>
+        </section>
 
-      <section id="startup" class="mt-12 scroll-mt-24">
-        <h2 class="text-3xl font-semibold mb-4">4. Start-up and environment</h2>
-        <p>Environment variables can override defaults:</p>
-        <ul>
-          <li><code>SESL_STRICT_OPERANDS</code>: require explicit operand types.</li>
-          <li><code>SESL_STRICT_PATHS</code>: prevent writes to missing structures.</li>
-          <li><code>SESL_AUTO_CREATE_PATHS</code>: auto-create parent paths.</li>
-          <li><code>SESL_ERROR_STYLE</code>: fancy or plain errors.</li>
-          <li><code>SESL_CONFLICT_POLICY</code>: error, warn, or ignore conflicts.</li>
-        </ul>
-      </section>
+        <section id="startup" class="mt-12 scroll-mt-24">
+          <h2 class="text-3xl font-semibold mb-4">4. Start-up and environment</h2>
+          <p>Environment variables can override defaults:</p>
+          <ol>
+            <li><code>SESL_STRICT_OPERANDS</code>: require explicit operand types.</li>
+            <li><code>SESL_STRICT_PATHS</code>: prevent writes to missing structures.</li>
+            <li><code>SESL_AUTO_CREATE_PATHS</code>: auto-create parent paths.</li>
+            <li><code>SESL_ERROR_STYLE</code>: fancy or plain errors.</li>
+            <li><code>SESL_CONFLICT_POLICY</code>: error, warn, or ignore conflicts.</li>
+          </ol>
+        </section>
 
-      <section id="config" class="mt-12 scroll-mt-24">
-        <h2 class="text-3xl font-semibold mb-4">5. Engine configuration</h2>
-        <p>Configuration layers:</p>
-        <ol>
-          <li>Engine defaults.</li>
-          <li>Environment variable overrides.</li>
-          <li>Command-line flags.</li>
-          <li>Interactive <code>options</code> values.</li>
-        </ol>
-        <p>Key flags:</p>
-<pre><code>--strict-operands     # enforce operand typing
+        <section id="config" class="mt-12 scroll-mt-24">
+          <h2 class="text-3xl font-semibold mb-4">5. Engine configuration</h2>
+          <p>Configuration layers:</p>
+          <ol>
+            <li>Engine defaults.</li>
+            <li>Environment variable overrides.</li>
+            <li>Command-line flags.</li>
+            <li>Interactive <code>options</code> values.</li>
+          </ol>
+          <p>Key flags:</p>
+          <pre><code>--strict-operands     # enforce operand typing
 --strict-paths        # disallow missing parents
 --auto-create-paths   # create missing parents
 --conflict-policy warn|error
 --error-style fancy|plain
 --max-iter 50         # limit forward chaining passes
 </code></pre>
-      </section>
+        </section>
 
-      <section id="lifecycle" class="mt-12 scroll-mt-24">
-        <h2 class="text-3xl font-semibold mb-4">6. Command lifecycle</h2>
-        <ol>
-          <li>Parse and normalise command text.</li>
-          <li>Substitute <code>%OPTION%</code> tokens.</li>
-          <li>Licence and safety checks.</li>
-          <li>Dispatch to a handler.</li>
-          <li>Validate model edits.</li>
-          <li>Print coloured output and traces.</li>
-        </ol>
-      </section>
+        <section id="lifecycle" class="mt-12 scroll-mt-24">
+          <h2 class="text-3xl font-semibold mb-4">6. Command lifecycle</h2>
+          <ol>
+            <li>Parse and normalise command text.</li>
+            <li>Substitute <code>%OPTION%</code> tokens.</li>
+            <li>Licence and safety checks.</li>
+            <li>Dispatch to a handler.</li>
+            <li>Validate model edits.</li>
+            <li>Print coloured output and traces.</li>
+          </ol>
+        </section>
 
-      <section id="commands" class="mt-12 scroll-mt-24">
-        <h2 class="text-3xl font-semibold mb-4">7. Command reference</h2>
+        <section id="commands" class="mt-12 scroll-mt-24">
+          <h2 class="text-3xl font-semibold mb-4">7. Command reference</h2>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-2">7.1 File and model</h3>
-<pre><code>LOAD model.sesl           # load and validate
+          <h3 class="text-2xl font-semibold mt-6 mb-2">7.1 File and model</h3>
+          <pre><code>LOAD model.sesl           # load and validate
 SAVE model.sesl           # save current model
 NEW                       # start empty model
 NEW template.seslt        # create from template with %OPTION% substitutions
@@ -236,13 +234,13 @@ DIR                       # list SESL files
 CD path/to/dir            # change working directory
 </code></pre>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-2">7.2 Metadata</h3>
-<pre><code>ADD META key=value
+          <h3 class="text-2xl font-semibold mt-6 mb-2">7.2 Metadata</h3>
+          <pre><code>ADD META key=value
 META DELETE key
 </code></pre>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-2">7.3 Listing</h3>
-<pre><code>LIST                      # summary
+          <h3 class="text-2xl font-semibold mt-6 mb-2">7.3 Listing</h3>
+          <pre><code>LIST                      # summary
 LIST ALL                  # full YAML
 LIST RULE rule_name
 LIST SCENARIO scenario
@@ -250,31 +248,31 @@ LIST FACT scenario
 LIST FACT ALL
 </code></pre>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-2">7.4 Copy</h3>
-<pre><code>COPY MODEL new_name
+          <h3 class="text-2xl font-semibold mt-6 mb-2">7.4 Copy</h3>
+          <pre><code>COPY MODEL new_name
 COPY RULE old [new]
 COPY SCENARIO old [new]
 COPY FACT scenario [newScenario]
 </code></pre>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-2">7.5 Facts editing</h3>
-<pre><code>ADD FACT Scenario1 key.path=value
+          <h3 class="text-2xl font-semibold mt-6 mb-2">7.5 Facts editing</h3>
+          <pre><code>ADD FACT Scenario1 key.path=value
 ADD FACT Scenario1            # prompts for multiline YAML until END
 DELETE FACT Scenario1 key.path
 </code></pre>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-2">7.6 Rule editing</h3>
-<pre><code>ADD RULE                     # inline or multiline YAML
+          <h3 class="text-2xl font-semibold mt-6 mb-2">7.6 Rule editing</h3>
+          <pre><code>ADD RULE                     # inline or multiline YAML
 DELETE RULE rule_name
 </code></pre>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-2">7.7 Scenario editing</h3>
-<pre><code>ADD SCENARIO Name            # optionally with YAML body
+          <h3 class="text-2xl font-semibold mt-6 mb-2">7.7 Scenario editing</h3>
+          <pre><code>ADD SCENARIO Name            # optionally with YAML body
 DELETE SCENARIO Name
 </code></pre>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-2">7.8 Execution</h3>
-<pre><code>RUN                          # run all scenarios
+          <h3 class="text-2xl font-semibold mt-6 mb-2">7.8 Execution</h3>
+          <pre><code>RUN                          # run all scenarios
 RUN DESCRIBE                 # full trace/monitor
 RUN SCENARIO Name            # single scenario
 RUN SCENARIO Name DESCRIBE
@@ -282,32 +280,32 @@ RUN DRIVER                   # driver tree summary
 RUN REASON                   # rule firing reasons
 </code></pre>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-2">7.9 Linting</h3>
-<pre><code>LINT
+          <h3 class="text-2xl font-semibold mt-6 mb-2">7.9 Linting</h3>
+          <pre><code>LINT
 LINT ERRORS
 LINT WARNINGS
 </code></pre>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-2">7.10 Options & colour</h3>
-<pre><code>OPTIONS                      # list saved options
+          <h3 class="text-2xl font-semibold mt-6 mb-2">7.10 Options & colour</h3>
+          <pre><code>OPTIONS                      # list saved options
 OPTIONS key=value            # persist option
 OPTIONS DELETE key
 COLOUR ON | COLOUR OFF
 </code></pre>
-      </section>
+        </section>
 
-      <section id="dotpath" class="mt-12 scroll-mt-24">
-        <h2 class="text-3xl font-semibold mb-4">8. Dot-path editing</h2>
-        <p>Use dot-paths to target nested structures; list indices expand automatically:</p>
-<pre><code>ADD FACT Scenario1 person.address.street="High Road"
+        <section id="dotpath" class="mt-12 scroll-mt-24">
+          <h2 class="text-3xl font-semibold mb-4">8. Dot-path editing</h2>
+          <p>Use dot-paths to target nested structures; list indices expand automatically:</p>
+          <pre><code>ADD FACT Scenario1 person.address.street="High Road"
 ADD FACT Scenario1 items.0.name="Apple"
 </code></pre>
-      </section>
+        </section>
 
-      <section id="yamlmerge" class="mt-12 scroll-mt-24">
-        <h2 class="text-3xl font-semibold mb-4">9. YAML merging</h2>
-        <p>Merge inline or multiline YAML into a scenario:</p>
-<pre><code>ADD FACT ScenarioA { income: 50000, debts: 12000 }
+        <section id="yamlmerge" class="mt-12 scroll-mt-24">
+          <h2 class="text-3xl font-semibold mb-4">9. YAML merging</h2>
+          <p>Merge inline or multiline YAML into a scenario:</p>
+          <pre><code>ADD FACT ScenarioA { income: 50000, debts: 12000 }
 
 ADD FACT ScenarioA
 income: 50000
@@ -316,125 +314,208 @@ expenses:
   food: 150
 END
 </code></pre>
-      </section>
+        </section>
 
-      <section id="output" class="mt-12 scroll-mt-24">
-        <h2 class="text-3xl font-semibold mb-4">10. Output structure</h2>
-        <ul>
-          <li>Result facts (often under <code>result</code>).</li>
-          <li>Metrics: iterations, rules evaluated/fired, elapsed ms.</li>
-          <li>Support data (<code>_sesl.support</code>) for explainability.</li>
-          <li>Monitor/trace blocks for step-by-step reasoning.</li>
-          <li>Driver trees and reasons for quick summaries.</li>
-        </ul>
-      </section>
-      <section id=\"cheatsheet\" class=\"mt-12 scroll-mt-24\">
-        <h2 class=\"text-3xl font-semibold mb-4\">11. CLI cheat sheet</h2>
-        <p class=\"mb-4\">Copy/paste-friendly commands for common tasks:</p>
-<pre><code># Start interactive shell
-sesl --online
-
-# Run a model once (file mode)
-sesl model.sesl
-
-# Batch with trace
-sesl --batch "LOAD model.sesl; RUN DESCRIBE"
-
-# Lint for errors only
-sesl --batch "LOAD model.sesl; LINT ERRORS"
-
-# Single scenario with reasons
-sesl --batch "LOAD model.sesl; RUN SCENARIO Demo REASON"
-
-# Save strict options
-sesl --batch "OPTIONS strict_paths=true; OPTIONS strict_operands=true"
+        <section id="output" class="mt-12 scroll-mt-24">
+          <h2 class="text-3xl font-semibold mb-4">10. Output structure</h2>
+          <p class=\"mb-4\">From the SESL CLI guide (guides/CLI_User_Guide.html, section “Output structure”), a batch run emits:</p>
+          <ol>
+            <li>Result facts (commonly under result)</li>
+            <li>Metrics: iterations, rules evaluated/fired, elapsed ms</li>
+            <li>Support data _sesl.support for explainability</li>
+            <li>Monitor/trace blocks showing step-by-step reasoning</li>
+            <li>Driver trees and “reasons” summaries</li>
+            </code></pre>
+            <p>
+              If you run something like sesl --batch "LOAD model.sesl; RUN DESCRIBE" and capture stdout/stderr you would recieve output similar to below.
+              It’s representative JSON-style text you’ll see on stdout (or an emitted file if you redirect):</p>
+            <pre><code>
+{
+  "result": {
+    "decision": "approve",
+    "score": 0.82,
+    "limits": { "max_amount": 25000 }
+  },
+  "metrics": {
+    "iterations": 3,
+    "rules_evaluated": 42,
+    "rules_fired": 7,
+    "elapsed_ms": 124
+  },
+  "_sesl": {
+    "support": [
+      {
+        "rule": "eligibility.check_age",
+        "fired": true,
+        "facts_read": ["applicant.age"],
+        "facts_written": ["eligibility.age_ok"],
+        "reason": "age >= 21"
+      },
+      {
+        "rule": "decision.finalize",
+        "fired": true,
+        "facts_read": ["eligibility.*", "risk.score"],
+        "facts_written": ["result.decision", "result.score"],
+        "reason": "risk.score >= 0.7 and eligibility.ok"
+      }
+    ],
+    "monitor": [
+      "RUN SCENARIO Demo",
+      "TRACE: eligibility.check_age fired",
+      "TRACE: decision.finalize fired"
+    ],
+    "driver": [
+      { "node": "eligibility", "status": "ok" },
+      { "node": "decision", "status": "approve", "score": 0.82 }
+    ]
+  }
+}
 </code></pre>
-      </section>    </article>
-  </div>
-</main>
+            <p>Typical keys to expect: </p>
+            <ol>
+              <li><strong>result</strong>: your model’s output facts (often nested).</li>
+              <li><strong>metrics</strong>: iterations, rules evaluated/fired, elapsed ms.</li>
+              <li><strong>_sesl.support</strong>: per-rule trace (fired?, facts read/written, reason).</li>
+              <li><strong>_sesl.monitor</strong>: ordered trace lines for step-by-step reasoning.</li>
+              <li><strong>_sesl.driver</strong>: driver/decision tree summary.</li>
+            </ol>
+        </section>
 
-<!-- FOOTER -->
-<footer class="border-t border-slate-300 dark:border-slate-800 py-16 px-4">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+        <section id="seslfrompython" class="mt-12 scroll-mt-24">
+          <h2 class="text-3xl font-semibold mb-4">12. Calling SESL from Python</h2>
+          <p>
+            You can launch the SESL dist exe with --batch from Python using subprocess. On Windows, pass the args as a list to
+            avoid quoting issues.Example (synchronous, capture output):
+          </p>
+          <pre><code>
+import subprocess
+from pathlib import Path
 
-    <div>
-      <h4 class="font-semibold mb-3">Product</h4>
-      <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-        <li><a href="../product.html" class="hover:text-brand-600">Overview</a></li>
-        <li><a href="../product.html#features" class="hover:text-brand-600">Features</a></li>
-        <li><a href="#demo" class="hover:text-brand-600">Demo</a></li>
-      </ul>
+SESL_EXE = Path(r"C:\path\to\dist\sesl.exe")  # update to your dist exe
+MODEL = Path(r"C:\path\to\model.sezl")       # update to your model file
+
+cmd = [str(SESL_EXE), "--batch", str(MODEL)]
+
+result = subprocess.run(
+    cmd,
+    capture_output=True,
+    text=True,
+    check=False  # set True to raise on non-zero exit
+)
+
+print("returncode:", result.returncode)
+print("stdout:", result.stdout)
+print("stderr:", result.stderr)          
+          </code></pre>
+          <p>If --batch expects additional flags (e.g., output file, format), add them in the list, e.g.:</p>
+          <pre><code>
+cmd = [str(SESL_EXE), "--batch", str(MODEL), "--out", "results.json"]
+</pre></code>
+          <p>Async variant (if you need it):</p>
+          <pre><code>
+import asyncio
+from pathlib import Path
+
+async def run_sesl():
+    cmd = [r"C:\path\to\dist\sesl.exe", "--batch", r"C:\path\to\model.sezl"]
+    proc = await asyncio.create_subprocess_exec(
+        *cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+    )
+    stdout, stderr = await proc.communicate()
+    print("returncode:", proc.returncode)
+    print("stdout:", stdout.decode())
+    print("stderr:", stderr.decode())
+
+asyncio.run(run_sesl())
+</pre></code>
+          <p>Quick tips:</p>
+          <ol>
+            <li>Use absolute paths to avoid working-directory surprises.</li>
+            <li>If the exe isn’t on PATH, reference it directly (as above).</li>
+            <li>Check returncode to know if the run succeeded; inspect stderr for errors.</li>
+            <li>If SESL outputs files, set cwd in subprocess.run(..., cwd="...") to control where they land.</li>
+          </ol>
+        </section>
+
+
+      </article>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-300 dark:border-slate-800 py-16 px-4">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+
+      <div>
+        <h4 class="font-semibold mb-3">Product</h4>
+        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li><a href="product.html" class="hover:text-brand-600">Overview</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold mb-3">Solutions</h4>
+        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li><a href="solutions.html" class="hover:text-brand-600">Use Cases</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold mb-3">Resources</h4>
+        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li><a href="resources.html" class="hover:text-brand-600">Documentation</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold mb-3">Company</h4>
+        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li><a href="about.html" class="hover:text-brand-600">About SESL</a></li>
+          <li><a href="about.html#contact" class="hover:text-brand-600">Contact</a></li>
+        </ul>
+      </div>
+
     </div>
 
-    <div>
-      <h4 class="font-semibold mb-3">Solutions</h4>
-      <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-        <li><a href="../solutions.html" class="hover:text-brand-600">Use Cases</a></li>
-        <li><a href="../solutions.html#compliance" class="hover:text-brand-600">Compliance</a></li>
-        <li><a href="../solutions.html#enterprise" class="hover:text-brand-600">Enterprise</a></li>
-        <li><a href="../solutions.html#automation" class="hover:text-brand-600">Process Automation</a></li>
-      </ul>
+    <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-300 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-3">
+        <img src="assets/SESL Logo.png" class="h-7 block dark:hidden" alt="SESL Footer Logo" />
+        <img src="assets/SESL Logo Dark.png" class="h-7 hidden dark:block" alt="SESL Footer Logo Dark" />
+        <span class="text-sm text-slate-600 dark:text-slate-400">Simple Expert System Language</span>
+      </div>
+
+      <div class="flex gap-4">
+        <a href="#" class="text-slate-600 hover:text-brand-600 dark:text-slate-400">Twitter</a>
+        <a href="#" class="text-slate-600 hover:text-brand-600 dark:text-slate-400">LinkedIn</a>
+      </div>
     </div>
 
-    <div>
-      <h4 class="font-semibold mb-3">Resources</h4>
-      <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-        <li><a href="../resources.html" class="hover:text-brand-600">Documentation</a></li>
-        <li><a href="https://github.com/YOUR_REPO/releases" class="hover:text-brand-600">Download</a></li>
-        <li><a href="../resources.html#connect" class="hover:text-brand-600">LLM Server</a></li>
-        <li><a href="../resources.html#examples" class="hover:text-brand-600">Examples</a></li>
-      </ul>
+    <div class="text-center mt-6 text-sm text-slate-500 dark:text-slate-500">
+      © <span id="year"></span> Oblongix. All rights reserved.
     </div>
+  </footer>
 
-    <div>
-      <h4 class="font-semibold mb-3">Company</h4>
-      <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-        <li><a href="../about.html" class="hover:text-brand-600">About SESL</a></li>
-        <li><a href="../about.html#mission" class="hover:text-brand-600">Mission</a></li>
-        <li><a href="../about.html#contact" class="hover:text-brand-600">Contact</a></li>
-      </ul>
-    </div>
+  <script>
+    // Theme toggle
+    const btn = document.getElementById("themeToggle");
+    btn.addEventListener("click", () => {
+      const isDark = document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      btn.textContent = isDark ? "�~?��?" : "�YOT";
+    });
+    btn.textContent = document.documentElement.classList.contains("dark") ? "�~?��?" : "�YOT";
 
-  </div>
+    // Mobile menu
+    const mobileBtn = document.getElementById("mobileMenuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    mobileBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
 
-  <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-300 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
-    <div class="flex items-center gap-3">
-      <img src="../assets/SESL Logo.png" class="h-7 block dark:hidden" alt="SESL logo light" />
-      <img src="../assets/SESL Logo Dark.png" class="h-7 hidden dark:block" alt="SESL logo dark" />
-      <span class="text-sm text-slate-600 dark:text-slate-400">Simple Expert System Language</span>
-    </div>
-
-    <div class="flex gap-4">
-      <a href="#" class="text-slate-600 hover:text-brand-600 dark:text-slate-400">Twitter</a>
-      <a href="#" class="text-slate-600 hover:text-brand-600 dark:text-slate-400">LinkedIn</a>
-    </div>
-  </div>
-
-  <div class="text-center mt-6 text-sm text-slate-500 dark:text-slate-500">
-    �� <span id="year"></span> Oblongix. All rights reserved.
-  </div>
-</footer>
-
-<script>
-  // Theme toggle
-  const btn = document.getElementById("themeToggle");
-  btn.addEventListener("click", () => {
-    const isDark = document.documentElement.classList.toggle("dark");
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-    btn.textContent = isDark ? "�~?��?" : "�YOT";
-  });
-  btn.textContent = document.documentElement.classList.contains("dark") ? "�~?��?" : "�YOT";
-
-  // Mobile menu
-  const mobileBtn = document.getElementById("mobileMenuBtn");
-  const mobileMenu = document.getElementById("mobileMenu");
-  mobileBtn.addEventListener("click", () => {
-    mobileMenu.classList.toggle("hidden");
-  });
-
-  // Year
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 
 </body>
+
 </html>
