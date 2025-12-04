@@ -78,11 +78,16 @@
       <div class="flex items-center gap-4">
 
         <!-- LOGIN -->
-        <a href="login.html" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-200
+        <a id="loginBtn" href="#" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-200
                  dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800
                  text-sm font-medium transition-colors">
           Login
         </a>
+        <button id="logoutBtn" type="button" class="hidden px-4 py-2 rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-200
+                 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800
+                 text-sm font-medium transition-colors">
+          Logout
+        </button>
 
          <!-- THEME BUTTON -->
       <button id="themeToggle"
@@ -369,8 +374,70 @@
     <div class="text-center mt-6 text-sm text-slate-500 dark:text-slate-500">
       © <span id="year"></span> Oblongix. All rights reserved.
     </div>
-  </footer>
-  
+</footer>
+
+  <!-- AUTH MODAL -->
+  <div id="authModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+    <div class="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-xl w-full max-w-md">
+      <h2 id="authTitle" class="text-xl font-semibold mb-4">Login</h2>
+
+      <form id="loginForm" class="space-y-4">
+        <input id="loginEmail" type="email" required placeholder="Email" class="w-full p-3 border border-slate-300 dark:border-slate-700 rounded-lg 
+                    dark:bg-slate-800 dark:text-slate-100" />
+
+        <input id="loginPassword" type="password" required placeholder="Password" autocomplete="current-password" class="w-full p-3 border border-slate-300 dark:border-slate-700 rounded-lg 
+                    dark:bg-slate-800 dark:text-slate-100" />
+
+        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-500 text-white py-3 rounded-lg font-semibold">
+          Login
+        </button>
+
+        <p class="text-sm text-center text-slate-600 dark:text-slate-400">
+          <a id="goRegister" class="text-brand-600 dark:text-brand-300 cursor-pointer">Create account</a>
+          &nbsp;|&nbsp;
+          <a id="goReset" class="text-brand-600 dark:text-brand-300 cursor-pointer">Forgot password?</a>
+        </p>
+      </form>
+
+      <form id="registerForm" class="space-y-4 hidden">
+        <input id="regEmail" type="email" required placeholder="Email" class="w-full p-3 border border-slate-300 dark:border-slate-700 rounded-lg 
+                    dark:bg-slate-800 dark:text-slate-100" />
+
+        <input id="regPassword" type="password" required placeholder="Password" autocomplete="new-password" class="w-full p-3 border border-slate-300 dark:border-slate-700 rounded-lg 
+                    dark:bg-slate-800 dark:text-slate-100" />
+
+        <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-white py-3 rounded-lg font-semibold">
+          Create Account
+        </button>
+
+        <p class="text-sm text-center text-slate-600 dark:text-slate-400">
+          <a id="goLogin1" class="text-brand-600 dark:text-brand-300 cursor-pointer">Already have an account?</a>
+        </p>
+      </form>
+
+      <form id="resetForm" class="space-y-4 hidden">
+        <input id="resetEmail" type="email" required placeholder="Email" class="w-full p-3 border border-slate-300 dark:border-slate-700 rounded-lg 
+                    dark:bg-slate-800 dark:text-slate-100" />
+
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-lg font-semibold">
+          Send Reset Email
+        </button>
+
+        <p class="text-sm text-center text-slate-600 dark:text-slate-400">
+          <a id="goLogin2" class="text-brand-600 dark:text-brand-300 cursor-pointer">Back to login</a>
+        </p>
+      </form>
+
+      <button id="authClose" class="mt-4 w-full py-2 text-sm text-slate-500 hover:text-slate-700 
+                   dark:text-slate-400 dark:hover:text-slate-200">
+        Cancel
+      </button>
+    </div>
+  </div>
+
+  <script type="module" src="js/firebase-init.js"></script>
+  <script type="module" src="js/auth.js"></script>
+
   <!-- THEME + MOBILE MENU SCRIPT -->
 <script>
   const btn = document.getElementById("themeToggle");

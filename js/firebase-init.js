@@ -27,14 +27,16 @@ window.signOut = signOut;
 
 // Listen for login/logout
 onAuthStateChanged(auth, (user) => {
-  const loginBtn = document.getElementById("loginBtn");
-  const logoutBtn = document.getElementById("logoutBtn");
+  const loginEls = document.querySelectorAll("#loginBtn, [data-auth=login]");
+  const logoutEls = document.querySelectorAll("#logoutBtn, [data-auth=logout]");
+  const authed = !!user;
 
-  if (user) {
-    loginBtn?.classList.add("hidden");
-    logoutBtn?.classList.remove("hidden");
-  } else {
-    logoutBtn?.classList.add("hidden");
-    loginBtn?.classList.remove("hidden");
-  }
+  loginEls.forEach((el) => {
+    authed ? el.classList.add("hidden") : el.classList.remove("hidden");
+  });
+  logoutEls.forEach((el) => {
+    authed ? el.classList.remove("hidden") : el.classList.add("hidden");
+  });
+
+  document.body.classList.toggle("authed", authed);
 });

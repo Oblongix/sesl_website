@@ -1,0 +1,14 @@
+{
+  "name": "sesl-functions",
+  "description": "Cloud Functions for protected SESL download",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^11.11.1",
+    "firebase-functions": "^4.9.0"
+  }
+}

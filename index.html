@@ -354,7 +354,7 @@
         <input id="loginEmail" type="email" required placeholder="Email" class="w-full p-3 border border-slate-300 dark:border-slate-700 rounded-lg 
                     dark:bg-slate-800 dark:text-slate-100" />
 
-        <input id="loginPassword" type="password" required placeholder="Password" class="w-full p-3 border border-slate-300 dark:border-slate-700 rounded-lg 
+        <input id="loginPassword" type="password" required placeholder="Password" autocomplete="current-password" class="w-full p-3 border border-slate-300 dark:border-slate-700 rounded-lg 
                     dark:bg-slate-800 dark:text-slate-100" />
 
         <button type="submit" class="w-full bg-brand-600 hover:bg-brand-500 text-white py-3 rounded-lg font-semibold">
@@ -373,7 +373,7 @@
         <input id="regEmail" type="email" required placeholder="Email" class="w-full p-3 border border-slate-300 dark:border-slate-700 rounded-lg 
                     dark:bg-slate-800 dark:text-slate-100" />
 
-        <input id="regPassword" type="password" required placeholder="Password" class="w-full p-3 border border-slate-300 dark:border-slate-700 rounded-lg 
+        <input id="regPassword" type="password" required placeholder="Password" autocomplete="new-password" class="w-full p-3 border border-slate-300 dark:border-slate-700 rounded-lg 
                     dark:bg-slate-800 dark:text-slate-100" />
 
         <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-white py-3 rounded-lg font-semibold">
@@ -408,26 +408,49 @@
     </div>
   </div>
 
+  <script type="module" src="js/firebase-init.js"></script>
+  <script type="module" src="js/auth.js"></script>
+  <script type="module">
+    import { auth } from "./js/firebase-init.js";
 
+    // Using HTTP function with explicit CORS headers
+    const DOWNLOAD_ENDPOINT = "https://us-central1-sesl-website-98721997-dd76a.cloudfunctions.net/getDownloadLinkHttp";
 
-  <script>
     const downloadBtn = document.getElementById("downloadBtn");
-    const downloadModal = document.getElementById("downloadModal");
-    const closeModal = document.getElementById("closeModal");
+    const authModal = document.getElementById("authModal");
+    const authTitle = document.getElementById("authTitle");
 
-    downloadBtn.addEventListener("click", () => {
-      downloadModal.classList.remove("hidden");
-      downloadModal.classList.add("flex");
-    });
+    function openAuthModal() {
+      authTitle && (authTitle.textContent = "Login");
+      authModal?.classList.remove("hidden");
+      authModal?.classList.add("flex");
+    }
 
-    closeModal.addEventListener("click", () => {
-      downloadModal.classList.add("hidden");
-      downloadModal.classList.remove("flex");
+    downloadBtn?.addEventListener("click", async (e) => {
+      e.preventDefault();
+      if (!auth.currentUser) {
+        openAuthModal();
+        return;
+      }
+      try {
+        const token = await auth.currentUser.getIdToken();
+        const resp = await fetch(DOWNLOAD_ENDPOINT, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await resp.json();
+        if (resp.ok && data?.url) {
+          window.location.href = data.url;
+        } else {
+          alert(data?.error || "Download link not available. Please try again.");
+        }
+      } catch (err) {
+        alert(err.message || "Unable to fetch download link.");
+      }
     });
   </script>
-
-  <script type="module" src="/js/firebase-init.js"></script>
-  <script type="module" src="/js/auth.js"></script>
 
 </body>
 

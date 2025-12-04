@@ -25,6 +25,7 @@ document.getElementById("goReset")?.addEventListener("click", showReset);
 // Open modal from login button
 document.getElementById("loginBtn")?.addEventListener("click", (e) => {
   e.preventDefault();
+  if (!authModal) return;
   authModal.classList.remove("hidden");
   authModal.classList.add("flex");
   showLogin();
@@ -42,6 +43,7 @@ document.getElementById("logoutBtn")?.addEventListener("click", async (e) => {
 
 // Close modal
 authClose?.addEventListener("click", () => {
+  if (!authModal) return;
   authModal.classList.add("hidden");
   authModal.classList.remove("flex");
 });
@@ -125,6 +127,7 @@ resetForm?.addEventListener("submit", async (e) => {
 
 // Close modal helper
 function closeModal() {
+  if (!authModal) return;
   authModal.classList.add("hidden");
   authModal.classList.remove("flex");
 }

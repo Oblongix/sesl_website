@@ -1,0 +1,10 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /private_downloads/{allPaths=**} {
+      // Only authenticated users can read; no public writes.
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+  }
+}
