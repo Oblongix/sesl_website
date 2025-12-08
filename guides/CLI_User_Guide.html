@@ -36,6 +36,28 @@
       }
     };
   </script>
+
+  <style>
+    pre {
+      background-color: #e5e7eb !important;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      overflow-x: auto;
+      border: 1px solid #d1d5db;
+      margin-top: 8px !important;
+      margin-bottom: 8px !important;
+    }
+
+    .dark pre {
+      background-color: #374151 !important;
+      border-color: #4b5563;
+    }
+
+    pre code {
+      background-color: transparent !important;
+      color: inherit;
+    }
+  </style>
 </head>
 
 <body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased">
@@ -69,12 +91,12 @@
 
         <button id="themeToggle" class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200 
                dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors" type="button">
-          �YOT
+          ☀️/🌙
         </button>
 
         <!-- MOBILE MENU BUTTON -->
         <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xl" type="button">
-          �~�
+          ☰
         </button>
       </div>
 
@@ -114,10 +136,10 @@
           </h2>
           <nav class="space-y-2 text-sm">
             <a href="#intro" class="block hover:text-brand-600">1. Introduction</a>
-            <a href="#modes" class="block hover:text-brand-600">2. Operating modes</a>
-            <a href="#install" class="block hover:text-brand-600">3. Installation</a>
-            <a href="#startup" class="block hover:text-brand-600">4. Start-up & environment</a>
-            <a href="#config" class="block hover:text-brand-600">5. Engine configuration</a>
+            <a href="#install" class="block hover:text-brand-600">2. Installation & setup</a>
+            <a href="#modes" class="block hover:text-brand-600">3. Operating modes</a>
+            <a href="#startup" class="block hover:text-brand-600">4. Starting the CLI</a>
+            <a href="#config" class="block hover:text-brand-600">5. Configuration & environment</a>
             <a href="#lifecycle" class="block hover:text-brand-600">6. Command lifecycle</a>
             <a href="#commands" class="block hover:text-brand-600">7. Command reference</a>
             <a href="#dotpath" class="block hover:text-brand-600">8. Dot-path editing</a>
@@ -135,202 +157,634 @@
         <section id="intro" class="scroll-mt-24">
           <h2 class="text-3xl font-semibold mb-4">1. Introduction</h2>
           <p>
-            The SESL CLI is the primary tool for loading, inspecting, editing, validating, and running SESL models. It works with the same models used by the engine and provides rich tracing, linting, and automation features.
+            The SESL CLI is the quickest way to load, inspect, edit, validate, and run SESL models without writing any Python. It uses the same engine described in the Language User Guide and exposes everything you need for day-to-day work: online editing, batch automation, linting, tracing, and export-friendly output.
           </p>
-          <ol>
-            <li>Interactive editing of rules, scenarios, and facts.</li>
-            <li>Template-driven creation of new models.</li>
-            <li>Batch-friendly execution with deterministic outputs.</li>
-            <li>Full traces, driver trees, and monitor output for explainability.</li>
-          </ol>
-        </section>
-
-        <section id="modes" class="mt-12 scroll-mt-24">
-          <h2 class="text-3xl font-semibold mb-4">2. Operating modes</h2>
-
-          <h3 class="text-2xl font-semibold mt-6 mb-3">2.1 Online mode</h3>
-          <p>Interactive shell with completion, prompts, and live updates.</p>
-          <pre><code>sesl --online
-sesl
-</code></pre>
-
-          <h3 class="text-2xl font-semibold mt-6 mb-3">2.2 Batch mode</h3>
-          <p>Non-interactive execution with automatic confirmations, ideal for CI and scripts.</p>
-          <pre><code>sesl --batch "LOAD model.sesl; RUN DESCRIBE"
-</code></pre>
-
-          <h3 class="text-2xl font-semibold mt-6 mb-3">2.3 File-execution mode</h3>
-          <p>Loads and runs a SESL file directly.</p>
-          <pre><code>sesl model.sesl
-</code></pre>
+          <p>
+            This guide focuses on how to drive the CLI effectively, how to configure it for your environment, and how to interpret its output. If you want the full language syntax, rule semantics, or engine internals, refer to the Language User Guide—they apply directly here.
+          </p>
         </section>
 
         <section id="install" class="mt-12 scroll-mt-24">
-          <h2 class="text-3xl font-semibold mb-4">3. Installation and requirements</h2>
+          <h2 class="text-3xl font-semibold mb-4">2. Installation and setup</h2>
+          <p>
+            SESL is distributed as a standalone zip from <a href="https://www.sesl.ai" class="text-brand-600 dark:text-brand-300">sesl.ai</a>. Download the zip for your platform, unzip it to a folder you control, and run the executable inside. No system-wide install or admin rights are required.
+          </p>
+          <p class="mb-2">Quick steps:</p>
           <ol>
-            <li>Python 3.10 or newer.</li>
-            <li>Required libraries: YAML parser, colour support.</li>
+            <li>Download the SESL zip for your OS from <code>https://www.sesl.ai</code>.</li>
+            <li>Extract it to a directory such as <code>C:\tools\sesl</code> (Windows) or <code>~/tools/sesl</code> (macOS/Linux).</li>
+            <li>Open a terminal in that directory.</li>
+            <li>Run SESL to confirm it starts and shows the binary validity days:</li>
           </ol>
-          <p>Install from PyPI (replace with your package name if different):</p>
-          <pre><code>pip install sesl
-</code></pre>
-          <p>Quick check:</p>
-          <pre><code>sesl --online
-</code></pre>
+          <pre><code>./sesl --help     # macOS/Linux
+sesl.exe --help   # Windows</code></pre>
+          <p>
+            If you prefer, add the SESL folder to your <code>PATH</code> so you can run it from anywhere. Upgrading is simple: download the new zip, unzip to a new folder (or replace the old one after backing up any models you keep there), and run again.
+          </p>
+        </section>
+
+        <section id="modes" class="mt-12 scroll-mt-24">
+          <h2 class="text-3xl font-semibold mb-4">3. Operating modes</h2>
+          <p>
+            The CLI supports three primary modes. Choose interactive when you are exploring, batch when you are automating, and file-execution when you just want to run a model once.
+          </p>
+
+          <h3 class="text-2xl font-semibold mt-6 mb-3">3.1 Online (interactive) mode</h3>
+          <p>
+            Launches a guided shell with prompts. It will display the binary validity window (days remaining), then let you load a model and issue commands with completion.
+          </p>
+          <pre><code>./sesl --online        # or just: ./sesl
+sesl.exe --online     # Windows</code></pre>
+
+          <h3 class="text-2xl font-semibold mt-6 mb-3">3.2 Batch mode</h3>
+          <p>
+            Runs one or more commands non-interactively—perfect for CI, scheduled jobs, or scripted runs. Pass a semicolon-separated command string.</p>
+          <pre><code>./sesl --batch "LOAD model.sesl; RUN DESCRIBE"
+sesl.exe --batch "LOAD model.sesl; RUN"</code></pre>
+
+          <h3 class="text-2xl font-semibold mt-6 mb-3">3.3 File-execution mode</h3>
+          <p>
+            Loads and runs a SESL file directly in one step. Useful for quick checks or when a pipeline feeds models to the CLI.</p>
+          <pre><code>./sesl model.sesl
+sesl.exe model.sesl</code></pre>
         </section>
 
         <section id="startup" class="mt-12 scroll-mt-24">
-          <h2 class="text-3xl font-semibold mb-4">4. Start-up and environment</h2>
-          <p>Environment variables can override defaults:</p>
-          <ol>
-            <li><code>SESL_STRICT_OPERANDS</code>: require explicit operand types.</li>
-            <li><code>SESL_STRICT_PATHS</code>: prevent writes to missing structures.</li>
-            <li><code>SESL_AUTO_CREATE_PATHS</code>: auto-create parent paths.</li>
-            <li><code>SESL_ERROR_STYLE</code>: fancy or plain errors.</li>
-            <li><code>SESL_CONFLICT_POLICY</code>: error, warn, or ignore conflicts.</li>
-          </ol>
+          <h2 class="text-3xl font-semibold mb-4">4. Starting the CLI</h2>
+          <p>
+            When you start SESL without arguments, it enters interactive online mode. The startup screen displays version information, licence expiry, and a comprehensive list of all available commands:</p>
+          <pre><code>$ sesl
+
+SESL Interactive Mode
+
+Version 0.0.1, Licence expires on 2026-03-31 (in 113 days)
+(c) Oblongix Ltd. all rights reserved.
+
+Commands:
+  NEW &lt;template&gt; / LOAD &lt;file&gt; / SAVE &lt;file&gt;
+  ADD MODEL &lt;name&gt; (multiline END) / ADD META key=val / META DELETE key
+  LIST / LIST ALL / LIST FACT ALL
+  LIST RULE &lt;name&gt; / LIST SCENARIO &lt;name&gt; / LIST FACT &lt;scenario&gt;
+  ADD FACT &lt;scenario&gt; &lt;yaml&gt; / ADD FACT &lt;scenario&gt; key.path=value
+  ADD SCENARIO &lt;name&gt;     # empty scenario
+  ADD FACT &lt;scenario&gt;     # multiline END supported
+  ADD RULE &lt;yaml&gt;         # multiline END supported
+  ADD SCENARIO &lt;yaml&gt;     # multiline END supported
+  DELETE FACT &lt;scenario&gt; &lt;key&gt; / DELETE RULE &lt;rule_name&gt; / DELETE SCENARIO &lt;name&gt;
+  COPY RULE &lt;name&gt; &lt;new&gt; / COPY SCENARIO &lt;name&gt; &lt;new&gt; / COPY FACT &lt;scenario&gt; &lt;new&gt;
+  RUN / RUN REASON / RUN DRIVER / RUN DESCRIBE / RUN SCENARIO &lt;name&gt; [REASON|DRIVER|DESCRIBE]
+  LINT / LINT ERRORS / LINT WARNINGS
+  OPTIONS &lt;key=value&gt; / OPTIONS DELETE &lt;key&gt;
+  COLOUR ON / COLOUR OFF
+  HELP
+  EXIT / CTRL^c / CTRL^z
+
+SESL&gt;</code></pre>
+          <p>
+            The startup screen shows how many days remain on your licence. After the command list, you're at the <code>SESL&gt;</code> prompt, ready to load a model, create a new one, or execute any command. Type <code>HELP</code> at any time to redisplay the command list.
+          </p>
         </section>
 
         <section id="config" class="mt-12 scroll-mt-24">
-          <h2 class="text-3xl font-semibold mb-4">5. Engine configuration</h2>
-          <p>Configuration layers:</p>
-          <ol>
-            <li>Engine defaults.</li>
-            <li>Environment variable overrides.</li>
-            <li>Command-line flags.</li>
-            <li>Interactive <code>options</code> values.</li>
-          </ol>
-          <p>Key flags:</p>
-          <pre><code>--strict-operands     # enforce operand typing
---strict-paths        # disallow missing parents
---auto-create-paths   # create missing parents
---conflict-policy warn|error
---error-style fancy|plain
---max-iter 50         # limit forward chaining passes
-</code></pre>
+          <h2 class="text-3xl font-semibold mb-4">5. Configuration and environment</h2>
+          <p>
+            SESL provides a flexible configuration system that lets you control how the engine behaves, how errors are reported, and what safety checks are enforced. Configuration can be set at multiple levels: the engine ships with sensible defaults, you can override them with environment variables (applied system-wide or per terminal session), you can pass command-line flags when launching SESL (for one-off runs or scripts), and you can use the <code>OPTIONS</code> command inside the CLI to save persistent settings that apply to all future sessions. This layered approach means you can set strict policies globally for production environments while allowing developers to relax them locally for testing.</p>
+          <p>
+            The configuration layers apply in a specific order: engine defaults are applied first, then environment variables override those defaults, then command-line flags override environment variables, and finally <code>OPTIONS</code> set during a CLI session override everything else. Later layers always win. This gives you fine-grained control: for example, you might set <code>SESL_STRICT_PATHS=true</code> in your shell profile to enforce path safety by default, but then run <code>sesl --no-strict-paths</code> for a quick test, or use <code>OPTIONS strict_paths=false</code> in the CLI to change the behavior mid-session. Understanding this precedence is key to debugging unexpected behavior—if a flag doesn't seem to take effect, check whether an <code>OPTIONS</code> setting or environment variable is overriding it.</p>
+          
+          <h3 class="text-xl font-semibold mt-6 mb-3">5.1 Command-line flags</h3>
+          <p class="mb-2">Control runtime behavior directly when launching SESL. These flags override environment variables and engine defaults but are overridden by <code>OPTIONS</code> set in the CLI session.</p>
+          <ul class="mb-3">
+            <li><code>--online</code>: Starts the CLI in interactive mode with a prompt, multiline input support, and command history. This is the default when you run <code>sesl</code> with no arguments. Use this for manual exploration, model development, and debugging.</li>
+            <li><code>--batch "COMMANDS"</code>: Runs one or more semicolon-separated commands non-interactively, then exits. Output is structured (typically JSON) for machine parsing. Use this for automation, CI/CD pipelines, or scripting. Example: <code>sesl --batch "LOAD model.sesl; RUN"</code>.</li>
+            <li><code>--strict-operands</code> / <code>--no-strict-operands</code>: When enabled, SESL requires explicit type consistency in comparisons (e.g., you cannot compare a string to a number). When disabled, SESL attempts implicit type coercion. Strict mode catches more errors early but may require more explicit type casting in your rules.</li>
+            <li><code>--strict-paths</code> / <code>--no-strict-paths</code>: When enabled, SESL raises an error if a rule tries to write to a path that doesn't exist (e.g., writing <code>person.address.city</code> when <code>person.address</code> is undefined). When disabled, writes to missing paths are silently ignored. Strict mode prevents typos and logic errors; non-strict mode is useful during exploratory development.</li>
+            <li><code>--auto-create-paths</code> / <code>--no-auto-create-paths</code>: When enabled, SESL automatically creates intermediate objects when writing to nested paths (e.g., if <code>person</code> exists but <code>person.address</code> doesn't, writing <code>person.address.city="Portland"</code> will create <code>person.address</code> as an empty object first). When disabled, such writes fail unless the parent already exists. Auto-creation is convenient but can hide structural issues; disabling it enforces explicit fact initialization.</li>
+            <li><code>--strict-actions</code> / <code>--legacy-actions</code>: Controls how rule actions (the <code>then</code> block) are parsed. Strict mode enforces modern YAML syntax and rejects ambiguous or deprecated constructs. Legacy mode accepts older syntax for backward compatibility. Use strict mode for new models to ensure forward compatibility.</li>
+            <li><code>--error-style fancy|plain</code>: Determines how errors are rendered. <code>fancy</code> uses ANSI colour codes, bold text, and formatted boxes for readability in modern terminals. <code>plain</code> outputs plain text suitable for log files or terminals without colour support. Default is <code>fancy</code>.</li>
+            <li><code>--plain-errors</code>: Shortcut for <code>--error-style plain</code>. Useful for CI/CD environments or when redirecting output to files.</li>
+            <li><code>--conflict-policy warn|error</code>: Determines what happens when two rules in the same iteration try to write conflicting values to the same fact path. <code>warn</code> logs a warning but allows the engine to continue (last write wins). <code>error</code> halts execution immediately. Use <code>error</code> to catch non-deterministic models; use <code>warn</code> when conflicts are expected and acceptable (e.g., override patterns).</li>
+            <li><code>--max-iter N</code>: Sets the maximum number of forward-chaining iterations before the engine stops, even if convergence hasn't been reached. Default is 1000. Increase this if you have deeply nested or recursive logic; decrease it to fail fast during development. If the engine hits this limit, it indicates a potential infinite loop or a model that never stabilizes.</li>
+            <li><code>--graph</code>: Enables dependency graph output in the results. The graph shows which facts depend on which rules, useful for visualizing rule interactions and debugging complex models. Output is typically in a graph format (adjacency list or DOT notation) depending on the engine version.</li>
+            <li><code>--trace</code>: Includes a full execution trace in the output, showing every rule evaluation (whether it fired or not), every condition check, and every fact read/write. This generates verbose output but is invaluable for debugging why a rule didn't fire or where unexpected behavior occurred.</li>
+            <li><code>--no-tms</code>: Disables the Truth Maintenance System (TMS), which tracks fact justifications and supports retraction when supporting facts are removed. Disabling TMS simplifies execution and improves performance but removes the ability to track why a fact was derived or to automatically retract derived facts. Use this for simpler models or when justification tracking isn't needed.</li>
+            <li><code>--store-snapshots</code>: Saves a complete copy of the fact base after each forward-chaining iteration. This allows you to inspect the exact state of the world at each step, essential for deep debugging of complex execution flows. Warning: this generates large output for models with many iterations or large fact bases.</li>
+          </ul>
+
+          <h3 class="text-xl font-semibold mt-6 mb-3">5.2 Environment variables</h3>
+          <p class="mb-2">Set defaults system-wide (in your shell profile or system environment) or per-terminal session. Command-line flags override these, and <code>OPTIONS</code> override both. Environment variables are useful for team-wide policies or CI/CD standardization.</p>
+          <ul class="mb-3">
+            <li><code>SESL_STRICT_OPERANDS=true|false</code>: Sets the default for operand type strictness. When <code>true</code>, comparisons require matching types (e.g., <code>5 == "5"</code> is an error). When <code>false</code>, SESL attempts coercion (e.g., <code>5 == "5"</code> may be true depending on context). Recommended: <code>true</code> for production, <code>false</code> for rapid prototyping.</li>
+            <li><code>SESL_STRICT_PATHS=true|false</code>: Sets the default for path strictness. When <code>true</code>, writing to a non-existent path raises an error. When <code>false</code>, such writes are ignored. Recommended: <code>true</code> to catch typos and logic errors early.</li>
+            <li><code>SESL_AUTO_CREATE_PATHS=true|false</code>: Sets the default for automatic path creation. When <code>true</code>, SESL creates missing parent objects when writing to nested paths. When <code>false</code>, writes fail if parents don't exist. Recommended: <code>false</code> for strict models, <code>true</code> for exploratory development.</li>
+            <li><code>SESL_ERROR_STYLE=fancy|plain</code>: Sets the default error rendering style. <code>fancy</code> uses colour and formatting; <code>plain</code> is suitable for logs. Recommended: <code>fancy</code> for interactive terminals, <code>plain</code> for CI/CD pipelines.</li>
+            <li><code>SESL_CONFLICT_POLICY=warn|error</code>: Sets the default conflict handling policy. <code>warn</code> logs conflicts but continues execution; <code>error</code> halts on the first conflict. Recommended: <code>error</code> during development to catch non-determinism, <code>warn</code> in production if conflicts are intentional (e.g., override patterns).</li>
+            <li><code>SESL_MAX_ITERATIONS=N</code>: Sets the default maximum iteration count. Higher values allow more complex logic but may hide infinite loops. Recommended: start with 1000 (default), increase only if you have verified deep recursion is intentional.</li>
+            <li><code>SESL_DEPENDENCY_SORT=true|false</code>: When <code>true</code>, SESL sorts rules by dependency before each iteration, ensuring rules that write facts fire before rules that read those facts (within the same iteration). This can reduce iteration count for some models. When <code>false</code>, rules fire in definition order. Recommended: <code>true</code> for performance, <code>false</code> if you need explicit ordering control.</li>
+            <li><code>SESL_STORE_SNAPSHOTS=true|false</code>: Sets the default for snapshot storage. When <code>true</code>, SESL saves fact snapshots after each iteration (large output). When <code>false</code>, snapshots are not stored. Recommended: <code>false</code> by default, enable only when deep debugging is needed.</li>
+            <li><code>SESL_LET_MISSING=true|false</code>: When <code>true</code>, conditions that reference undefined paths evaluate to <code>false</code> instead of raising an error. When <code>false</code>, missing paths in conditions are errors. Recommended: <code>false</code> to catch typos, <code>true</code> for models that intentionally check for the presence/absence of optional fields.</li>
+          </ul>
+
+          <h3 class="text-xl font-semibold mt-6 mb-3">5.3 OPTIONS persistence</h3>
+          <p>
+            Inside the CLI, <code>OPTIONS key=value</code> saves configuration to a local config file (typically <code>~/.sesl/config.yaml</code> or alongside the executable). These persist across sessions. Use <code>OPTIONS</code> alone to list all saved settings, or <code>OPTIONS DELETE key</code> to remove one.</p>
+          <pre><code>sesl> OPTIONS strict_paths=true
+Option saved: strict_paths = true
+
+sesl> OPTIONS max_iterations=500
+Option saved: max_iterations = 500
+
+sesl> OPTIONS
+Saved options (from ~/.sesl/config.yaml):
+  strict_paths = true
+  error_style = fancy
+  max_iterations = 500
+  colour = on
+  auto_create_paths = false
+
+sesl> OPTIONS DELETE strict_paths
+Option removed: strict_paths
+Remaining options: error_style, max_iterations, colour, auto_create_paths</code></pre>
+          <p class="mb-2">Common OPTIONS keys match environment variables and flags (without the <code>SESL_</code> prefix or dashes):</p>
+          <ul class="mb-3">
+            <li><code>strict_operands</code>, <code>strict_paths</code>, <code>auto_create_paths</code></li>
+            <li><code>error_style</code>, <code>conflict_policy</code>, <code>max_iterations</code></li>
+            <li><code>dependency_sort</code>, <code>store_snapshots</code>, <code>let_missing</code></li>
+            <li><code>colour</code>: on/off (same as <code>COLOUR ON</code> command)</li>
+          </ul>
+
+          <h3 class="text-xl font-semibold mt-6 mb-3">5.4 Licence and expiry behavior</h3>
+          <p>
+            The CLI displays binary validity days on startup. After expiry, most commands are disabled except for <code>RUN</code> and <code>EXIT</code>, and only on Tuesday–Friday. During the restricted window, you can still execute models but cannot edit, lint, or list. Contact support for licence renewal.</p>
         </section>
 
         <section id="lifecycle" class="mt-12 scroll-mt-24">
           <h2 class="text-3xl font-semibold mb-4">6. Command lifecycle</h2>
-          <ol>
-            <li>Parse and normalise command text.</li>
-            <li>Substitute <code>%OPTION%</code> tokens.</li>
-            <li>Licence and safety checks.</li>
-            <li>Dispatch to a handler.</li>
-            <li>Validate model edits.</li>
-            <li>Print coloured output and traces.</li>
+          <p>
+            Understanding the command execution pipeline helps when debugging failures or unexpected behavior. Every CLI command—whether typed interactively in online mode, passed via <code>--batch</code>, or embedded in a template—flows through a consistent set of stages. Each stage has a specific responsibility, and knowing where a command fails (parsing, validation, execution, etc.) points you directly to the root cause. The pipeline also handles advanced features like token substitution, which lets you parameterize commands and templates with values from your configuration, making automation and reuse much easier.
+          </p>
+          
+          <h3 class="text-xl font-semibold mt-6 mb-3">6.1 Execution stages</h3>
+          <ol class="mb-4">
+            <li class="mb-3">
+              <strong>1. Parse and normalize</strong><br>
+              The command string is first broken into tokens (words, symbols, quoted strings). Keywords like <code>LOAD</code>, <code>RUN</code>, <code>ADD RULE</code> are recognized regardless of case (<code>load</code>, <code>Load</code>, <code>LOAD</code> are all equivalent). The parser checks that the command matches a known pattern—for example, <code>LOAD filename</code> requires exactly one argument, while <code>RUN SCENARIO Name DESCRIBE</code> requires a scenario name and optional modifiers. If the command doesn't match any known pattern (e.g., <code>LOADD model.sesl</code> with a typo, or <code>RUN SCENARIO</code> missing the scenario name), parsing fails immediately with a "Command not recognized" or "Invalid syntax" error. This stage is purely syntactic: it doesn't check whether the file exists, whether the scenario is in the model, or whether the operation is valid—it only checks that the command structure is correct.
+            </li>
+            <li class="mb-3">
+              <strong>2. Token substitution</strong><br>
+              After parsing, the CLI scans the command for placeholders in the form <code>%VARIABLE%</code>. These placeholders are replaced with values from the OPTIONS store (set via <code>OPTIONS key=value</code>) or environment variables (set in your shell or system). This enables powerful automation and templating: you can define a path, model name, or configuration value once and reuse it across many commands. For example, if you've set <code>OPTIONS model_path=/var/models</code>, then the command <code>LOAD %model_path%/loan.sesl</code> becomes <code>LOAD /var/models/loan.sesl</code> after substitution. Similarly, if you've set the environment variable <code>SESL_DEFAULT_SCENARIO=Demo</code>, the command <code>RUN SCENARIO %SESL_DEFAULT_SCENARIO%</code> becomes <code>RUN SCENARIO Demo</code>. Substitution happens before validation, so the final command must be valid after replacement. If a placeholder refers to an undefined option or environment variable, substitution fails with "Undefined variable: %VARIABLE%". Here's a complete example showing token substitution in action:
+              <pre class="mt-2 mb-2"><code># Set configuration values
+sesl> OPTIONS project_dir=/workspace/models
+Option saved: project_dir = /workspace/models
+
+sesl> OPTIONS default_scenario=Regression_Test
+Option saved: default_scenario = Regression_Test
+
+# Use placeholders in commands
+sesl> LOAD %project_dir%/loan-approval.sesl
+# After substitution: LOAD /workspace/models/loan-approval.sesl
+Loaded model: loan-approval.sesl
+
+sesl> RUN SCENARIO %default_scenario% DESCRIBE
+# After substitution: RUN SCENARIO Regression_Test DESCRIBE
+Scenario: Regression_Test
+Result: { "decision": "approve" }
+...</code></pre>
+              Token substitution is especially useful in batch mode and templates. For instance, you can create a template file with placeholders for environment-specific values (paths, URLs, credentials) and instantiate it with <code>NEW template.seslt</code>, where the template engine replaces all <code>%VARIABLE%</code> tokens with current OPTIONS or environment values before creating the model.
+            </li>
+            <li class="mb-3">
+              <strong>3. Licence check</strong><br>
+              Before dispatching the command, the CLI checks the binary's expiry date (shown on startup as "Licence expires on YYYY-MM-DD (in N days)"). If the licence has expired, most commands are blocked to prevent unauthorized use. However, SESL provides a grace period: on Tuesday, Wednesday, Thursday, and Friday of each week, the <code>RUN</code> and <code>EXIT</code> commands remain available even after expiry. This allows you to execute existing models and exit the CLI, but you cannot edit, lint, list, load, or save models. On Monday, Saturday, and Sunday, all commands are blocked post-expiry. If you try to run a blocked command, you'll see an error like "Licence expired. Command not available. Contact support for renewal." During the restricted window (Tue–Fri post-expiry), attempting to run <code>LOAD</code>, <code>LINT</code>, or <code>ADD RULE</code> will fail, but <code>RUN</code> (to execute already-loaded models) and <code>EXIT</code> work normally.
+            </li>
+            <li class="mb-3">
+              <strong>4. Dispatch</strong><br>
+              After passing licence checks, the command is routed to the appropriate handler based on its type. File operations (<code>LOAD</code>, <code>SAVE</code>, <code>DIR</code>, <code>CD</code>) go to the file I/O subsystem. Model-editing commands (<code>ADD RULE</code>, <code>DELETE SCENARIO</code>, <code>ADD META</code>) are routed to the model editor. Execution commands (<code>RUN</code>, <code>RUN DESCRIBE</code>) are sent to the rule engine. Linting commands (<code>LINT</code>, <code>LINT ERRORS</code>) are sent to the static analysis module. Metadata and listing commands (<code>LIST</code>, <code>LIST ALL</code>) go to the introspection subsystem. This dispatch layer is where context-specific handlers take over: for example, <code>LOAD</code> opens a file, parses YAML, and validates the model structure, while <code>RUN</code> initializes the inference engine, loads scenarios, and begins forward chaining. Dispatch failures are rare but can occur if internal state is inconsistent (e.g., trying to <code>RUN</code> when no model is loaded).
+            </li>
+            <li class="mb-3">
+              <strong>5. Validation</strong><br>
+              For commands that modify the model (<code>ADD RULE</code>, <code>ADD FACT</code>, <code>DELETE</code>, etc.), SESL performs deep validation before committing the change. This includes: (a) <strong>YAML syntax</strong>: ensuring the provided YAML is well-formed (correct indentation, no syntax errors, valid data types); (b) <strong>Schema compliance</strong>: checking that rules have required fields (<code>rule</code>, <code>if</code>, <code>then</code>), that facts are valid dictionaries, that scenarios are properly named; (c) <strong>Type consistency</strong>: verifying that values match expected types (e.g., priorities are numbers, conditions are boolean expressions, actions are key-value pairs); (d) <strong>Path strictness</strong>: if <code>--strict-paths</code> is enabled, checking that paths referenced in actions exist or can be created (depending on <code>--auto-create-paths</code>). If validation fails, the command is rejected with a detailed error message showing the problematic line, field, or value. The model is <em>not</em> modified. For example, if you try <code>ADD RULE</code> with invalid YAML (missing colon, bad indentation), you'll see "YAML parse error at line 3: expected key-value pair". If you try to write to <code>applicant.address.city</code> but <code>applicant.address</code> doesn't exist and <code>--strict-paths</code> is on, you'll see "Path not found: applicant.address. Enable --auto-create-paths or initialize the parent first."
+            </li>
+            <li class="mb-3">
+              <strong>6. Engine execution</strong><br>
+              If the command triggers a model execution (<code>RUN</code>, <code>RUN SCENARIO</code>, <code>RUN DESCRIBE</code>, etc.), the SESL rule engine takes over. This is where the core expert system logic happens: (a) <strong>Scenario loading</strong>: The engine loads the initial facts from the specified scenario (or all scenarios if you ran <code>RUN</code> without a scenario name). (b) <strong>Rule evaluation</strong>: The engine enters forward-chaining mode, repeatedly evaluating all rules against the current fact base. For each rule, it checks whether the <code>if</code> condition is true given the current facts. If true, the rule fires: its <code>then</code> actions are executed, writing new facts or updating existing ones. (c) <strong>Iteration</strong>: After all rules have been checked, the engine starts a new iteration (pass). Newly written facts may now satisfy conditions of other rules that didn't fire before. This repeats until either (i) convergence: no rules fired in the latest pass (the model reached a stable state), or (ii) max iterations: the iteration limit was hit (default 1000, configurable via <code>--max-iter</code>), indicating a potential infinite loop or a model that never stabilizes. (d) <strong>Result collection</strong>: After convergence or max iterations, the engine packages the final fact base, metrics (iterations, rules fired, elapsed time), support/monitor/driver traces (if <code>DESCRIBE</code> was requested), and any snapshots or graphs (if enabled) into the result structure.
+            </li>
+            <li class="mb-3">
+              <strong>7. Output rendering</strong><br>
+              Finally, the result is formatted and displayed. The format depends on the mode and command: (a) <strong>Online mode</strong>: Human-readable output with colour (if <code>COLOUR ON</code>), section headings, indented JSON, and visual separators. Errors are rendered with fancy formatting (boxes, bold text, colour-coded severity). (b) <strong>Batch mode</strong>: Structured JSON output suitable for parsing by scripts or CI/CD tools. Each command result is a JSON object with <code>status</code> (success/error), <code>message</code>, and <code>data</code> fields. No colour or interactive prompts. (c) <strong>DESCRIBE mode</strong>: Includes verbose traces: <code>support</code> (per-rule firing trace with iteration numbers), <code>monitor</code> (human-readable step-by-step execution log), <code>driver</code> (dependency tree showing how each conclusion was derived), and optionally <code>snapshots</code> (if <code>--store-snapshots</code>) or <code>graph</code> (if <code>--graph</code>). The renderer applies the <code>--error-style</code> setting (fancy or plain) to error messages, and respects the <code>colour</code> option (on/off) for syntax highlighting and semantic colour (e.g., green for success, red for errors, yellow for warnings). If output exceeds terminal width, it wraps intelligently or truncates with ellipses in online mode; in batch mode, output is never truncated (to preserve data integrity for downstream tools).
+            </li>
           </ol>
+
+          <h3 class="text-xl font-semibold mt-6 mb-3">6.2 Error handling and debugging</h3>
+          <p class="mb-2">
+            When a command fails, the stage at which it fails tells you exactly where to look. Each stage produces distinct error messages that guide troubleshooting:
+          </p>
+          <ul class="mb-3">
+            <li class="mb-2">
+              <strong>Parse errors</strong>: Occur in Stage 1 when the command syntax is unrecognized or malformed. Examples: <code>LOADD model.sesl</code> (typo in command name), <code>RUN SCENARIO</code> (missing required argument), <code>ADD RULE extra-word</code> (unexpected extra token). Error messages typically say "Command not recognized" or "Invalid syntax for command X". Fix: Check spelling, verify argument count, and consult <code>HELP</code> for the correct syntax. Parsing errors are purely syntactic—they have nothing to do with model content, just the command structure.
+            </li>
+            <li class="mb-2">
+              <strong>Substitution errors</strong>: Occur in Stage 2 when a <code>%VARIABLE%</code> placeholder references an undefined option or environment variable. Example: <code>LOAD %model_dir%/model.sesl</code> when <code>model_dir</code> hasn't been set via <code>OPTIONS</code> or as an environment variable. Error message: "Undefined variable: %model_dir%". Fix: Set the variable with <code>OPTIONS model_dir=/path</code> or define it in your environment before running SESL. Check spelling of variable names (case-sensitive in most shells).
+            </li>
+            <li class="mb-2">
+              <strong>Licence errors</strong>: Occur in Stage 3 when the binary has expired and you're trying to run a blocked command (anything other than <code>RUN</code> or <code>EXIT</code> on Tuesday–Friday). Error message: "Licence expired. Command not available outside restricted window. Contact support for renewal." Fix: Contact support to renew your licence. In the meantime, if it's Tuesday–Friday, you can still run <code>RUN</code> to execute loaded models, but you cannot edit, lint, or load new models.
+            </li>
+            <li class="mb-2">
+              <strong>Validation errors</strong>: Occur in Stage 5 when the model content violates schema, type, or path constraints. Examples: adding a rule with invalid YAML (bad indentation, missing colon), writing to a non-existent path with <code>--strict-paths</code> enabled, providing a non-numeric priority, or referencing a scenario that doesn't exist. Error messages are highly specific: "YAML parse error at line 5: mapping values are not allowed here" or "Path not found: person.address.city. Enable --auto-create-paths or initialize parent structure first." Fix: Review the error message carefully—it usually points to the exact line or field. For YAML errors, check indentation (use spaces, not tabs) and syntax. For path errors, either initialize the parent structure explicitly (e.g., <code>ADD FACT Scenario person.address={}</code>) or enable <code>--auto-create-paths</code>. For type errors, ensure values match expected types (strings in quotes, numbers unquoted, booleans as <code>true</code>/<code>false</code>).
+            </li>
+            <li class="mb-2">
+              <strong>Engine errors</strong>: Occur in Stage 6 during rule execution. Examples: hitting max iterations (infinite loop or non-converging model), conflicting rule writes (two rules trying to set the same fact to different values in one iteration with <code>--conflict-policy error</code>), or missing facts required by conditions when <code>--let-missing</code> is off. Error messages: "Max iterations (1000) reached without convergence" or "Conflict detected: rule A and rule B both wrote to 'result.decision' with different values." Fix: For max iterations, inspect the <code>monitor</code> output with <code>RUN DESCRIBE</code> to see which rules are firing repeatedly. Look for circular dependencies or missing termination conditions. For conflicts, review the rules firing in the same iteration—ensure priorities are set correctly or redesign logic to avoid simultaneous conflicting writes. For missing facts, use <code>LINT</code> to check for undefined paths, and ensure all required facts are initialized in your scenarios.
+            </li>
+          </ul>
+          <p class="mb-3">
+            <strong>Debugging tips</strong>: Always start with <code>LINT</code> before running a model—it catches many errors (undefined paths, circular dependencies, unreachable rules) statically. Use <code>RUN DESCRIBE</code> to get full execution traces: the <code>monitor</code> shows exactly which rules fired in which order, what they read, what they wrote, and why. The <code>driver</code> tree shows dependency chains (which conclusions depend on which rules and inputs), essential for understanding complex logic. If output is overwhelming, use <code>RUN SCENARIO Name DESCRIBE</code> to focus on a single scenario. Enable <code>--trace</code> for even more detail (every condition check, every rule evaluation). If you suspect an infinite loop, reduce <code>--max-iter</code> to a small number (e.g., <code>--max-iter 10</code>) to fail fast, then inspect the monitor to see the repeating pattern.
+          </p>
+
+          <h3 class="text-xl font-semibold mt-6 mb-3">6.3 Command modes</h3>
+          <p class="mb-2">
+            The CLI supports three execution modes, each optimized for different use cases. Commands behave differently in each mode, particularly around user interaction, output format, and error handling:
+          </p>
+          <ul class="mb-3">
+            <li class="mb-2">
+              <strong>Online mode</strong> (default, or <code>--online</code>): This is the interactive mode you get when you run <code>sesl</code> with no arguments. It provides a <code>SESL&gt;</code> prompt, command history (use up/down arrows to recall previous commands), and multiline input support. When you type a command like <code>ADD RULE</code> without inline YAML, the CLI enters multiline mode: you can type or paste YAML across many lines, and terminate with <code>END</code> on its own line. Output is human-readable with colour-coded results (green for success, red for errors, yellow for warnings, blue for informational messages), section headings, indented JSON, and visual separators (lines, boxes). Destructive operations (overwriting files with <code>SAVE</code>, deleting rules/scenarios/facts) prompt for confirmation: "File exists. Overwrite? (y/n)". You can type <code>y</code> or <code>n</code> to proceed or cancel. Online mode is ideal for model development, exploration, debugging, and learning SESL—you get immediate feedback, readable output, and safety prompts.
+            </li>
+            <li class="mb-2">
+              <strong>Batch mode</strong> (<code>--batch "COMMANDS"</code>): This is the non-interactive mode for automation, scripts, and CI/CD pipelines. Commands are provided as a string (one or more semicolon-separated commands), executed sequentially, and the CLI exits after completion. There are no prompts: destructive operations default to "yes" (files are overwritten, deletions proceed without confirmation). Output is structured JSON, one JSON object per command, with fields: <code>status</code> (success/error/warning), <code>command</code> (the executed command), <code>message</code> (human-readable summary), and <code>data</code> (results, metrics, traces). No colour, no interactive input, no multiline mode (all YAML must be inline or on one line). Batch mode is ideal for headless execution: testing models in CI, running models as part of a larger workflow, extracting results for downstream tools (parse the JSON output), or embedding SESL in scripts. Example: <code>sesl --batch "LOAD model.sesl; RUN; SAVE results.json"</code> loads a model, runs it, and saves output, all without user interaction. Exit code is 0 on success, non-zero on failure, so you can chain commands with <code>&amp;&amp;</code> or check <code>$?</code> in shell scripts.
+            </li>
+            <li class="mb-2">
+              <strong>File-execution mode</strong> (<code>sesl model.sesl</code>): When you run <code>sesl</code> with a filename argument (and no <code>--online</code> or <code>--batch</code> flag), SESL enters file-execution mode. This is a shortcut equivalent to <code>sesl --batch "LOAD model.sesl; RUN"</code>: it loads the specified model, runs all scenarios, prints results (JSON format), and exits. It's optimized for quick one-off execution—no editing, no CLI session, just load-and-run. This mode is useful for testing a model quickly, running models from cron jobs or schedulers, or integrating SESL into workflows where you just need to execute a model and capture output. Example: <code>sesl loan-approval.sesl &gt; results.json</code> runs the model and redirects JSON output to a file for later analysis.
+            </li>
+          </ul>
+          <p class="mb-3">
+            <strong>Choosing the right mode</strong>: Use <strong>online mode</strong> during development—when you're writing rules, testing scenarios, debugging logic, or learning SESL. Use <strong>batch mode</strong> for automation—CI/CD tests, scheduled runs, scripted workflows, or when you need structured JSON output. Use <strong>file-execution mode</strong> for quick one-off runs—testing a model without starting a full CLI session, running models as part of a larger script, or when you only need execution results (no editing or introspection).
+          </p>
         </section>
 
         <section id="commands" class="mt-12 scroll-mt-24">
           <h2 class="text-3xl font-semibold mb-4">7. Command reference</h2>
+          <p>
+            The CLI organizes commands by what they touch: files, metadata, rules, scenarios, facts, execution, linting, and options. Each group below explains the intent, how to use it, and a short sample of what you will see on screen.
+          </p>
 
           <h3 class="text-2xl font-semibold mt-6 mb-2">7.1 File and model</h3>
-          <pre><code>LOAD model.sesl           # load and validate
-SAVE model.sesl           # save current model
-NEW                       # start empty model
-NEW template.seslt        # create from template with %OPTION% substitutions
-DIR                       # list SESL files
-CD path/to/dir            # change working directory
-</code></pre>
+          <p class="mb-2">Load, start, and save models; move around the filesystem.</p>
+          <pre><code>LOAD model.sesl            # load and validate a model file
+SAVE model.sesl            # write the current model to disk
+NEW                        # create a blank in-memory model
+NEW template.seslt         # create from a template, using %OPTION% substitutions
+DIR                        # list SESL files in the current directory
+CD path/to/dir             # change working directory used by the CLI
+ADD MODEL model_name       # add a named model to the workspace</code></pre>
+          <p class="mb-2">Example output (LOAD):</p>
+          <pre><code>Loaded model: loan-approval.sesl
+Scenarios found: Demo, Regression_HighIncome
+Rules loaded: 12 | Facts: 2 | Meta keys: 3</code></pre>
+          <p class="mb-2">Example output (SAVE with overwrite prompt):</p>
+          <pre><code>File loan-approval.sesl already exists. Overwrite? (y/n): y
+Model saved to loan-approval.sesl</code></pre>
 
           <h3 class="text-2xl font-semibold mt-6 mb-2">7.2 Metadata</h3>
-          <pre><code>ADD META key=value
-META DELETE key
-</code></pre>
+          <p class="mb-2">Add or remove top-level metadata entries that travel with the model. Common metadata fields include author, version, source, created date, and considerations.</p>
+          <pre><code>ADD META author="Credit Risk Team"
+ADD META version="2.1.0"
+ADD META source="Loan approval policy document v3"
+ADD META created="2025-12-08"
+META DELETE author</code></pre>
+          <p class="mb-2">Example output:</p>
+          <pre><code>Metadata updated: version = "2.1.0"
+Current meta keys: author, version, source, created</code></pre>
 
           <h3 class="text-2xl font-semibold mt-6 mb-2">7.3 Listing</h3>
-          <pre><code>LIST                      # summary
-LIST ALL                  # full YAML
-LIST RULE rule_name
-LIST SCENARIO scenario
-LIST FACT scenario
-LIST FACT ALL
-</code></pre>
+          <p class="mb-2">Inspect parts of the model without opening the file.</p>
+          <pre><code>LIST                       # summary view (rules, scenarios, meta)
+LIST ALL                   # full YAML of the loaded model
+LIST RULE rule_name        # show a single rule
+LIST SCENARIO Scenario     # show a scenario header
+LIST FACT Scenario         # show facts for a scenario
+LIST FACT ALL              # show facts for all scenarios</code></pre>
+          <p class="mb-2">Example output (LIST):</p>
+          <pre><code>Model: loan-approval
+Rules: 12  | Scenarios: 2  | Meta keys: 3
+Scenarios: Demo, Regression_HighIncome
+Use LIST ALL for full YAML.</code></pre>
+          <p class="mb-2">Example output (LIST RULE eligibility.check_age):</p>
+          <pre><code>rule: eligibility.check_age
+if: applicant.age >= 21
+then:
+  eligibility.age_ok: true
+reason: "Applicant meets minimum age requirement"</code></pre>
 
           <h3 class="text-2xl font-semibold mt-6 mb-2">7.4 Copy</h3>
+          <p class="mb-2">Duplicate parts of the model to speed up authoring.</p>
           <pre><code>COPY MODEL new_name
-COPY RULE old [new]
-COPY SCENARIO old [new]
-COPY FACT scenario [newScenario]
-</code></pre>
+COPY RULE old_rule [new_rule]
+COPY SCENARIO OldScenario [NewScenario]
+COPY FACT Scenario [NewScenario]</code></pre>
+          <p class="mb-2">Example output (COPY RULE):</p>
+          <pre><code>Copied rule "eligibility.age" -> "eligibility.age_copy"
+Total rules: 13</code></pre>
 
           <h3 class="text-2xl font-semibold mt-6 mb-2">7.5 Facts editing</h3>
-          <pre><code>ADD FACT Scenario1 key.path=value
-ADD FACT Scenario1            # prompts for multiline YAML until END
-DELETE FACT Scenario1 key.path
-</code></pre>
+          <p class="mb-2">Add or remove facts inside a scenario. Use dot-paths for targeted edits or multiline YAML for larger inserts.</p>
+          <pre><code>ADD FACT Scenario applicant.income=55000
+ADD FACT Scenario             # enter multiline YAML, finish with END
+DELETE FACT Scenario applicant.debts</code></pre>
+          <p class="mb-2">Example interactive add:</p>
+          <pre><code>ADD FACT Demo
+applicant:
+  income: 72000
+  debts: 12000
+END
+Facts merged into scenario "Demo".</code></pre>
+          <p class="mb-2">Example DELETE FACT (with confirmation when deleting top-level keys):</p>
+          <pre><code>DELETE FACT Demo applicant
+Deleting top-level key 'applicant' will remove all nested data. Continue? (y/n): y
+Deleted applicant from scenario Demo.</code></pre>
 
           <h3 class="text-2xl font-semibold mt-6 mb-2">7.6 Rule editing</h3>
-          <pre><code>ADD RULE                     # inline or multiline YAML
-DELETE RULE rule_name
-</code></pre>
+          <p class="mb-2">Create or remove rules directly from the shell. Multiline YAML is supported for full rule bodies.</p>
+          <pre><code>ADD RULE                      # prompts for rule YAML until END
+DELETE RULE rule_name</code></pre>
+          <p class="mb-2">Example add (inline):</p>
+          <pre><code>ADD RULE
+rule: "flag.high_income"
+if: "applicant.income >= 60000"
+then:
+  result.high_income: true
+reason: "Income meets high threshold"
+END
+Rule added: flag.high_income</code></pre>
+          <p class="mb-2">Example DELETE RULE output:</p>
+          <pre><code>DELETE RULE flag.high_income
+Rule deleted: flag.high_income
+Total rules: 11</code></pre>
 
           <h3 class="text-2xl font-semibold mt-6 mb-2">7.7 Scenario editing</h3>
-          <pre><code>ADD SCENARIO Name            # optionally with YAML body
-DELETE SCENARIO Name
-</code></pre>
+          <p class="mb-2">Create or delete scenarios. When creating, you can optionally provide facts immediately. Deleting a scenario removes all associated facts.</p>
+          <pre><code>ADD SCENARIO GoldCustomer     # optionally follow with YAML then END
+DELETE SCENARIO BronzeCustomer</code></pre>
+          <p class="mb-2">Example output (ADD SCENARIO):</p>
+          <pre><code>Scenario created: GoldCustomer
+Total scenarios: 3</code></pre>
+          <p class="mb-2">Example output (DELETE SCENARIO with confirmation):</p>
+          <pre><code>DELETE SCENARIO BronzeCustomer
+Deleting scenario 'BronzeCustomer' will remove all its facts. Continue? (y/n): y
+Scenario deleted: BronzeCustomer
+Total scenarios: 2</code></pre>
 
           <h3 class="text-2xl font-semibold mt-6 mb-2">7.8 Execution</h3>
-          <pre><code>RUN                          # run all scenarios
-RUN DESCRIBE                 # full trace/monitor
-RUN SCENARIO Name            # single scenario
-RUN SCENARIO Name DESCRIBE
-RUN DRIVER                   # driver tree summary
-RUN REASON                   # rule firing reasons
-</code></pre>
+          <p class="mb-2">Run the engine against all scenarios or a specific one. Add <code>DESCRIBE</code> to emit traces, monitor output, and driver trees for explainability.</p>
+          <pre><code>RUN                           # run all scenarios
+RUN DESCRIBE                  # all scenarios with traces/monitor
+RUN SCENARIO Name             # single scenario
+RUN SCENARIO Name DESCRIBE    # single scenario with explainability
+RUN DRIVER                    # driver tree summary
+RUN REASON                    # rule firing reasons</code></pre>
+          
+          <h4 class="text-lg font-semibold mt-4 mb-2">Basic RUN output</h4>
+          <p class="mb-2">A simple <code>RUN</code> command executes all scenarios and shows minimal output: the final result facts, iteration count, rules fired, and elapsed time.</p>
+          <pre><code>sesl> RUN
+Scenario: Demo
+Result: { "decision": "approve", "score": 0.82 }
+Iterations: 3 | Rules fired: 7 | Elapsed: 124 ms
+
+Scenario: Regression_HighIncome
+Result: { "decision": "approve", "score": 0.91 }
+Iterations: 2 | Rules fired: 6 | Elapsed: 98 ms</code></pre>
+          <p class="mb-2">Fields explained:</p>
+          <ul class="mb-3">
+            <li><strong>Result</strong>: The final fact tree after all rules have fired and the engine converged. This is what your model produced.</li>
+            <li><strong>Iterations</strong>: How many forward-chaining passes the engine made. Each pass evaluates all rules; rules that fire may write new facts, triggering another pass.</li>
+            <li><strong>Rules fired</strong>: Total count of rules that triggered (their conditions were true and they wrote facts). A rule can fire once per iteration if conditions remain true.</li>
+            <li><strong>Elapsed</strong>: Wall-clock time in milliseconds from start to convergence or max iterations.</li>
+          </ul>
+
+          <h4 class="text-lg font-semibold mt-4 mb-2">RUN DESCRIBE output (full explainability)</h4>
+          <p class="mb-2">Adding <code>DESCRIBE</code> includes detailed traces, metrics, driver trees, and monitor logs—essential for understanding <em>why</em> a decision was reached.</p>
+          <pre><code>sesl> RUN SCENARIO Demo DESCRIBE
+Scenario: Demo
+Result: {
+  "decision": "approve",
+  "score": 0.82,
+  "limits": { "max_amount": 25000 }
+}
+
+Metrics:
+  Iterations: 3
+  Rules evaluated: 42
+  Rules fired: 7
+  Elapsed: 124 ms
+  Convergence: true
+  TMS active: true
+
+Driver (dependency tree):
+  applicant.age: 25 (input fact)
+  applicant.income: 55000 (input fact)
+  applicant.debts: 10000 (input fact)
+  ├─ eligibility.age_ok: true
+  │    └─ rule: eligibility.check_age (fired iteration 1)
+  │    └─ reason: "Applicant age >= 21"
+  ├─ risk.score: 0.82
+  │    └─ rule: risk.calculate (fired iteration 2)
+  │    └─ reason: "Score = (income - debts) / income"
+  └─ result.decision: approve
+       └─ rule: decision.finalize (fired iteration 3)
+       └─ depends on: [eligibility.age_ok, risk.score]
+       └─ reason: "All eligibility checks passed and risk score >= 0.7"
+
+Monitor (execution trace):
+  [Iteration 1] Starting forward-chaining pass...
+    Evaluating 12 rules...
+    ✓ eligibility.check_age fired
+      - Read: applicant.age (25)
+      - Wrote: eligibility.age_ok = true
+      - Reason: Applicant age >= 21
+  
+  [Iteration 2] Starting forward-chaining pass...
+    Evaluating 12 rules...
+    ✓ risk.calculate fired
+      - Read: applicant.income (55000), applicant.debts (10000)
+      - Wrote: risk.score = 0.82
+      - Reason: Score = (income - debts) / income
+  
+  [Iteration 3] Starting forward-chaining pass...
+    Evaluating 12 rules...
+    ✓ decision.finalize fired
+      - Read: eligibility.age_ok (true), risk.score (0.82)
+      - Wrote: result.decision = approve, result.score = 0.82
+      - Reason: All eligibility checks passed and risk score >= 0.7
+  
+  [Iteration 4] Starting forward-chaining pass...
+    Evaluating 12 rules...
+    No rules fired. Convergence reached.
+
+Final state: 3 iterations, 7 rules fired, converged in 124 ms</code></pre>
+          
+          <p class="mb-2">DESCRIBE output sections explained:</p>
+          <ul class="mb-3">
+            <li><strong>Metrics</strong>: Includes convergence status (did the engine reach a stable state or hit max iterations?) and whether the Truth Maintenance System is active (tracking fact dependencies for retraction and justification).</li>
+            <li><strong>Driver</strong>: A dependency tree showing how each conclusion was derived. Input facts appear at the top; derived facts show which rule wrote them and what they depend on. This is the audit trail for regulatory or business review.</li>
+            <li><strong>Monitor</strong>: A chronological log of every iteration. For each pass, it shows which rules fired, what facts they read, what they wrote, and the reason text from the rule. Use this to debug unexpected behavior or trace a specific fact's origin.</li>
+          </ul>
+
+          <h4 class="text-lg font-semibold mt-4 mb-2">Understanding convergence</h4>
+          <p>
+            The engine runs iterations until one of two conditions is met:
+          </p>
+          <ol class="mb-3">
+            <li><strong>Convergence</strong>: No rules fired in the latest pass (no new facts were written). The model has reached a stable state.</li>
+            <li><strong>Max iterations</strong>: The iteration limit (default 1000, configurable via <code>--max-iter</code> or <code>OPTIONS max_iterations</code>) was hit. This may indicate an infinite loop or a model that never stabilizes.</li>
+          </ol>
+          <p>
+            If you see "Max iterations reached" instead of "Convergence", inspect the monitor log to identify which rules are firing repeatedly and why. Common causes: circular dependencies, rules that always evaluate to true, or missing termination conditions.
+          </p>
+        </section>
 
           <h3 class="text-2xl font-semibold mt-6 mb-2">7.9 Linting</h3>
-          <pre><code>LINT
-LINT ERRORS
-LINT WARNINGS
-</code></pre>
+          <p class="mb-2">Validate models before running to catch missing data, bad paths, or type issues. Use <code>LINT ALL</code> to validate all models in the workspace.</p>
+          <pre><code>LINT                       # all findings for current model
+LINT ERRORS                # only errors
+LINT WARNINGS              # only warnings
+LINT ALL                   # validate all models in workspace</code></pre>
+          <p class="mb-2">Example output (LINT ERRORS):</p>
+          <pre><code>LINT ERRORS
+[error] rule eligibility.check_age: facts path applicant.age missing in scenario Demo
+[error] rule decision.finalize: undefined reference to eligibility.credit_ok
+Summary: 2 errors, 0 warnings</code></pre>
+          <p class="mb-2">Example output (LINT ALL):</p>
+          <pre><code>LINT ALL
+Validating loan-approval.sesl...
+  [warn] meta: version not set
+  [warn] rule risk.calculate: potential division by zero
 
-          <h3 class="text-2xl font-semibold mt-6 mb-2">7.10 Options & colour</h3>
-          <pre><code>OPTIONS                      # list saved options
-OPTIONS key=value            # persist option
-OPTIONS DELETE key
-COLOUR ON | COLOUR OFF
-</code></pre>
+Validating insurance-policy.sesl...
+  [error] rule premium.base: missing required field 'priority'
+
+Summary: 1 error, 2 warnings across 2 models</code></pre>
+
+          <h3 class="text-2xl font-semibold mt-6 mb-2">7.10 Help</h3>
+          <p class="mb-2">Show available commands and quick syntax help.</p>
+          <pre><code>HELP                       # list all commands with brief descriptions
+HELP command_name          # detailed help for a specific command
+?                          # shortcut for HELP</code></pre>
+          <p class="mb-2">Example output (HELP):</p>
+          <pre><code>Available commands:
+  LOAD file         - Load a SESL model
+  SAVE file         - Save current model
+  RUN [DESCRIBE]    - Execute scenarios
+  LINT [ERRORS]     - Validate model
+  LIST [ALL]        - Show model contents
+  ADD ...           - Add rules, facts, scenarios, metadata
+  DELETE ...        - Remove model elements
+  OPTIONS [key=val] - Manage persistent settings
+  HELP [cmd]        - Show this help or command details
+  EXIT              - Quit the CLI</code></pre>
+
+          <h3 class="text-2xl font-semibold mt-6 mb-2">7.11 Options and colour</h3>
+          <p class="mb-2">Persist session options and toggle colouring. Options follow the same names as the environment and flags.</p>
+          <pre><code>OPTIONS                       # list saved options
+OPTIONS strict_paths=true     # persist an option
+OPTIONS DELETE strict_paths   # remove an option
+COLOUR ON | COLOUR OFF        # toggle coloured output</code></pre>
+          <p class="mb-2">Example output (OPTIONS):</p>
+          <pre><code>Saved options (from ~/.sesl/config.yaml):
+  strict_paths = true
+  error_style = fancy
+  max_iterations = 500
+  colour = on</code></pre>
+          <p class="mb-2">Example output (OPTIONS DELETE):</p>
+          <pre><code>OPTIONS DELETE strict_paths
+Option removed: strict_paths
+Remaining options: error_style, max_iterations, colour</code></pre>
         </section>
 
         <section id="dotpath" class="mt-12 scroll-mt-24">
           <h2 class="text-3xl font-semibold mb-4">8. Dot-path editing</h2>
-          <p>Use dot-paths to target nested structures; list indices expand automatically:</p>
+          <p>
+            Use dot-paths to target nested structures without rewriting whole objects. Lists use numeric indices; missing indices are created as needed when auto-create is enabled.</p>
           <pre><code>ADD FACT Scenario1 person.address.street="High Road"
-ADD FACT Scenario1 items.0.name="Apple"
-</code></pre>
+ADD FACT Scenario1 items.0.name="Apple"</code></pre>
         </section>
 
         <section id="yamlmerge" class="mt-12 scroll-mt-24">
-          <h2 class="text-3xl font-semibold mb-4">9. YAML merging</h2>
-          <p>Merge inline or multiline YAML into a scenario:</p>
+          <h2 class="text-3xl font-semibold mb-4">9. YAML merging and multiline editing</h2>
+          
+          <h3 class="text-xl font-semibold mt-6 mb-3">9.1 Inline YAML</h3>
+          <p>
+            For quick single-line edits, you can provide YAML directly on the command line. This works for simple key-value pairs or compact objects:</p>
           <pre><code>ADD FACT ScenarioA { income: 50000, debts: 12000 }
+ADD META author="John Smith"
+ADD FACT Demo applicant.age=25</code></pre>
 
-ADD FACT ScenarioA
-income: 50000
-expenses:
-  utilities: 200
-  food: 150
+          <h3 class="text-xl font-semibold mt-6 mb-3">9.2 Multiline YAML mode</h3>
+          <p>
+            When you need to add complex nested structures, rules with multiple conditions, or larger blocks of data, omit the inline YAML and the CLI will enter multiline mode. You type or paste YAML across multiple lines, then signal completion with <code>END</code> on its own line:
+          </p>
+          <pre><code>sesl> ADD FACT Demo
+applicant:
+  name: Alice Johnson
+  age: 28
+  income: 72000
+  address:
+    street: 123 Main St
+    city: Portland
+    state: OR
+  employment:
+    employer: TechCorp
+    years: 5
 END
-</code></pre>
+Facts merged into scenario "Demo".</code></pre>
+
+          <h3 class="text-xl font-semibold mt-6 mb-3">9.3 The importance of END</h3>
+          <p>
+            <strong>Critical</strong>: The <code>END</code> statement is <em>required</em> to exit multiline mode and commit your changes. Without it, the CLI will continue waiting for more input, treating every subsequent line as part of the YAML block. If you forget <code>END</code>, your prompt will look like this:
+          </p>
+          <pre><code>sesl> ADD RULE
+rule: eligibility.check_age
+if: applicant.age >= 21
+then:
+  eligibility.age_ok: true
+... (still waiting)
+... (still waiting)
+LIST    # This would be treated as YAML, not a command!
+... (still waiting)</code></pre>
+          <p>
+            To recover from this, simply type <code>END</code> on its own line. The CLI will then process all the accumulated lines as YAML. If the YAML is invalid, you'll get an error and can retry.
+          </p>
+
+          <h3 class="text-xl font-semibold mt-6 mb-3">9.4 YAML merging behavior</h3>
+          <p>
+            When you add facts or rules, the CLI <em>merges</em> the new YAML into the existing structure:
+          </p>
+          <ul class="mb-3">
+            <li><strong>New keys</strong> are added to the existing dictionary.</li>
+            <li><strong>Existing keys</strong> are overwritten with the new values.</li>
+            <li><strong>Nested objects</strong> are merged recursively (deep merge), not replaced wholesale.</li>
+            <li><strong>Lists</strong> are replaced entirely (no append; if you need to add to a list, read the current value, modify it, and write back).</li>
+          </ul>
+          <p class="mb-2">Example merge:</p>
+          <pre><code># Existing facts in Demo:
+applicant:
+  income: 50000
+  debts: 10000
+
+# You run:
+ADD FACT Demo
+applicant:
+  age: 25
+END
+
+# Result (merged):
+applicant:
+  income: 50000    # preserved
+  debts: 10000     # preserved
+  age: 25          # added</code></pre>
         </section>
 
         <section id="output" class="mt-12 scroll-mt-24">
           <h2 class="text-3xl font-semibold mb-4">10. Output structure</h2>
-          <p class=\"mb-4\">From the SESL CLI guide (guides/CLI_User_Guide.html, section “Output structure”), a batch run emits:</p>
-          <ol>
-            <li>Result facts (commonly under result)</li>
-            <li>Metrics: iterations, rules evaluated/fired, elapsed ms</li>
-            <li>Support data _sesl.support for explainability</li>
-            <li>Monitor/trace blocks showing step-by-step reasoning</li>
-            <li>Driver trees and “reasons” summaries</li>
-            </code></pre>
-            <p>
-              If you run something like sesl --batch "LOAD model.sesl; RUN DESCRIBE" and capture stdout/stderr you would recieve output similar to below.
-              It’s representative JSON-style text you’ll see on stdout (or an emitted file if you redirect):</p>
-            <pre><code>
-{
+          <p>
+            A batch run such as <code>./sesl --batch "LOAD model.sesl; RUN DESCRIBE"</code> prints structured output you can redirect to a file or parse programmatically. A representative snippet looks like this:</p>
+          <pre><code>{
   "result": {
     "decision": "approve",
     "score": 0.82,
@@ -369,30 +823,133 @@ END
       { "node": "decision", "status": "approve", "score": 0.82 }
     ]
   }
-}
-</code></pre>
-            <p>Typical keys to expect: </p>
-            <ol>
-              <li><strong>result</strong>: your model’s output facts (often nested).</li>
-              <li><strong>metrics</strong>: iterations, rules evaluated/fired, elapsed ms.</li>
-              <li><strong>_sesl.support</strong>: per-rule trace (fired?, facts read/written, reason).</li>
-              <li><strong>_sesl.monitor</strong>: ordered trace lines for step-by-step reasoning.</li>
-              <li><strong>_sesl.driver</strong>: driver/decision tree summary.</li>
-            </ol>
+}</code></pre>
+          <p class="mb-2">Key sections to expect:</p>
+          <ol>
+            <li><strong>result</strong>: your model’s output facts (often nested under <code>result</code>).</li>
+            <li><strong>metrics</strong>: iterations, rules evaluated/fired, and elapsed milliseconds.</li>
+            <li><strong>_sesl.support</strong>: per-rule trace showing what fired, what was read/written, and the reason.</li>
+            <li><strong>_sesl.monitor</strong>: ordered trace lines for step-by-step reasoning.</li>
+            <li><strong>_sesl.driver</strong>: a driver or decision-tree style summary.</li>
+          </ol>
         </section>
 
-        <section id="seslfrompython" class="mt-12 scroll-mt-24">
-          <h2 class="text-3xl font-semibold mb-4">12. Calling SESL from Python</h2>
+        <section id="cheatsheet" class="mt-12 scroll-mt-24">
+          <h2 class="text-3xl font-semibold mb-4">11. CLI cheat sheet</h2>
+          <p class="mb-3">Fast recall for the most common actions and all available commands:</p>
+          
+          <h3 class="text-xl font-semibold mt-4 mb-2">Startup & modes</h3>
+          <pre><code># Start interactive mode
+./sesl --online
+sesl.exe --online     # Windows
+
+# Run a file directly
+./sesl model.sesl
+
+# Batch mode (non-interactive)
+./sesl --batch "LOAD model.sesl; RUN DESCRIBE"
+
+# With flags
+./sesl --strict-paths --max-iter 500 model.sesl
+sesl.exe --batch "LOAD model.sesl; RUN" --trace --graph</code></pre>
+
+          <h3 class="text-xl font-semibold mt-4 mb-2">File operations</h3>
+          <pre><code>LOAD model.sesl           # Load model
+SAVE model.sesl           # Save current model
+NEW                       # Create blank model
+NEW template.seslt        # Create from template
+DIR                       # List .sesl files
+CD path/to/dir            # Change directory
+ADD MODEL model_name      # Add named model to workspace
+EDIT RULE rule_name       # Edit existing rule (multiline)
+EDIT FACT Scenario        # Edit scenario facts (multiline)</code></pre>
+
+          <h3 class="text-xl font-semibold mt-4 mb-2">Metadata</h3>
+          <pre><code>ADD META key=value
+META DELETE key
+LIST                      # Show summary including meta</code></pre>
+
+          <h3 class="text-xl font-semibold mt-4 mb-2">Listing & inspection</h3>
+          <pre><code>LIST                      # Model summary
+LIST ALL                  # Full YAML
+LIST RULE rule_name
+LIST SCENARIO Scenario
+LIST FACT Scenario
+LIST FACT ALL             # All facts from all scenarios</code></pre>
+
+          <h3 class="text-xl font-semibold mt-4 mb-2">Copying</h3>
+          <pre><code>COPY MODEL new_name
+COPY RULE old [new]
+COPY SCENARIO old [new]
+COPY FACT scenario [newScenario]</code></pre>
+
+          <h3 class="text-xl font-semibold mt-4 mb-2">Adding elements</h3>
+          <pre><code>ADD RULE                  # Multiline YAML, finish with END
+ADD SCENARIO Name         # Optionally provide facts
+ADD FACT Scenario key=val # Dot-path or multiline YAML
+ADD META key=value
+ADD MODEL model_name      # Add named model to workspace</code></pre>
+
+          <h3 class="text-xl font-semibold mt-4 mb-2">Deleting elements</h3>
+          <pre><code>DELETE RULE rule_name
+DELETE SCENARIO Name      # Removes all facts too
+DELETE FACT Scenario key  # Dot-path or top-level key
+META DELETE key</code></pre>
+
+          <h3 class="text-xl font-semibold mt-4 mb-2">Execution</h3>
+          <pre><code>RUN                       # All scenarios
+RUN DESCRIBE              # All scenarios with trace/monitor/driver
+RUN SCENARIO Name         # Single scenario
+RUN SCENARIO Name DESCRIBE
+RUN DRIVER                # Driver tree only
+RUN REASON                # Rule firing reasons</code></pre>
+
+          <h3 class="text-xl font-semibold mt-4 mb-2">Linting</h3>
+          <pre><code>LINT                      # All findings
+LINT ERRORS               # Errors only
+LINT WARNINGS             # Warnings only
+LINT ALL                  # Validate all models in workspace</code></pre>
+
+          <h3 class="text-xl font-semibold mt-4 mb-2">Options & configuration</h3>
+          <pre><code>OPTIONS                   # List saved options
+OPTIONS key=value         # Persist option
+OPTIONS DELETE key        # Remove option
+COLOUR ON                 # Enable coloured output
+COLOUR OFF                # Disable colours</code></pre>
+
+          <h3 class="text-xl font-semibold mt-4 mb-2">Help & exit</h3>
+          <pre><code>HELP                      # List commands
+HELP command_name         # Command-specific help
+?                         # Shortcut for HELP
+EXIT                      # Quit CLI</code></pre>
+
+          <h3 class="text-xl font-semibold mt-4 mb-2">Common workflows</h3>
+          <pre><code># Quick validation
+LINT ERRORS
+
+# Trace a single scenario
+RUN SCENARIO Demo DESCRIBE
+
+# Persist configuration
+OPTIONS strict_paths=true
+OPTIONS max_iterations=500
+
+# Batch run with full output
+./sesl --batch "LOAD model.sesl; RUN DESCRIBE" > output.json
+
+# Deep debugging
+./sesl --store-snapshots --trace --graph model.sesl > debug.json</code></pre>
+        </section>
+
+        <section id="callfrompython" class="mt-12 scroll-mt-24">
+          <h2 class="text-3xl font-semibold mb-4">12. Call SESL from Python</h2>
           <p>
-            You can launch the SESL dist exe with --batch from Python using subprocess. On Windows, pass the args as a list to
-            avoid quoting issues.Example (synchronous, capture output):
-          </p>
-          <pre><code>
-import subprocess
+            You can launch the SESL executable in batch mode from Python with <code>subprocess</code>. Pass arguments as a list to avoid quoting issues. Update the paths to match your environment.</p>
+          <pre><code>import subprocess
 from pathlib import Path
 
-SESL_EXE = Path(r"C:\path\to\dist\sesl.exe")  # update to your dist exe
-MODEL = Path(r"C:\path\to\model.sezl")       # update to your model file
+SESL_EXE = Path(r"C:\\path\\to\\sesl.exe")   # or ./sesl on macOS/Linux
+MODEL = Path(r"C:\\path\\to\\model.sesl")
 
 cmd = [str(SESL_EXE), "--batch", str(MODEL)]
 
@@ -400,41 +957,35 @@ result = subprocess.run(
     cmd,
     capture_output=True,
     text=True,
-    check=False  # set True to raise on non-zero exit
+    check=False  # set to True to raise on non-zero exit
 )
 
 print("returncode:", result.returncode)
-print("stdout:", result.stdout)
-print("stderr:", result.stderr)          
+print("stdout:\n", result.stdout)
+print("stderr:\n", result.stderr)
           </code></pre>
-          <p>If --batch expects additional flags (e.g., output file, format), add them in the list, e.g.:</p>
-          <pre><code>
-cmd = [str(SESL_EXE), "--batch", str(MODEL), "--out", "results.json"]
-</pre></code>
-          <p>Async variant (if you need it):</p>
-          <pre><code>
-import asyncio
-from pathlib import Path
+          <p>If you need to capture output to a file or add more flags, extend the list:</p>
+          <pre><code>cmd = [str(SESL_EXE), "--batch", str(MODEL), "--out", "results.json"]</code></pre>
+          <p>Async variant:</p>
+          <pre><code>import asyncio
 
 async def run_sesl():
-    cmd = [r"C:\path\to\dist\sesl.exe", "--batch", r"C:\path\to\model.sezl"]
+    cmd = ["./sesl", "--batch", "./model.sesl"]
     proc = await asyncio.create_subprocess_exec(
         *cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
     )
     stdout, stderr = await proc.communicate()
     print("returncode:", proc.returncode)
-    print("stdout:", stdout.decode())
-    print("stderr:", stderr.decode())
+    print("stdout:\n", stdout.decode())
+    print("stderr:\n", stderr.decode())
 
-asyncio.run(run_sesl())
-</pre></code>
-          <p>Quick tips:</p>
-          <ol>
+asyncio.run(run_sesl())</code></pre>
+          <p>Tips:</p>
+          <ul>
             <li>Use absolute paths to avoid working-directory surprises.</li>
-            <li>If the exe isn’t on PATH, reference it directly (as above).</li>
-            <li>Check returncode to know if the run succeeded; inspect stderr for errors.</li>
-            <li>If SESL outputs files, set cwd in subprocess.run(..., cwd="...") to control where they land.</li>
-          </ol>
+            <li>Check <code>returncode</code> and <code>stderr</code> for failures.</li>
+            <li>Set <code>cwd</code> in <code>subprocess.run</code> if you want outputs in a specific directory.</li>
+          </ul>
         </section>
 
 
@@ -501,9 +1052,9 @@ asyncio.run(run_sesl())
     btn.addEventListener("click", () => {
       const isDark = document.documentElement.classList.toggle("dark");
       localStorage.setItem("theme", isDark ? "dark" : "light");
-      btn.textContent = isDark ? "�~?��?" : "�YOT";
+      btn.textContent = isDark ? "🌙" : "☀️";
     });
-    btn.textContent = document.documentElement.classList.contains("dark") ? "�~?��?" : "�YOT";
+    btn.textContent = document.documentElement.classList.contains("dark") ? "🌙" : "☀️";
 
     // Mobile menu
     const mobileBtn = document.getElementById("mobileMenuBtn");

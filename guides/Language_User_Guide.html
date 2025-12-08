@@ -29,6 +29,28 @@
       }
     };
   </script>
+
+  <style>
+    pre {
+      background-color: #e5e7eb !important;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      overflow-x: auto;
+      border: 1px solid #d1d5db;
+      margin-top: 8px !important;
+      margin-bottom: 8px !important;
+    }
+    
+    .dark pre {
+      background-color: #374151 !important;
+      border-color: #4b5563;
+    }
+    
+    pre code {
+      background-color: transparent !important;
+      color: inherit;
+    }
+  </style>
 </head>
 
 <body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased">
@@ -419,116 +441,152 @@
         <h2 class="text-3xl font-semibold mb-4">3. Installation instructions</h2>
 
         <p>
-          This section walks you through getting SESL installed and verified on your system. The process is straightforward and only 
-          takes a few minutes.
+          Getting SESL installed on your system is straightforward and quick. SESL is distributed as a single downloadable zip file that contains 
+          the SESL executable and example files. You can be up and running in just a few minutes. This section walks you through the installation 
+          process, testing your installation, and managing upgrades and removals.
         </p>
 
         <h3 class="text-2xl font-semibold mt-6 mb-3">3.1 Prerequisites</h3>
         <p>
-          Before you install SESL, make sure you have these prerequisites in place.
+          Before you download and install SESL, make sure you have the basic prerequisites in place. The good news is that SESL has minimal 
+          requirements.
         </p>
 
         <p class="mb-2">
-          You need a recent Python interpreter. SESL requires Python 3.10 or later. If you are not sure what version you have, you can check 
-          by running <code>python --version</code> in your terminal.
+          You need a computer running Windows, macOS, or Linux with enough disk space to store the SESL executable and your model files. Most 
+          machines have plenty of space; a few hundred megabytes is sufficient.
         </p>
 
         <p class="mb-2">
-          You need permission to install Python packages on your machine. This typically means having administrative access on your development 
-          machine or having your system administrator pre-authorize package installation through your organization's package repository.
-        </p>
-
-        <p>
-          For local development and learning, you just need a text editor to write model files. Any editor works: Visual Studio Code, 
-          Sublime Text, Notepad, or whatever you prefer. For production use, you may want a version control system like Git to manage your 
-          model files, and you may want to set up automated testing as part of your deployment pipeline.
-        </p>
-
-        <h3 class="text-2xl font-semibold mt-6 mb-3">3.2 Installing SESL as a Python package</h3>
-        <p>
-          The easiest way to install SESL is to use the Python package manager. This approach handles all dependencies automatically and 
-          integrates well with Python virtual environments.
-        </p>
-
-        <p>
-          If SESL is available as a Python package from your distribution, you can install it using this command:
-        </p>
-        <pre><code>pip install sesl-engine</code></pre>
-
-        <p>
-          Replace <code>sesl-engine</code> with the actual package name used by your specific distribution or organization. If you are 
-          unsure of the package name, check with your system administrator or the SESL documentation for your organization.
-        </p>
-
-        <h3 class="text-2xl font-semibold mt-6 mb-3">3.3 Installing SESL from source code</h3>
-        <p>
-          If you want to install SESL from the source code repository, follow these steps. This approach is useful if you want to run 
-          the latest development version or if you plan to contribute to SESL itself.
+          You need internet access to download the zip file from https://www.sesl.ai. You also need to be able to unzip files on your computer. 
+          Most operating systems have built-in tools for this (right-click on a zip file and select "Extract" on Windows, or double-click on 
+          macOS, or use the unzip command on Linux).
         </p>
 
         <p class="mb-2">
-          First, clone or download the SESL source repository. For example, if the repository is hosted on GitHub, you would run:
-        </p>
-
-        <pre><code>git clone https://github.com/your-org/sesl.git
-cd sesl</code></pre>
-
-        <p class="mb-2">
-          Second, make sure the Python interpreter is available on your system path. You should be able to run <code>python --version</code> 
-          and see the version printed.
+          For local development and learning, you need a text editor to write model files. Any editor works—Visual Studio Code, Sublime Text, 
+          Notepad, vim, or whatever you prefer. No special IDE is required.
         </p>
 
         <p>
-          Third, install the dependencies that SESL requires. These are typically a YAML parser and a few utility libraries. Install them 
-          by running:
+          For production use, you may want a version control system like Git to manage your model files, and you may want to set up automated 
+          testing or deployment pipelines to manage model updates safely.
         </p>
 
-        <pre><code>pip install -r requirements.txt</code></pre>
-
-        <h3 class="text-2xl font-semibold mt-6 mb-3">3.4 Verifying the installation</h3>
+        <h3 class="text-2xl font-semibold mt-6 mb-3">3.2 Downloading SESL</h3>
         <p>
-          After installation, you should verify that the SESL engine is properly installed and can be imported from Python. This is a simple 
-          sanity check that everything is working correctly before you proceed.
-        </p>
-
-        <p>
-          Open a terminal and run this command:
-        </p>
-
-        <pre><code>python -c "import sesl; print('SESL is available')"</code></pre>
-
-        <p>
-          If the installation was successful, you should see the message "SESL is available" printed to your terminal. If instead you see 
-          an error message like "ModuleNotFoundError: No module named 'sesl'", this indicates that the installation did not complete 
-          successfully. If you see this error, go back and check that you completed all the installation steps, and check that you are 
-          running the same Python interpreter where you installed the package.
-        </p>
-
-        <h3 class="text-2xl font-semibold mt-6 mb-3">3.5 Upgrading and uninstalling SESL</h3>
-        <p>
-          If you installed SESL as a package and you want to upgrade to a newer version, you can do so easily using the package manager.
+          SESL is distributed as a single zip file available from https://www.sesl.ai. Downloading and installing SESL is as simple as 
+          downloading a file.
         </p>
 
         <p class="mb-2">
-          To upgrade to the latest version of SESL:
+          Follow these steps:
         </p>
 
-        <pre><code>pip install --upgrade sesl-engine</code></pre>
+        <ol class="mb-3">
+          <li>Visit https://www.sesl.ai in your web browser.</li>
+          <li>Look for the download link for SESL. This will typically say something like "Download SESL" or "Get SESL."</li>
+          <li>Click the download link. Your browser will download a zip file to your Downloads folder (or your default download location).</li>
+          <li>Navigate to the location where the zip file was downloaded.</li>
+          <li>Unzip the file. On Windows, right-click and select "Extract All." On macOS, double-click the file. On Linux, use the command <code>unzip sesl-*.zip</code>.</li>
+          <li>A directory will be created containing the SESL executable and example files. Remember this location—you will need it to run SESL.</li>
+        </ol>
+
+        <p>
+          That's it! You have successfully installed SESL. Unlike software that requires a complex installer, SESL simply lives in the directory 
+          you extracted it to. There is no registration, no system-wide installation, and no hidden configuration files to worry about.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">3.3 Testing your installation</h3>
+        <p>
+          After installation, you should verify that SESL is working correctly. SESL provides two simple ways to test your installation.
+        </p>
 
         <p class="mb-2">
-          The package manager will check for newer versions and download and install them if available. This is useful when new features 
-          or bug fixes are released.
+          The easiest way is to start SESL in online session mode. Navigate to the directory where you extracted SESL and run the SESL executable. 
+          On most systems, you can simply run:
+        </p>
+
+        <pre><code>./sesl</code></pre>
+
+        <p class="mb-2">
+          (On Windows, use <code>sesl.exe</code> instead.) This will start SESL in interactive mode, where you can explore the interface and verify 
+          that everything is working. When you run SESL this way, you will also see information about the time remaining on your binary. SESL 
+          binaries are time-limited (typically valid for a certain number of days), and you can see how many days are available by checking the 
+          information displayed when SESL starts in online mode.
+        </p>
+
+        <p class="mb-2">
+          Alternatively, you can test SESL in batch mode using a command-line option. This approach is useful for automated testing or for running 
+          SESL in a script. Run a command like:
+        </p>
+
+        <pre><code>./sesl --batch my_model.sesl.yaml</code></pre>
+
+        <p>
+          This will load your model file and run it in batch mode, printing results to the console. If both of these methods work without errors, 
+          your SESL installation is ready to use.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">3.4 Upgrading SESL</h3>
+        <p>
+          When a new version of SESL is released with bug fixes or new features, upgrading is simple. Since SESL is a standalone zip file with 
+          no complex installation, you simply download the new version and replace the old directory.
+        </p>
+
+        <p class="mb-2">
+          To upgrade to a new version:
+        </p>
+
+        <ol class="mb-3">
+          <li>Back up your model files and any important data (just to be safe).</li>
+          <li>Download the new SESL zip file from https://www.sesl.ai, following the same process as the initial installation.</li>
+          <li>Extract the new zip file to a new directory (or replace the old directory if you are sure you have backed up your data).</li>
+          <li>Update any scripts or configuration that might reference the old SESL directory location.</li>
+          <li>Test the new version using the same testing steps described in section 3.3.</li>
+        </ol>
+
+        <p>
+          Your model files will work with the new version—SESL maintains backward compatibility across updates, so you do not need to modify 
+          your models when upgrading.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">3.5 Uninstalling SESL</h3>
+        <p>
+          If you need to remove SESL from your system for any reason, the process is simple since SESL is self-contained in a single directory.
+        </p>
+
+        <p class="mb-2">
+          To uninstall SESL:
+        </p>
+
+        <ol class="mb-3">
+          <li>Make sure you have copied any model files or important data from the SESL directory to another location (if you want to keep them).</li>
+          <li>Simply delete the SESL directory. On Windows, right-click and select "Delete." On macOS or Linux, use the command <code>rm -rf sesl-directory-name</code>.</li>
+          <li>That's it! SESL is completely removed from your system. There are no lingering files, registry entries, or configuration to clean up.</li>
+        </ol>
+
+        <p>
+          Unlike complex software installations, SESL leaves no traces on your system when you remove it. This makes it easy to try SESL risk-free 
+          or to maintain multiple versions for testing purposes.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">3.6 Understanding SESL binary time limits</h3>
+        <p>
+          Each SESL binary is time-limited, meaning it has an expiration date after which it will no longer work. This is a normal part of SESL's 
+          licensing model. When you download a version of SESL, it is valid for a certain number of days from the release date (typically 30, 60, 
+          or 90 days depending on your license).
+        </p>
+
+        <p class="mb-2">
+          You can see how many days your SESL binary has remaining by starting SESL in online mode and checking the information displayed. It will 
+          tell you something like "This SESL binary expires in 45 days" or "This SESL binary is valid for 30 days from the release date."
         </p>
 
         <p>
-          If you need to remove SESL from your system for any reason, you can uninstall it:
-        </p>
-
-        <pre><code>pip uninstall sesl-engine</code></pre>
-
-        <p>
-          The package manager will remove SESL and all its files from your Python installation. Any model files you created will remain 
-          untouched, but you will no longer be able to import or run the SESL engine.
+          When your SESL binary expires, you simply download a new version from https://www.sesl.ai to get a fresh binary with more days available. 
+          This update model keeps your SESL installation current and ensures you are always using a supported version. Upgrading is simple and 
+          painless—just download, extract, and go.
         </p>
       </section>
 
@@ -590,7 +648,69 @@ facts:
           <li>The second rule decides to approve the loan for very high income.</li>
         </ul>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">4.2 Running the model through Python</h3>
+        <h3 class="text-2xl font-semibold mt-6 mb-3">4.2 Running the model using SESL online</h3>
+        <p>
+          SESL provides an interactive online mode that lets you load and test models right from your terminal or command prompt. 
+          This is the quickest way to explore a model and see what the rules produce. You interact with SESL through a command-line 
+          interface that guides you through loading your model and running the scenarios you have defined.
+        </p>
+
+        <p class="mb-2">
+          To start SESL in interactive mode, navigate to the directory where you extracted SESL and where your model file is located. 
+          Then simply run the SESL executable with no arguments:
+        </p>
+
+        <pre><code>./sesl</code></pre>
+
+        <p>
+          (On Windows, use <code>sesl.exe</code> instead of <code>./sesl</code>.)
+        </p>
+
+        <p class="mb-2">
+          When you run this command, SESL will start and display information about itself, including how many days the binary is valid for. 
+          The interactive interface will then ask you to load a model. You will be prompted to provide the path to your model file. 
+          Type the name of your model file:
+        </p>
+
+        <pre><code>Load model:  loan-example.sesl.yaml</code></pre>
+
+        <p class="mb-2">
+          SESL will parse your model and show you the available scenarios defined in the facts section. It will then ask you which scenario 
+          you want to run. Select a scenario by its number or name, and SESL will execute the rules against the scenario's facts, displaying 
+          the results and explanations on screen.
+        </p>
+
+        <p>
+          This interactive mode is excellent for development, debugging, and understanding how your rules work. You can quickly load different 
+          models and test scenarios without writing any code. When you are ready to move to testing or production, you can use the batch mode 
+          or Python API described below.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">4.3 Running the model using --batch mode</h3>
+        <p>
+          When you need to run SESL non-interactively—for example, as part of an automated workflow, a build pipeline, or a scheduled task—you 
+          can use batch mode. Batch mode loads your model, runs all the defined scenarios, and outputs the results to the console without 
+          requiring any interactive input.
+        </p>
+
+        <p class="mb-2">
+          To run your model in batch mode, use the <code>--batch</code> flag and provide the path to your model file:
+        </p>
+
+        <pre><code>./sesl --batch loan-example.sesl.yaml</code></pre>
+
+        <p class="mb-2">
+          SESL will load the model, execute all the scenarios defined in the facts section, and print the results to the console. 
+          Each scenario will be processed in order, and you will see the output for each one. This mode is perfect for integration into 
+          scripts, continuous integration systems, or any situation where you need automated, unattended execution.
+        </p>
+
+        <p>
+          Batch mode is particularly useful when you are testing a collection of models or scenarios, or when you want to capture the output 
+          for logging or analysis. The results are printed in a structured format that you can parse programmatically if needed.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">4.4 Running the model through Python</h3>
         <p>
           Now that you have a model file, let's write a simple Python script to load it, run the engine, and see the results. 
           The SESL engine exposes two main functions that you will use frequently.
@@ -637,7 +757,7 @@ print("Scenario:", scenario_name)
 print("Result:", facts.get("result"))
 </code></pre>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">4.3 Understanding the output</h3>
+        <h3 class="text-2xl font-semibold mt-6 mb-3">4.5 Understanding the output</h3>
         <p>
           When you run the script above, the engine produces several important pieces of information. Understanding what each 
           piece means will help you trust the results and debug any issues that arise.
@@ -700,8 +820,8 @@ Result: {
 
         <p class="mb-2">
           The <strong>meta</strong> section is optional but highly recommended. This is where you store metadata about your model such 
-          as the author name, creation date, last modification date, and any important usage notes or caveats. Metadata helps teams understand 
-          the context and history of a model, making it easier to maintain and update over time.
+          as the author name, version number, creation date, last modification date, source document reference, and any important usage notes or caveats. Metadata helps teams understand 
+          the context and history of a model, making it easier to maintain and update over time. Common metadata fields include: <code>author</code> (who created or owns the model), <code>version</code> (semantic version number for tracking changes), <code>created</code> (creation date), <code>modified</code> (last update date), <code>source</code> (reference to originating document or policy), and <code>considerations</code> (important notes or warnings about usage).
         </p>
 
         <p class="mb-2">
@@ -729,8 +849,10 @@ model: "Customer loyalty scoring"
 # Optional descriptive metadata
 meta:
   author: "Loyalty team"
+  version: "1.2.0"
   created: "2025-02-10"
-  source: "Marketing rules"
+  modified: "2025-12-08"
+  source: "Marketing rules document v3"
   considerations: "Not for credit risk decisions"
 
 # Constants shared by all rules

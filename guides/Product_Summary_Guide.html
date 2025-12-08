@@ -132,12 +132,11 @@
     <!-- INTRO -->
     <section>
       <h1 id="intro" class="text-4xl font-bold mb-4">SESL Product Overview</h1>
-      <p class="text-slate-700 dark:text-slate-300 mb-10">
-        This guide walks through SESL’s product capabilities: how to use the CLI and online modes, how the language is structured, linting and graphing tools, and examples for running SESL in real scenarios.
+      <p class="text-slate-700 dark:text-slate-300 mb-6">
+        This guide provides a comprehensive overview of SESL's product capabilities. You'll learn how to use the CLI in both online and batch modes, understand the structure and syntax of the SESL language, leverage linting tools to catch errors before runtime, and visualize rule dependencies through graph generation. Whether you're building compliance systems, automating decision logic, or integrating SESL with AI platforms, this guide covers the essential concepts and workflows.
       </p>
       <p class="text-lg text-slate-700 dark:text-slate-300 mb-10">
-        SESL is a deterministic, rule-based expert system language that turns structured content
-        into reliable, traceable decision logic.
+        SESL (Simple Expert System Language) is a deterministic, rule-based expert system designed to turn documents, policies, and business logic into executable, auditable decision models. Unlike probabilistic AI systems that may produce different outputs from the same inputs, SESL guarantees consistent, repeatable results with full explainability—showing exactly which rules fired, why they fired, and how conclusions were reached.
       </p>
 
       <div class="p-8 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800 space-y-8">
@@ -145,23 +144,21 @@
         <div>
           <h2 class="text-2xl font-semibold mb-3">– Deterministic</h2>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
-            SESL uses a forward-chaining rules engine that produces the same result every time —
-            no randomness, no hallucinations, no inconsistencies. SESL integrates with most AI
-            platforms to convert documents or text into SESL rules.
+            SESL uses a forward-chaining inference engine that evaluates rules in priority order, applying them to a fact base until no more rules can fire (convergence). The same inputs always produce the same outputs—no randomness, no hallucinations, no probabilistic variation. This determinism is critical for compliance-sensitive domains (finance, healthcare, legal) where decisions must be repeatable, auditable, and defensible. SESL integrates seamlessly with AI platforms like ChatGPT and Claude via the Model Context Protocol (MCP), allowing LLMs to draft rules from documents or natural language descriptions while SESL enforces strict execution and traceability.
           </p>
         </div>
 
         <div>
           <h2 class="text-2xl font-semibold mb-3">– Explainable</h2>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
-            SESL provides rule-level trace output showing exactly how a result was reached.
+            SESL provides comprehensive explainability through multiple trace mechanisms: the <strong>support</strong> trace shows which rules fired in which iteration and what they wrote; the <strong>monitor</strong> trace provides a human-readable, step-by-step execution log with rule reasons; the <strong>driver</strong> tree visualizes the dependency chain showing how each conclusion was derived from input facts and intermediate rules. This multi-layered transparency is essential for regulatory compliance, business review, and debugging complex logic. You can run models with <code>RUN DESCRIBE</code> to get full traces, or use <code>RUN DRIVER</code> or <code>RUN REASON</code> for focused explanations.
           </p>
         </div>
 
         <div>
           <h2 class="text-2xl font-semibold mb-3">– Readable and Extensible</h2>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
-            SESL uses a human-friendly syntax and scales to thousands of rules.
+            SESL models are written in structured YAML, a widely understood, human-readable format that doesn't require specialized training to read or modify. Rules are expressed in natural constructs: <code>if</code> conditions (boolean logic), <code>then</code> actions (fact assignments), <code>let</code> formulas (computed values), priorities (execution order), and <code>because</code> explanations (human-readable reasons). This syntax scales from simple decision trees to enterprise-grade systems with thousands of rules, multiple scenarios, and complex interdependencies. SESL supports modular design through constants, reusable rule templates, and scenario-based testing, making it easy to extend and maintain large rule sets over time.
           </p>
         </div>
 
@@ -177,10 +174,7 @@
         <div class="p-8 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800">
           <h3 class="text-2xl font-semibold mb-3">Using SESL with an LLM</h3>
           <p class="mb-3 text-slate-700 dark:text-slate-300">
-            Connect SESL to ChatGPT or Claude via MCP SESL tool.
-            When you call SESL as part of a prompt SESL will respond with using the correct tool for the task.
-            Note, when you run a SESL Model, the Model is not run in chatGPT, but in SESL's own server passing the correct results back to chatGPT.
-            This ensure chatGPT only has the correct results and does not just analyse the language behind the rules.
+            SESL integrates with ChatGPT, Claude, and other LLMs via the Model Context Protocol (MCP), a standardized interface for AI tools. When you connect SESL as an MCP server, the LLM can invoke SESL commands directly: loading models, adding rules, editing scenarios, running inference, and retrieving results. The LLM acts as a conversational interface for SESL, translating natural language requests ("add a rule that checks age", "run this scenario") into SESL commands. Critically, <strong>SESL models execute on SESL's own server</strong>, not inside the LLM. The LLM receives only the final results (facts, traces, errors), ensuring that decision logic remains deterministic and auditable. This architecture lets you leverage LLMs for rule drafting, model exploration, and natural language queries while maintaining SESL's strict execution guarantees.
           </p>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -210,7 +204,7 @@
         <div class="p-8 bg-slate-100 border border-slate-300 rounded-xl dark:bg-slate-900/40 dark:border-slate-800 space-y-6">
           <h3 class="text-2xl font-semibold mb-3">Run SESL Locally</h3>
           <p class="text-slate-700 dark:text-slate-300">
-            SESL runs on your PC using the CLI or any text editor.
+            SESL runs natively on Windows, macOS, and Linux as a standalone executable. You can work with SESL models using the command-line interface (CLI) in online mode (interactive session with prompt, history, and multiline editing) or batch mode (non-interactive, scripted execution). Models are plain YAML files, so you can edit them in any text editor (VS Code, Sublime, Notepad++, vim) with syntax highlighting and version control (Git). The CLI provides commands for creating, loading, saving, editing, linting, graphing, and running models. Local execution means no network dependencies, no cloud costs, and full control over your data and logic.
           </p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
