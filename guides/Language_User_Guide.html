@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>SESL – User Guide</title>
+  <title>SESL Language Reference & Engine Architecture</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Comprehensive SESL user guide explaining models, rules, facts, the engine, and business examples." />
+  <meta name="description" content="Complete SESL Language Specification and Engine Reference. Covers language syntax, model structure, rules, facts, engine architecture, configuration, validation, and business examples." />
 
   <!-- Load dark mode before rendering -->
   <script>
@@ -94,10 +94,10 @@
 <!-- HERO -->
 <section class="pt-24 pb-10 px-4 text-center">
   <div class="max-w-3xl mx-auto">
-    <h1 class="text-4xl sm:text-5xl font-semibold mb-6">SESL User Guide</h1>
+    <h1 class="text-4xl sm:text-5xl font-semibold mb-6">SESL Language Reference & Engine Architecture</h1>
     <p class="text-lg text-slate-700 dark:text-slate-300">
-      A complete, plain language guide to the Simple Expert System Language, covering models, rules, facts,
-      the engine, and real business examples.
+      The comprehensive guide to the SESL language specification, engine implementation, and rule evaluation model.
+      Learn the syntax, structure, and internal architecture that powers deterministic, explainable decision logic.
     </p>
   </div>
 </section>
@@ -120,12 +120,16 @@
           <a href="#model-structure" class="block hover:text-brand-600">5. Structure of a SESL model</a>
           <a href="#rules-structure" class="block hover:text-brand-600">6. Rules structure</a>
           <a href="#rule-statements" class="block hover:text-brand-600">7. Rule statements and syntax</a>
-          <a href="#facts-structure" class="block hover:text-brand-600">8. Facts structure</a>
-          <a href="#engine" class="block hover:text-brand-600">9. How the engine works</a>
-          <a href="#output" class="block hover:text-brand-600">10. Output of run commands</a>
-          <a href="#examples" class="block hover:text-brand-600">11. Business examples</a>
-          <a href="#best-practices" class="block hover:text-brand-600">12. Best practices</a>
-          <a href="#conclusion" class="block hover:text-brand-600">13. Conclusion and next steps</a>
+          <a href="#expressions" class="block hover:text-brand-600">8. Expressions and functions</a>
+          <a href="#facts-structure" class="block hover:text-brand-600">9. Facts structure</a>
+          <a href="#config" class="block hover:text-brand-600">10. Engine configuration</a>
+          <a href="#validation" class="block hover:text-brand-600">11. Validation and linting</a>
+          <a href="#engine" class="block hover:text-brand-600">12. How the engine works</a>
+          <a href="#output" class="block hover:text-brand-600">13. Output and explanation</a>
+          <a href="#truth-maintenance" class="block hover:text-brand-600">14. Truth maintenance</a>
+          <a href="#examples" class="block hover:text-brand-600">15. Business examples</a>
+          <a href="#best-practices" class="block hover:text-brand-600">16. Best practices</a>
+          <a href="#conclusion" class="block hover:text-brand-600">17. Conclusion and next steps</a>
         </nav>
       </div>
     </aside>
@@ -136,63 +140,215 @@
       <section id="introduction" class="scroll-mt-24">
         <h2 class="text-3xl font-semibold mb-4">1. Introduction to SESL</h2>
         <p>
-          SESL is a Simple Expert System Language that allows you to express decision logic as
-          clear, structured rules. Instead of hiding business logic deep inside application code,
-          SESL encourages you to describe decisions in a human readable format that can be evaluated
-          by a dedicated engine.
+          SESL (Simple Expert System Language) is a deterministic, structured rule language designed for expressing decision logic
+          in a form that is both human-readable and machine-executable. Unlike probabilistic systems or general-purpose programming
+          languages, SESL is intentionally focused: it allows you to represent business rules, policies, and decision workflows as
+          clear, declarative statements that the SESL engine evaluates using forward-chaining inference.
         </p>
         <p>
-          A SESL model is a single text document that contains rules and example data. The engine
-          reads this model, combines it with input facts, and produces a result together with rich
-          explanation data. The explanation data makes it clear which rules fired, which rules were
-          skipped, and why each conclusion was reached.
+          A SESL model is a single YAML-based text document that contains rules, example scenarios (facts), and optional constants.
+          The engine reads this model and applies the rules to input data to produce deterministic outcomes with complete explainability.
+          Every decision is backed by a detailed trace showing exactly which rules fired, in what order, and why each conclusion was reached.
         </p>
 
-        <h3 class="text-2xl font-semibold mt-8 mb-3">1.1 Main purpose of SESL</h3>
+        <h3 class="text-2xl font-semibold mt-8 mb-3">1.1 Purpose and design philosophy</h3>
         <p>
-          The main purpose of SESL is to separate decision logic from application code while keeping
-          that decision logic transparent, traceable, and easy to change. SESL is especially suited
-          for situations where:
+          The core purpose of SESL is to separate your business decision logic from your application code while maintaining complete transparency, 
+          traceability, and the ability to change rules without complex deployments. Instead of embedding decision logic deep inside application code, 
+          SESL lets you express it as clear, structured rules that can be understood, reviewed, and modified by business stakeholders as easily as 
+          by software engineers.
         </p>
-        <ul>
-          <li>Non-technical users need to understand or review the rules that drive decisions.</li>
-          <li>Decisions must be explained to regulators, auditors, customers, or internal reviewers.</li>
-          <li>Decision logic changes frequently and should be edited without large code changes.</li>
-        </ul>
 
-        <h3 class="text-2xl font-semibold mt-8 mb-3">1.2 Typical use cases</h3>
-        <p>SESL is typically used in the following scenarios:</p>
-        <ul>
-          <li>Eligibility checks such as loan or insurance eligibility.</li>
-          <li>Risk assessment and scoring.</li>
-          <li>Discount and pricing rules.</li>
-          <li>Compliance checks and policy enforcement.</li>
-          <li>Operational decision automation such as routing and prioritisation.</li>
-        </ul>
-
-        <h3 class="text-2xl font-semibold mt-8 mb-3">1.3 Benefits compared with alternative approaches</h3>
-        <p>Compared with hard coded decision logic, SESL offers several benefits:</p>
-        <ul>
-          <li>
-            <strong>Readability.</strong> Rules are organised in a structured text format that can be read
-            and discussed by both technical and non-technical stakeholders.
-          </li>
-          <li>
-            <strong>Explainability.</strong> The engine records which rules fired, why they fired,
-            and which fields they changed.
-          </li>
-          <li>
-            <strong>Maintainability.</strong> Rules can be added, removed, and reordered without changing
-            the engine itself.
-          </li>
-          <li>
-            <strong>Testability.</strong> Each model can include multiple fact scenarios that act as
-            simple test cases.
-          </li>
-        </ul>
         <p>
-          SESL is intentionally small and focused. It does not attempt to be a general programming
-          language. Instead, it focuses on clear, declarative rule evaluation.
+          SESL embraces four fundamental design principles that shape everything about how the engine works and how you write rules.
+        </p>
+
+        <p class="mb-2">
+          The first principle is Determinism. This means that whenever you run the engine with the same input data, it will always produce exactly 
+          the same output. There is no randomness, no probabilistic guessing, and no hallucination. You know what the engine will do because you 
+          wrote the rules and you can see exactly how they execute. This is critical for compliance, auditing, and for systems where consistency 
+          and reproducibility matter more than anything else.
+        </p>
+
+        <p class="mb-2">
+          The second principle is Explainability. Every decision made by SESL is backed by a complete trace showing exactly which rules fired, 
+          in what order, and why each conclusion was reached. This enables auditing, regulatory compliance verification, and most importantly, 
+          gives your users confidence that decisions are fair, transparent, and based on documented rules they can understand and challenge.
+        </p>
+
+        <p class="mb-2">
+          The third principle is Readability. Rules are expressed in a simple, structured text format that can be read and discussed by both 
+          non-technical business stakeholders and software engineers. You do not need to learn a programming language to understand what a SESL 
+          rule does. Business analysts can read a rule and understand it. Regulators can read it and verify compliance. This makes rules documents 
+          and rules review much more practical.
+        </p>
+
+        <p>
+          The fourth principle is Maintainability. Business logic can be added, removed, and reordered without changing the engine itself. When 
+          you need to update a rule or add a new decision path, you edit the model file. Changes are localized to one place, reducing the risk 
+          of unintended side effects that often come from large code changes. You can version control your rules the same way you version control 
+          your code, and rules changes do not require full application deployments.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-8 mb-3">1.2 Main use cases</h3>
+        <p>
+          SESL works particularly well for scenarios where decision logic needs to be understood, audited, and changed frequently. 
+          Here are the situations where SESL makes the most sense.
+        </p>
+
+        <p class="mb-2">
+          If non-technical users need to understand or review the rules that drive decisions, SESL is ideal. Because the language 
+          is readable and structured, business analysts and subject matter experts can review rules without needing technical support.
+        </p>
+
+        <p class="mb-2">
+          When decisions must be explained to regulators, auditors, customers, or internal review teams, SESL provides complete 
+          traceability. You can show exactly which rules were evaluated and why a particular decision was made. This is essential 
+          in regulated industries like banking, insurance, and healthcare.
+        </p>
+
+        <p class="mb-2">
+          If your decision logic changes frequently and you need to edit rules without large code deployments, SESL eliminates 
+          the coupling between business logic and application code. Rules can be updated independently, tested, and deployed without 
+          requiring application restarts or code reviews.
+        </p>
+
+        <p class="mb-2">
+          When compliance and reproducibility are critical requirements, SESL ensures that the same input always produces the same 
+          output. There is no guessing about what the system will do in a particular situation. This certainty is invaluable for 
+          compliance audits and regulatory demonstrations.
+        </p>
+
+        <p>
+          Finally, when multiple teams need to collaborate on rule definitions without code-level integration risks, SESL provides 
+          a neutral format that business teams, compliance teams, and engineering teams can all work with. Rules become a shared 
+          artifact that belongs to the organization rather than the engineering team.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-8 mb-3">1.3 Typical SESL applications</h3>
+        <p>
+          Across many industries, organizations use SESL to make decisions that matter. Here are the most common applications.
+        </p>
+
+        <p class="mb-2">
+          In Eligibility and Underwriting, SESL helps determine whether customers qualify for loans, insurance products, or benefits. 
+          When a customer applies for a loan, SESL can evaluate their income, credit history, employment status, and other factors to 
+          decide whether they are eligible and what terms apply. Insurance underwriting uses similar logic to decide which policies can 
+          be issued and at what premium rates.
+        </p>
+
+        <p class="mb-2">
+          In Risk Assessment and Scoring, SESL evaluates multiple factors to produce a risk score or risk band. A bank might use SESL 
+          to score the credit risk of a loan applicant. An insurance company might score the operational risk of a new business partnership. 
+          An investment firm might score the compliance risk of a transaction. These risk scores then drive business decisions about approval, 
+          pricing, or enhanced review.
+        </p>
+
+        <p class="mb-2">
+          In Pricing and Discounting, SESL applies volume discounts, dynamic pricing rules, and premium calculations based on customer 
+          characteristics and purchase patterns. An e-commerce company might use SESL to determine discounts based on customer tier and 
+          purchase quantity. An insurance company might use SESL to calculate premiums based on risk factors.
+        </p>
+
+        <p class="mb-2">
+          In Compliance and Policy Enforcement, SESL ensures that transactions and processes comply with regulatory requirements and 
+          internal policies. Banks use SESL for sanctions screening and regulatory compliance checks. Government agencies use SESL to 
+          apply policy rules consistently across all constituents. Healthcare providers use SESL to enforce clinical guidelines and billing rules.
+        </p>
+
+        <p class="mb-2">
+          In Operational Automation, SESL makes routing decisions, prioritization decisions, and workflow selection decisions. A customer 
+          service system might use SESL to route inquiries to the right department based on the nature of the inquiry. A logistics company 
+          might use SESL to decide which warehouse should fulfill an order based on location and inventory.
+        </p>
+
+        <p>
+          In Fraud Detection, SESL identifies suspicious transactions and patterns with clear evidence trails. A payment processor might 
+          use SESL to flag transactions that meet suspicious criteria like unusually large amounts, unusual timing, or unusual geography. 
+          Because every flag is backed by which rules matched, investigation teams can understand exactly why something was flagged.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-8 mb-3">1.4 Comparison with alternative approaches</h3>
+        <p>
+          When you face a decision problem, you have several options for how to solve it. SESL compares favorably to each alternative 
+          in different ways, depending on what matters most to your organization.
+        </p>
+
+        <p class="mb-2">
+          Compared to hard-coded decision logic embedded directly in your application, SESL provides several advantages. When business 
+          logic is hard-coded, changing it requires code review, testing, and deployment of new application binaries. This coupling 
+          between business logic and application code makes changes slow and risky. SESL rules are declarative and separate from your 
+          application. A rule change does not require code review or application deployment. Business teams can propose rule changes, 
+          review them with domain experts, and deploy them independently. This separation of concerns dramatically reduces the friction 
+          and risk of rule updates.
+        </p>
+
+        <p class="mb-2">
+          Compared to general-purpose rules engines that attempt to be comprehensive, SESL is intentionally small and focused. Large 
+          rules engines often support complex features like nested rule sets, stateful queries, and full Turing-completeness. This power 
+          comes at the cost of complexity. SESL intentionally does not attempt to be Turing-complete. This deliberate simplicity makes 
+          the engine easier to understand, easier to audit for safety and correctness, and easier to explain to stakeholders. You can 
+          reason about what SESL will do because it is fundamentally simpler than a general-purpose engine.
+        </p>
+
+        <p class="mb-2">
+          Compared to machine learning models, SESL is fundamentally different in philosophy. Machine learning models learn patterns 
+          from data and generate probabilistic outputs. The same input may produce different outputs depending on probabilistic weights 
+          or random seeds. SESL is deterministic and fully explainable. The same input always produces the same output. SESL is ideal 
+          for situations where reproducibility and explainability are non-negotiable requirements. Machine learning excels when you have 
+          lots of historical data and you want to discover patterns. SESL excels when you have documented decision rules and you want to 
+          apply them consistently and transparently.
+        </p>
+
+        <p>
+          Compared to spreadsheets, which many organizations use to manage complex logic, SESL provides structure, type safety, and 
+          version control. Spreadsheets are flexible and accessible, but they often become unmaintainable as they grow. Hidden dependencies, 
+          circular references, and untracked changes become common. SESL enforces structure through its syntax. It supports dependency analysis 
+          to catch problems before they happen in production. Rules can be version controlled in your standard version control system, with 
+          full change history and audit trails. For complex decision logic that multiple people need to maintain, SESL is much more maintainable 
+          than spreadsheets.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-8 mb-3">1.5 Structure of this guide</h3>
+        <p>
+          This comprehensive reference guide is designed to take you from understanding what SESL is all the way through to writing, 
+          validating, deploying, and maintaining SESL models in production. The guide is organized into 17 major sections, each building 
+          on the previous ones.
+        </p>
+
+        <p class="mb-2">
+          If you are completely new to SESL, start with Sections 1 through 5. Section 1 is this introduction, which gives you the conceptual 
+          foundation. Section 2 explains what SESL is used for and how it fits into your architecture. Section 3 covers installation so you 
+          have the engine running. Section 4 is a quick start that walks you through creating your first tiny model and running it. Section 5 
+          explains the overall structure of a SESL model so you understand the big picture before diving into details.
+        </p>
+
+        <p class="mb-2">
+          Once you understand the basics, Sections 6 through 9 provide a complete reference for the SESL language itself. Section 6 explains 
+          how to structure rules and what fields each rule can contain. Section 7 covers the complete syntax for conditions and actions. 
+          Section 8 is a comprehensive reference for expressions, operators, and built-in functions. Section 9 explains how to structure 
+          your input data (facts) and how the engine uses them.
+        </p>
+
+        <p class="mb-2">
+          Sections 10 through 14 dive into the engine itself and advanced features. Section 10 explains all the configuration options that 
+          control how strictly the engine checks your code and handles edge cases. Section 11 covers validation and linting, which help you 
+          catch mistakes early. Section 12 explains how the engine works internally: how it loads models, orders rules, and executes them. 
+          Section 13 explains the output the engine produces and how to interpret it. Section 14 covers truth maintenance, which enables 
+          you to explain exactly why a particular value was produced.
+        </p>
+
+        <p>
+          Finally, Sections 15 through 17 provide practical guidance. Section 15 includes five realistic business examples showing SESL 
+          solving actual decision problems in finance, retail, logistics, and compliance. Section 16 covers best practices for organizing 
+          your models, naming conventions, and common pitfalls to avoid. Section 17 wraps up with next steps and guidance on how to continue 
+          learning and building with SESL.
+        </p>
+
+        <p class="mt-6">
+          Throughout this guide, code examples use YAML syntax, which is the standard format for SESL models. When showing how to use SESL 
+          from code, we use Python, which is the language in which SESL is implemented. Even if you primarily use SESL from a different 
+          language, the Python examples show the same concepts that apply in any language.
         </p>
       </section>
 
@@ -200,88 +356,201 @@
       <section id="usage" class="mt-12 scroll-mt-24">
         <h2 class="text-3xl font-semibold mb-4">2. What SESL is used for</h2>
         <p>
-          SESL is designed for decision problems that can be expressed as a set of rules operating on
-          structured data. The rules read facts, apply conditions, and write conclusions to result
-          fields.
+          SESL is designed for decision problems where you need to apply a set of rules to structured input data and produce 
+          decisions or scores. The typical pattern is that your rules read input facts, evaluate conditions, and write conclusions 
+          to result fields. If this pattern matches your problem, SESL is likely a good fit.
         </p>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">2.1 Types of problems</h3>
-        <ul>
-          <li>Binary decisions such as approve or decline, pass or fail, flag or clear.</li>
-          <li>Multi-level classifications such as risk bands and rating categories.</li>
-          <li>Numeric calculations that depend on conditions, such as surcharges or discounts.</li>
-          <li>Aggregation of signals into a single score or recommendation.</li>
-        </ul>
-
-        <h3 class="text-2xl font-semibold mt-6 mb-3">2.2 How SESL fits into a larger system</h3>
+        <h3 class="text-2xl font-semibold mt-6 mb-3">2.1 Types of problems SESL solves well</h3>
         <p>
-          In a typical application, SESL sits alongside existing services:
+          SESL is well-suited for several broad categories of decision problems. Understanding which category your problem falls into 
+          helps you understand whether SESL is the right choice.
         </p>
-        <ol>
-          <li>Your application gathers input data and builds a facts structure.</li>
-          <li>Your application loads a SESL model from a model file or configuration store.</li>
-          <li>The SESL engine evaluates the rules against the facts.</li>
-          <li>The engine returns updated facts, including result fields and explanation data.</li>
-          <li>Your application uses those results to drive user experience or downstream actions.</li>
-        </ol>
+
+        <p class="mb-2">
+          Binary decisions are situations where there are only two possible outcomes, such as approve or decline, pass or fail, or flag 
+          or clear. A loan application is approved or declined. A compliance check passes or fails. A transaction is flagged for review 
+          or cleared. Many business processes boil down to binary decisions, and SESL handles these elegantly.
+        </p>
+
+        <p class="mb-2">
+          Multi-level classifications are situations where there are multiple possible outcomes organized into categories or bands. Instead 
+          of just approve or decline, you might have approve, refer, or decline. Instead of safe or risky, you might have low risk, medium 
+          risk, or high risk. SESL can apply rules to populate these classifications based on input conditions.
+        </p>
+
+        <p class="mb-2">
+          Numeric calculations that depend on conditions are situations where the output value depends on the values of the inputs. You 
+          might apply a 10 percent discount to large orders, a 15 percent discount to very large orders, and an additional loyalty discount 
+          on top. SESL rules can compute these tiered calculations based on conditions.
+        </p>
+
+        <p>
+          Aggregation of signals into a single score or recommendation are situations where multiple factors contribute to a final score. 
+          A credit score might aggregate income, debt level, payment history, and employment stability. A risk score might aggregate multiple 
+          risk factors. SESL makes it easy to express how these component factors combine into a final output.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">2.2 How SESL fits into your overall architecture</h3>
+        <p>
+          SESL is not designed to be your entire application. Instead, it is a decision component that sits alongside your existing application 
+          services. Understanding how SESL fits into your architecture helps you design the interface between SESL and your code.
+        </p>
+
+        <p>
+          The typical workflow is straightforward. First, your application gathers input data from users, databases, or external services 
+          and organizes it into a structured facts structure. Think of facts as the input to the SESL engine. Second, your application loads 
+          a SESL model from a model file, a database, or a configuration service. The model contains the rules that will be evaluated. Third, 
+          your application calls the SESL engine, passing in the facts and the model. The engine evaluates all the rules against the facts. 
+          Fourth, the engine returns the updated facts, which now include result fields with the decisions, scores, and explanations. Finally, 
+          your application takes those results and uses them to drive your user experience or downstream actions. You might show the decision 
+          to the user, send it to another system, store it in a database, or trigger automated workflows based on it.
+        </p>
+
+        <p>
+          This architecture means that your application code does not need to contain any decision logic. All of that logic lives in the SESL 
+          model, which business teams can understand and modify. Your application code simply prepares input data, calls the engine, and 
+          processes output results.
+        </p>
       </section>
 
       <!-- INSTALLATION -->
       <section id="installation" class="mt-12 scroll-mt-24">
         <h2 class="text-3xl font-semibold mb-4">3. Installation instructions</h2>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">3.1 Prerequisites</h3>
-        <ul>
-          <li>A recent Python interpreter (for example version three point ten or later).</li>
-          <li>Permission to install Python packages on your machine.</li>
-          <li>For local development, a text editor to write model files.</li>
-        </ul>
-
-        <h3 class="text-2xl font-semibold mt-6 mb-3">3.2 Installing the SESL engine as a Python package</h3>
         <p>
-          If SESL is available as a Python package, you can install it using the Python package manager.
-          Replace <code>sesl-engine</code> with the actual package name used by your distribution.
+          This section walks you through getting SESL installed and verified on your system. The process is straightforward and only 
+          takes a few minutes.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">3.1 Prerequisites</h3>
+        <p>
+          Before you install SESL, make sure you have these prerequisites in place.
+        </p>
+
+        <p class="mb-2">
+          You need a recent Python interpreter. SESL requires Python 3.10 or later. If you are not sure what version you have, you can check 
+          by running <code>python --version</code> in your terminal.
+        </p>
+
+        <p class="mb-2">
+          You need permission to install Python packages on your machine. This typically means having administrative access on your development 
+          machine or having your system administrator pre-authorize package installation through your organization's package repository.
+        </p>
+
+        <p>
+          For local development and learning, you just need a text editor to write model files. Any editor works: Visual Studio Code, 
+          Sublime Text, Notepad, or whatever you prefer. For production use, you may want a version control system like Git to manage your 
+          model files, and you may want to set up automated testing as part of your deployment pipeline.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">3.2 Installing SESL as a Python package</h3>
+        <p>
+          The easiest way to install SESL is to use the Python package manager. This approach handles all dependencies automatically and 
+          integrates well with Python virtual environments.
+        </p>
+
+        <p>
+          If SESL is available as a Python package from your distribution, you can install it using this command:
         </p>
         <pre><code>pip install sesl-engine</code></pre>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">3.3 Installing SESL from source</h3>
-        <ol>
-          <li>Clone or download the SESL source repository.</li>
-          <li>Ensure that the Python interpreter is available on your path.</li>
-          <li>Install dependencies such as the YAML parser library.</li>
-        </ol>
-        <pre><code>git clone https://example.com/sesl.git
-cd sesl
-pip install -r requirements.txt</code></pre>
-
-        <h3 class="text-2xl font-semibold mt-6 mb-3">3.4 Verifying the installation</h3>
-        <p>You can verify that the engine module is importable from Python:</p>
-        <pre><code>python -c "import sesl; print('SESL is available')" </code></pre>
         <p>
-          If this prints the confirmation message without errors, the engine is installed correctly.
+          Replace <code>sesl-engine</code> with the actual package name used by your specific distribution or organization. If you are 
+          unsure of the package name, check with your system administrator or the SESL documentation for your organization.
         </p>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">3.5 Upgrading and uninstalling</h3>
-        <p>To upgrade SESL to the latest version:</p>
+        <h3 class="text-2xl font-semibold mt-6 mb-3">3.3 Installing SESL from source code</h3>
+        <p>
+          If you want to install SESL from the source code repository, follow these steps. This approach is useful if you want to run 
+          the latest development version or if you plan to contribute to SESL itself.
+        </p>
+
+        <p class="mb-2">
+          First, clone or download the SESL source repository. For example, if the repository is hosted on GitHub, you would run:
+        </p>
+
+        <pre><code>git clone https://github.com/your-org/sesl.git
+cd sesl</code></pre>
+
+        <p class="mb-2">
+          Second, make sure the Python interpreter is available on your system path. You should be able to run <code>python --version</code> 
+          and see the version printed.
+        </p>
+
+        <p>
+          Third, install the dependencies that SESL requires. These are typically a YAML parser and a few utility libraries. Install them 
+          by running:
+        </p>
+
+        <pre><code>pip install -r requirements.txt</code></pre>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">3.4 Verifying the installation</h3>
+        <p>
+          After installation, you should verify that the SESL engine is properly installed and can be imported from Python. This is a simple 
+          sanity check that everything is working correctly before you proceed.
+        </p>
+
+        <p>
+          Open a terminal and run this command:
+        </p>
+
+        <pre><code>python -c "import sesl; print('SESL is available')"</code></pre>
+
+        <p>
+          If the installation was successful, you should see the message "SESL is available" printed to your terminal. If instead you see 
+          an error message like "ModuleNotFoundError: No module named 'sesl'", this indicates that the installation did not complete 
+          successfully. If you see this error, go back and check that you completed all the installation steps, and check that you are 
+          running the same Python interpreter where you installed the package.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">3.5 Upgrading and uninstalling SESL</h3>
+        <p>
+          If you installed SESL as a package and you want to upgrade to a newer version, you can do so easily using the package manager.
+        </p>
+
+        <p class="mb-2">
+          To upgrade to the latest version of SESL:
+        </p>
+
         <pre><code>pip install --upgrade sesl-engine</code></pre>
-        <p>To remove SESL:</p>
+
+        <p class="mb-2">
+          The package manager will check for newer versions and download and install them if available. This is useful when new features 
+          or bug fixes are released.
+        </p>
+
+        <p>
+          If you need to remove SESL from your system for any reason, you can uninstall it:
+        </p>
+
         <pre><code>pip uninstall sesl-engine</code></pre>
+
+        <p>
+          The package manager will remove SESL and all its files from your Python installation. Any model files you created will remain 
+          untouched, but you will no longer be able to import or run the SESL engine.
+        </p>
       </section>
 
       <!-- QUICK START -->
       <section id="quick-start" class="mt-12 scroll-mt-24">
         <h2 class="text-3xl font-semibold mb-4">4. Quick start guide</h2>
         <p>
-          This quick start shows a complete path from a very small SESL model to a running evaluation
-          and a readable result. The goal is not to cover all features, but to give you a concrete
-          sense of how SESL feels in practice.
+          This quick start section walks you through a complete, concrete example from beginning to end. We will create a tiny SESL model, 
+          load it, run the engine, and see the results. The goal is not to cover all possible features or all the edge cases, but to give 
+          you a practical sense of what working with SESL feels like and how the pieces fit together.
+        </p>
+
+        <p>
+          If you are following along, make sure you have SESL installed (see Section 3). You will need a text editor and a Python interpreter. 
+          Plan to spend about 10 minutes working through this example.
         </p>
 
         <h3 class="text-2xl font-semibold mt-6 mb-3">4.1 Create a minimal model file</h3>
         <p>
-          Create a new text file called <code>loan-example.sesl.yaml</code>. Paste the following
-          content into the file. The format is a structured text mapping with a model name, optional
-          constants, rules, and fact scenarios.
+          Start by creating a new text file on your computer called <code>loan-example.sesl.yaml</code>. Open this file in your text editor 
+          and paste the following content into it. This tiny model contains everything needed for a working SESL model: a name, some constants, 
+          a couple of rules, and an example scenario to test against.
         </p>
         <pre><code>model: "Loan eligibility example"
 
@@ -322,41 +591,60 @@ facts:
         </ul>
 
         <h3 class="text-2xl font-semibold mt-6 mb-3">4.2 Running the model through Python</h3>
-        <p>The provided engine exposes two main functions that you will use frequently:</p>
-        <ul>
-          <li><code>load_model_from_yaml(text)</code> to load rules and scenarios from a model file.</li>
-          <li><code>forward_chain(rules, facts, monitor, ...)</code> to run the inference engine.</li>
-        </ul>
+        <p>
+          Now that you have a model file, let's write a simple Python script to load it, run the engine, and see the results. 
+          The SESL engine exposes two main functions that you will use frequently.
+        </p>
 
-        <p>A simple runner script could look like this:</p>
+        <p class="mb-2">
+          The first function is <code>load_model_from_yaml(text)</code>. This function takes the text content of a model file and 
+          parses it into compiled rules and example scenarios. Think of this as translating the human-readable model into a form 
+          the engine can execute.
+        </p>
+
+        <p class="mb-2">
+          The second function is <code>forward_chain(rules, facts, monitor, ...)</code>. This is the actual inference engine. 
+          You pass in the compiled rules, the facts (input data), and optionally a monitor object for explainability. The engine 
+          evaluates the rules and returns the updated facts with results and explanations.
+        </p>
+
+        <p>
+          Here is a simple runner script that demonstrates how to use these functions. Create a new Python file called <code>run_example.py</code> 
+          in the same directory as your model file, and paste this code:
+        </p>
+
         <pre><code>import pathlib
 from sesl_engine import load_model_from_yaml, forward_chain, Monitor
 
-# Load model text
+# Load model text from the file we created
 model_path = pathlib.Path("loan-example.sesl.yaml")
 text = model_path.read_text(encoding="utf-8")
 
-# Parse into rules and named scenarios
+# Parse the model into rules and named scenarios
 rules, scenarios = load_model_from_yaml(text)
 
-# Take the first scenario
+# Take the first scenario to test with
 scenario_name, facts = scenarios[0]
 
-# Optional monitor for explainability
+# Create a monitor object to capture explanations
 monitor = Monitor(theme="colour")
 
-# Run the engine
+# Run the inference engine
 forward_chain(rules, facts, monitor=monitor)
 
-# Print the result section
+# Print out the results
 print("Scenario:", scenario_name)
 print("Result:", facts.get("result"))
 </code></pre>
 
         <h3 class="text-2xl font-semibold mt-6 mb-3">4.3 Understanding the output</h3>
         <p>
-          After running the script, you will see a printed <code>result</code> mapping similar to the
-          following:
+          When you run the script above, the engine produces several important pieces of information. Understanding what each 
+          piece means will help you trust the results and debug any issues that arise.
+        </p>
+
+        <p>
+          Here is a sample output that you might see when running the loan approval example:
         </p>
         <pre><code>Scenario: Applicant A
 Result: {
@@ -367,31 +655,72 @@ Result: {
   'monitor_blocks': [...],
   'monitor_theme': 'colour'
 }</code></pre>
-        <p>Key points:</p>
-        <ul>
-          <li><code>high_income</code> is set by the first rule.</li>
-          <li><code>decision</code> and <code>decision_reason</code> are set by the second rule.</li>
-          <li>
-            <code>monitor</code> and <code>monitor_blocks</code> contain a detailed explanation of which
-            rules were evaluated and which ones fired.
-          </li>
-        </ul>
+
+        <p class="mb-2">
+          <strong>The Result Field:</strong> This is what your application will actually use. It contains the output of your rules. 
+          In our loan example, the result field tells you whether the loan was approved or denied. Each key in the result object 
+          represents a fact that was computed during rule evaluation. In this case, <code>high_income</code> was set to True by the 
+          first rule, and <code>decision</code> was set to 'approve' by the second rule. The result is deterministic, meaning the 
+          same input facts will always produce the same result.
+        </p>
+
+        <p class="mb-2">
+          <strong>The Decision Reason:</strong> Notice the <code>decision_reason</code> field. This is an example of a derived fact 
+          that the rules created. Rules don't just compute decisions; they can also compute explanations. This makes your application 
+          more useful because you can show users not just what was decided, but why.
+        </p>
+
+        <p class="mb-2">
+          <strong>The Monitor Object:</strong> If you created a monitor object like in the example above, the result includes 
+          <code>monitor</code> and <code>monitor_blocks</code> fields. These contain rich explainability information about how the 
+          decision was made. The monitor tracks every rule that fired, every condition that was evaluated, and every fact that was 
+          derived. This is invaluable for explaining decisions to users, auditors, or when debugging unexpected results.
+        </p>
+
+        <p>
+          To understand why a decision was made, you can print the monitor object directly. It contains detailed information about 
+          rule execution order, condition evaluation results, and the full dependency chain that led to your final result. This allows 
+          you to answer questions like "Why was the loan denied?" with complete accuracy and transparency, showing exactly which rules 
+          fired, which conditions were true, and in what order the evaluation happened.
+        </p>
       </section>
 
       <!-- MODEL STRUCTURE -->
       <section id="model-structure" class="mt-12 scroll-mt-24">
         <h2 class="text-3xl font-semibold mb-4">5. Structure of a SESL model</h2>
         <p>
-          A SESL model file is a structured text document that typically contains the following top level
-          sections:
+          Every SESL model is a structured document that follows a consistent format. This structure makes models easy to read, 
+          maintain, and understand. At the top level, a SESL model file contains five main sections, each serving a specific purpose.
         </p>
-        <ul>
-          <li><strong>model</strong>: name or identifier of the model.</li>
-          <li><strong>meta</strong>: optional metadata such as author, creation date, and usage notes.</li>
-          <li><strong>const</strong>: constants that can be referenced by rules.</li>
-          <li><strong>rules</strong>: a list of rule definitions.</li>
-          <li><strong>facts</strong>: example input scenarios for testing and demonstration.</li>
-        </ul>
+
+        <p class="mb-2">
+          The <strong>model</strong> section provides the name or identifier of your model. This is a human-readable label that tells 
+          anyone reading the file what the model is for. For example, you might have a model named "Loan Approval Engine" or "Fraud Detection Rules".
+        </p>
+
+        <p class="mb-2">
+          The <strong>meta</strong> section is optional but highly recommended. This is where you store metadata about your model such 
+          as the author name, creation date, last modification date, and any important usage notes or caveats. Metadata helps teams understand 
+          the context and history of a model, making it easier to maintain and update over time.
+        </p>
+
+        <p class="mb-2">
+          The <strong>const</strong> section defines constants that can be referenced throughout your rules. Constants are values that do 
+          not change within a single execution of the engine. They are a powerful way to avoid hard-coding numbers and thresholds directly 
+          into your rules. For example, you might define a "minimum_credit_score" constant that multiple rules reference.
+        </p>
+
+        <p class="mb-2">
+          The <strong>rules</strong> section is where the decision logic lives. This section contains a list of rules that the engine 
+          will evaluate. Each rule specifies conditions that must be met and actions that should be taken when those conditions are true. 
+          Rules are the heart of your SESL model, and we will explore them in detail in the next section.
+        </p>
+
+        <p>
+          The <strong>facts</strong> section provides example input scenarios for testing and demonstration. These are not just documentation; 
+          they are actual test cases that you can run against your model to verify it works correctly. Each fact scenario describes a specific 
+          situation and the expected result.
+        </p>
 
         <h3 class="text-2xl font-semibold mt-6 mb-3">5.1 Example model with annotations</h3>
         <pre><code># Model name
@@ -437,24 +766,37 @@ facts:
       points: 700
     result: {}</code></pre>
 
-        <p>This example shows how all parts work together:</p>
-        <ul>
-          <li>Rules reference constants through the <code>const.</code> prefix.</li>
-          <li>Each fact scenario contains an initial <code>result</code> mapping.</li>
-          <li>Higher priority rules run before lower priority rules when necessary.</li>
-        </ul>
+        <p class="mb-3">
+          This example shows how all parts work together. Notice how the rules reference the constants defined in the const section using 
+          the <code>const.</code> prefix. This allows you to update threshold values in one place rather than searching through all your rules.
+        </p>
+
+        <p class="mb-2">
+          Each fact scenario contains an initial <code>result</code> mapping, which starts as empty. As the engine evaluates rules, it will 
+          populate this result mapping with the decisions and computed values. The facts section acts as your test suite, allowing you to run 
+          the same rules against different input scenarios to verify behavior.
+        </p>
+
+        <p>
+          Notice the priority values on the rules. The "Set gold tier" rule has priority 20, while "Set silver tier" has priority 10. Higher 
+          priority rules are evaluated first. This ensures that the most specific rules (like checking for gold tier) run before more general rules 
+          (like checking for silver tier), preventing unexpected behavior where a customer might match the silver rule before the gold rule is evaluated.
+        </p>
       </section>
 
       <!-- RULES STRUCTURE -->
       <section id="rules-structure" class="mt-12 scroll-mt-24">
         <h2 class="text-3xl font-semibold mb-4">6. Rules structure</h2>
         <p>
-          A rule in SESL connects conditions with actions. If the conditions are satisfied, the actions
-          write values into the facts structure.
+          Rules are the core of every SESL model. A rule in SESL is a simple but powerful structure that connects conditions with actions. 
+          The idea is straightforward: if certain conditions are satisfied, then execute certain actions. Actions typically write values 
+          into the facts structure, allowing rules to communicate results and intermediate values to other rules.
         </p>
 
         <h3 class="text-2xl font-semibold mt-6 mb-3">6.1 Anatomy of a rule</h3>
-        <p>The engine expects each rule entry to be a mapping with fields similar to:</p>
+        <p>
+          Every rule in SESL follows a consistent structure. Here is an example of a complete rule with all possible fields:
+        </p>
         <pre><code>- rule: "Human readable rule name"
   priority: 10
   if: "customer.age &gt;= 18"
@@ -465,36 +807,73 @@ facts:
   reason: "Customer has reached legal adulthood"
   stop: false</code></pre>
 
-        <p>Important fields:</p>
-        <ul>
-          <li><strong>rule</strong>: required name of the rule.</li>
-          <li><strong>priority</strong>: optional integer, higher values indicate higher priority.</li>
-          <li><strong>if</strong>: condition or nested condition structure that must be satisfied.</li>
-          <li><strong>let</strong>: optional mapping of helper variables computed before evaluating actions.</li>
-          <li><strong>then</strong>: mapping of target paths to expressions to write when the rule fires.</li>
-          <li><strong>reason</strong>: human readable explanation of why the rule exists.</li>
-          <li><strong>stop</strong>: optional boolean. When true, the engine stops evaluating after this rule fires.</li>
-        </ul>
+        <p class="mb-2">
+          The <strong>rule</strong> field is required and provides a human-readable name for the rule. This name appears in explanations and 
+          monitoring output, so choose a name that clearly describes what the rule does. For example, "Check if customer is eligible" is much 
+          better than "Rule 1".
+        </p>
+
+        <p class="mb-2">
+          The <strong>priority</strong> field is optional but very useful for controlling execution order. It is an integer where higher values 
+          indicate higher priority. The engine evaluates high-priority rules before low-priority rules. This is essential when you have rules 
+          that depend on each other or when you want more specific rules to run before more general ones.
+        </p>
+
+        <p class="mb-2">
+          The <strong>if</strong> field specifies the condition or nested condition structure that must be satisfied for the rule to fire. If 
+          the condition evaluates to true, the rule executes. If it evaluates to false, the rule does not execute and its actions are not taken.
+        </p>
+
+        <p class="mb-2">
+          The <strong>let</strong> field is optional and defines helper variables that are computed before evaluating the rule's actions. 
+          This is useful when you have complex expressions that you want to compute once and then use in multiple places. For example, you 
+          might compute "is_senior_citizen" once in the let section and then use it in the then section.
+        </p>
+
+        <p class="mb-2">
+          The <strong>then</strong> field specifies the mapping of target paths to expressions that should be written when the rule fires. 
+          In the example above, when the condition is true, the engine writes the value "true" to the path "result.is_adult". The then field 
+          is how rules produce output values.
+        </p>
+
+        <p class="mb-2">
+          The <strong>reason</strong> field is optional but highly recommended. It provides a human-readable explanation of why the rule exists. 
+          This explanation is included in the monitor output, helping anyone who reviews the results understand the business logic behind the 
+          decision.
+        </p>
+
+        <p>
+          The <strong>stop</strong> field is optional and defaults to false. When you set stop to true, the engine stops evaluating any remaining 
+          rules after this rule fires. This is useful for rules that represent final decisions from which you do not want other rules to deviate.
+        </p>
 
         <h3 class="text-2xl font-semibold mt-6 mb-3">6.2 Rule evaluation order</h3>
         <p>
-          SESL evaluates rules in a deterministic order that depends on priority and data dependencies:
+          The order in which the SESL engine evaluates rules is deterministic and intelligent. Understanding this order helps you write rules 
+          that work correctly together.
         </p>
-        <ol>
-          <li>Rules are grouped by priority. Higher priority groups are evaluated before lower ones.</li>
-          <li>
-            Within each priority group, the engine performs a dependency based ordering. For example,
-            if one rule writes to a section that another rule reads, the writing rule is evaluated first.
-          </li>
-          <li>
-            Within a single priority and when there are no dependencies, rules keep the original order
-            from the model file.
-          </li>
-        </ol>
+
+        <p class="mb-2">
+          First, the engine groups rules by priority. All rules with the highest priority number are evaluated first. Then rules with the next 
+          highest priority are evaluated, and so on. This is how you control which rules run before others.
+        </p>
+
+        <p class="mb-2">
+          Within each priority group, the engine performs data-driven dependency ordering. If one rule writes to a fact that another rule reads, 
+          the writing rule is evaluated before the reading rule. For example, if Rule A writes to "result.approved" and Rule B reads from "result.approved", 
+          then Rule A will be evaluated before Rule B, regardless of their positions in the file.
+        </p>
+
+        <p class="mb-2">
+          Within a single priority group when there are no dependencies between rules, the engine preserves the original order from the model file. 
+          This means that if two rules have the same priority and neither reads or writes to values the other uses, they will execute in the order 
+          they appear in your model file.
+        </p>
+
         <p>
-          The engine runs several iterations until there are no more changes, or until the maximum
-          number of iterations is reached. This forward chaining behaviour allows rules to build on
-          values produced by other rules.
+          The engine runs in multiple iterations. It evaluates all rules once, checks if any facts changed, and if they did, it runs all the rules 
+          again. This forward chaining behavior continues until either no facts change in an iteration or until the maximum number of iterations is 
+          reached. This allows rules to build on values produced by other rules, creating sophisticated decision logic through simple, composable rules.
         </p>
       </section>
 
@@ -502,35 +881,60 @@ facts:
       <section id="rule-statements" class="mt-12 scroll-mt-24">
         <h2 class="text-3xl font-semibold mb-4">7. Rule statements and full syntax</h2>
         <p>
-          SESL supports several kinds of statements inside rules. This section describes each of them,
-          together with syntax and examples.
+          SESL supports several kinds of statements that you can use inside rules to build sophisticated decision logic. This section 
+          describes each statement type with syntax, examples, and guidance on when to use each one.
         </p>
 
         <h3 class="text-2xl font-semibold mt-6 mb-3">7.1 Condition expressions</h3>
         <p>
-          The simplest form of a condition is a single expression string in the <code>if</code> field.
-          The expression has the form:
+          The simplest form of a condition is a single expression string in the <code>if</code> field. A condition expression compares two 
+          values using an operator and returns true or false. When the condition is true, the rule fires and its actions execute.
+        </p>
+
+        <p class="mb-2">
+          The basic form of a condition expression is:
         </p>
         <pre><code>&lt;left operand&gt; &lt;operator&gt; &lt;right operand&gt;</code></pre>
-        <p>Supported comparison operators include:</p>
-        <ul>
-          <li><code>==</code> equal to</li>
-          <li><code>!=</code> not equal to</li>
-          <li><code>&gt;</code> greater than</li>
-          <li><code>&gt;=</code> greater than or equal to</li>
-          <li><code>&lt;</code> less than</li>
-          <li><code>&lt;=</code> less than or equal to</li>
-          <li><code>in</code> membership in a container</li>
-          <li><code>not in</code> not a member of a container</li>
+
+        <p class="mb-2">
+          The left operand is typically a path into your facts, like <code>customer.age</code> or <code>application.income</code>. The operator 
+          specifies what kind of comparison to perform. The right operand can be a literal value (like <code>'United Kingdom'</code> or <code>18</code>), 
+          another path, or even a constant reference.
+        </p>
+
+        <p>SESL supports the following comparison operators:</p>
+        <ul class="mb-3">
+          <li><code>==</code> checks if two values are equal</li>
+          <li><code>!=</code> checks if two values are not equal</li>
+          <li><code>&gt;</code> checks if the left value is greater than the right value</li>
+          <li><code>&gt;=</code> checks if the left value is greater than or equal to the right value</li>
+          <li><code>&lt;</code> checks if the left value is less than the right value</li>
+          <li><code>&lt;=</code> checks if the left value is less than or equal to the right value</li>
+          <li><code>in</code> checks if the left value is a member of the right container (like a list)</li>
+          <li><code>not in</code> checks if the left value is not a member of the right container</li>
         </ul>
 
-        <p>Example:</p>
-        <pre><code>if: "customer.country == 'United Kingdom'"</code></pre>
+        <p>
+          Here are some practical examples of condition expressions. You might write <code>"customer.country == 'United Kingdom'"</code> to check 
+          if the customer is in a specific country. Or <code>"applicant.income &gt;= 50000"</code> to check if income meets a minimum threshold. 
+          Or <code>"applicant.risk_level in ['low', 'medium']"</code> to check if the risk level is in an acceptable set.
+        </p>
 
         <h3 class="text-2xl font-semibold mt-6 mb-3">7.2 Logical condition blocks</h3>
         <p>
-          For more complex conditions, the <code>if</code> field can be a structured mapping using
-          logical keys <code>all</code>, <code>any</code>, and <code>not</code>.
+          For more complex decision logic, SESL allows you to combine multiple conditions using logical operators. Instead of putting a simple 
+          expression string in the <code>if</code> field, you can use a structured mapping with logical keys like <code>all</code>, <code>any</code>, 
+          and <code>not</code>.
+        </p>
+
+        <p class="mb-2">
+          The <code>all</code> key means all conditions must be true for the rule to fire. The <code>any</code> key means at least one condition 
+          must be true. The <code>not</code> key negates a condition, making it true when the inner condition is false. These can be nested to 
+          create arbitrarily complex logic.
+        </p>
+
+        <p>
+          Here is an example that shows how to combine conditions with logical operators:
         </p>
         <pre><code>if:
   all:
@@ -539,52 +943,79 @@ facts:
         - "customer.country == 'United Kingdom'"
         - "customer.country == 'Ireland'"</code></pre>
 
-        <p>Meaning:</p>
-        <ul>
-          <li>All listed conditions in the top level must be true.</li>
-          <li>Within the <code>any</code> block, at least one condition must be true.</li>
-        </ul>
+        <p class="mb-2">
+          This condition says: "The customer must be 18 or older AND the customer must be from either the United Kingdom or Ireland." The top-level 
+          <code>all</code> means both the age check and the country check must be true. The nested <code>any</code> means the customer can satisfy 
+          the country requirement by being from either of the two countries.
+        </p>
+
+        <p>
+          You can nest these logical blocks as deeply as needed. For example, you might have an <code>all</code> block containing two <code>any</code> 
+          blocks, or an <code>any</code> block containing a <code>not</code> block, and so on. This allows you to express complex business logic 
+          clearly and readably.
+        </p>
 
         <h3 class="text-2xl font-semibold mt-6 mb-3">7.3 Let statements</h3>
         <p>
-          The <code>let</code> mapping allows you to define intermediate values. Each key is the name of
-          a variable and each value is an expression. These expressions support arithmetic and logical
-          operations on existing facts and on other previously computed variables.
+          The <code>let</code> section allows you to define intermediate values that you can reference in conditions and actions. Think of let 
+          variables as helper values that simplify your rules by avoiding repetition and making logic clearer.
         </p>
 
+        <p class="mb-2">
+          Each entry in the <code>let</code> mapping is a variable name paired with an expression. The engine evaluates each expression and stores 
+          the result. You can then reference these variables anywhere else in the rule. This is particularly useful when you have a complex expression 
+          that you need to use in multiple places.
+        </p>
+
+        <p>
+          Here is an example:
+        </p>
         <pre><code>let:
   income_band: "applicant.income &gt;= 80000"
   total_exposure: "existing_loans + requested_amount"</code></pre>
 
+        <p class="mb-2">
+          In this example, <code>income_band</code> will be true if the applicant earns 80,000 or more, and <code>total_exposure</code> will be the 
+          sum of existing loans and the requested amount. You can then reference these variables in your conditions or actions. For instance, you 
+          might write a condition like <code>"let.income_band == true"</code> or use <code>total_exposure</code> in a calculation.
+        </p>
+
         <p>
-          During evaluation, the engine computes each <code>let</code> entry and stores it into a special
-          internal structure. You can then reference <code>income_band</code> and
-          <code>total_exposure</code> inside conditions or actions.
+          Let variables are computed once when the rule is evaluated and are not persisted in the facts structure unless you explicitly write them 
+          to the facts in the <code>then</code> section. This makes them useful for temporary calculations within a single rule.
         </p>
 
         <h3 class="text-2xl font-semibold mt-6 mb-3">7.4 Actions in the then block</h3>
         <p>
-          The <code>then</code> block is a mapping from target paths to expressions. When a rule fires,
-          each target path is written with the evaluated value of its expression.
+          The <code>then</code> block specifies what happens when a rule fires. It is a mapping from target paths to expressions. When the rule's 
+          conditions are satisfied, the engine evaluates each expression and writes the result to the corresponding path in the facts.
+        </p>
+
+        <p class="mb-2">
+          Here is an example:
         </p>
         <pre><code>then:
   result.decision: "approve"
   result.score: "base_score + bonus"</code></pre>
-        <p>Important details:</p>
-        <ul>
-          <li>
-            Paths are dot separated sequences such as <code>result.decision</code> or
-            <code>customer.flags.high_risk</code>.
-          </li>
-          <li>
-            In strict path mode, intermediate parts such as <code>result</code> must exist unless
-            automatic creation is enabled.
-          </li>
-          <li>
-            Expressions on the right-hand side can reference facts, constants, and helper variables from
-            the <code>let</code> block.
-          </li>
-        </ul>
+
+        <p class="mb-2">
+          In this example, when the rule fires, the engine writes the string "approve" to <code>result.decision</code> and evaluates the expression 
+          <code>base_score + bonus</code>, writing the result to <code>result.score</code>. Paths are dot-separated sequences like <code>result.decision</code> 
+          or <code>customer.flags.high_risk</code>.
+        </p>
+
+        <p class="mb-2">
+          Paths allow you to organize your output into nested structures. For example, you might have a <code>result</code> object with fields for 
+          <code>decision</code>, <code>score</code>, <code>explanation</code>, and <code>confidence</code>. The expressions on the right-hand side can 
+          reference facts, constants from the model, and helper variables from the <code>let</code> block.
+        </p>
+
+        <p>
+          One important detail: in strict path mode, intermediate parts of a path must exist. For example, to write to <code>result.flags.high_risk</code>, 
+          the <code>result</code> and <code>result.flags</code> objects must already exist. However, you can enable automatic path creation, which causes 
+          the engine to create any missing intermediate structures automatically. This is controlled by the <code>SESL_AUTO_CREATE_PATHS</code> configuration 
+          option, which is enabled by default.
+        </p>
 
         <h3 class="text-2xl font-semibold mt-6 mb-3">7.5 Summary table of rule statement fields</h3>
         <div class="overflow-x-auto border border-slate-200 dark:border-slate-800 rounded-xl">
@@ -661,19 +1092,356 @@ facts:
         </div>
       </section>
 
-      <!-- FACTS STRUCTURE -->
-      <section id="facts-structure" class="mt-12 scroll-mt-24">
-        <h2 class="text-3xl font-semibold mb-4">8. Facts structure</h2>
+      <!-- EXPRESSIONS AND FUNCTIONS -->
+      <section id="expressions" class="mt-12 scroll-mt-24">
+        <h2 class="text-3xl font-semibold mb-4">8. Expressions and functions</h2>
         <p>
-          Facts represent the input data that rules operate on. They are structured as nested mappings
-          of keys to values. The SESL engine treats the top level of the facts mapping as the main
-          namespace for rule paths.
+          SESL supports a range of operators and functions that can be used in conditions, helper expressions (<code>let</code> blocks),
+          and action assignments. This section covers the syntax and behavior of these operators and built-in functions.
         </p>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">8.1 Facts inside a model file</h3>
+        <h3 class="text-2xl font-semibold mt-6 mb-3">8.1 Operand types and type system</h3>
         <p>
-          Within a model file, the <code>facts</code> section is a list of scenarios. Each scenario has
-          its own copy of the facts mapping.
+          SESL supports a dynamic type system, meaning variables can hold different types of values and the engine is intelligent about 
+          converting between types when appropriate. However, you can enforce strict type checking if you want additional safety. The primary 
+          types are:
+        </p>
+
+        <p class="mb-2">
+          <strong>Boolean:</strong> True or false values, used in conditions and logical operations. Booleans are the result of comparisons and 
+          logical operations.
+        </p>
+
+        <p class="mb-2">
+          <strong>Number:</strong> Integer or floating-point values used in comparisons and arithmetic. SESL automatically handles conversion 
+          between integers and floats for operations like division.
+        </p>
+
+        <p class="mb-2">
+          <strong>String:</strong> Text values enclosed in single or double quotes. Strings support concatenation and can be compared using 
+          comparison operators.
+        </p>
+
+        <p class="mb-2">
+          <strong>List:</strong> Ordered collections of values, typically used with the <code>in</code> and <code>not in</code> operators to 
+          test membership. Lists are also returned by certain functions.
+        </p>
+
+        <p class="mb-2">
+          <strong>Mapping:</strong> Key-value structures that form the nested fact hierarchy. Most values in your facts are mappings 
+          (dictionaries/objects).
+        </p>
+
+        <p>
+          <strong>None/null:</strong> The absence of a value, used to test whether fields are unset. You can check for null values using the 
+          <code>is None</code> operator.
+        </p>
+
+        <p class="mt-3">
+          When <code>SESL_STRICT_OPERANDS</code> is enabled in configuration, the engine enforces type compatibility in expressions and reports 
+          errors when operations don't make sense (like adding a number and a string). In relaxed mode (the default), automatic type coercion is 
+          applied where sensible, for example converting "123" (string) to 123 (number) if used in arithmetic.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">8.2 Comparison operators</h3>
+        <p>
+          Comparison operators test relationships between values and return either true or false. These operators are fundamental to writing 
+          conditions in your rules.
+        </p>
+
+        <p class="mb-3">
+          <code>==</code> tests whether two values are equal. It works for all types. For example, <code>"customer.status == 'active'"</code> 
+          returns true if the customer status is exactly 'active'.
+        </p>
+
+        <p class="mb-3">
+          <code>!=</code> tests whether two values are not equal. For example, <code>"result.decision != 'pending'"</code> returns true if the 
+          decision is anything other than 'pending'.
+        </p>
+
+        <p class="mb-3">
+          <code>&gt;</code> and <code>&gt;=</code> test whether the left value is greater than (or greater than or equal to) the right value. 
+          These work with numbers and also with strings (using alphabetical order). For example, <code>"applicant.income > 30000"</code> returns 
+          true if income exceeds 30,000.
+        </p>
+
+        <p class="mb-3">
+          <code>&lt;</code> and <code>&lt;=</code> test whether the left value is less than (or less than or equal to) the right value.
+        </p>
+
+        <p class="mb-3">
+          <code>in</code> tests whether the left value is a member of the right value (which should be a list or container). For example, 
+          <code>"customer.country in const.approved_countries"</code> returns true if the customer's country appears in your approved countries list.
+        </p>
+
+        <p class="mb-3">
+          <code>not in</code> is the opposite of <code>in</code>. For example, <code>"applicant.state not in const.restricted_states"</code> 
+          returns true if the state is not in your restricted states list.
+        </p>
+
+        <p class="mb-3">
+          <code>is None</code> tests whether a value is null or missing. For example, <code>"result.flags is None"</code> returns true if the 
+          flags field does not exist or is explicitly set to null.
+        </p>
+
+        <p>
+          <code>is not None</code> is the opposite of <code>is None</code>. It returns true when a value exists and is not null. This is useful 
+          for checking whether required fields have been set.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">8.3 Logical operators and boolean logic</h3>
+        <p>
+          Boolean operators combine multiple conditions into more complex logic. They work with values that are true or false, and they return 
+          true or false as their result.
+        </p>
+
+        <p class="mb-2">
+          <code>and</code> requires all conditions to be true. For example, <code>"applicant.age >= 21 and applicant.income > 30000"</code> is 
+          true only when both conditions are true: the applicant is at least 21 years old AND earns more than 30,000.
+        </p>
+
+        <p class="mb-2">
+          <code>or</code> requires at least one condition to be true. For example, <code>"customer.is_vip or customer.lifetime_value > 100000"</code> 
+          is true if the customer is VIP OR has lifetime value exceeding 100,000 (or both).
+        </p>
+
+        <p class="mb-2">
+          <code>not</code> inverts the truth value. For example, <code>"not customer.is_flagged"</code> is true when the customer is not flagged.
+        </p>
+
+        <p>
+          For very complex boolean logic with many nested conditions, SESL recommends using the structured <code>all</code>, <code>any</code>, 
+          and <code>not</code> blocks in the <code>if</code> section of rules (see section 7.2). These are clearer and easier to maintain than 
+          deeply nested inline boolean expressions.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">8.4 Arithmetic operators</h3>
+        <p>
+          Arithmetic operators perform mathematical calculations on numeric values. When you use these operators, SESL automatically ensures both 
+          operands are numbers, either through coercion or (in strict mode) by raising an error if they are not.
+        </p>
+
+        <p class="mb-2">
+          <code>+</code> performs addition. For example, <code>"base_score + bonus"</code> adds two numbers. The <code>+</code> operator also works 
+          with strings for concatenation (combining them together).
+        </p>
+
+        <p class="mb-2">
+          <code>-</code> performs subtraction. For example, <code>"total_price - discount_amount"</code> subtracts one number from another.
+        </p>
+
+        <p class="mb-2">
+          <code>*</code> performs multiplication. For example, <code>"quantity * unit_price"</code> multiplies two numbers.
+        </p>
+
+        <p class="mb-2">
+          <code>/</code> performs division and always returns a floating-point result. For example, <code>"total_debt / income"</code> computes 
+          the debt-to-income ratio. Note that dividing by zero will raise an error.
+        </p>
+
+        <p class="mb-2">
+          <code>//</code> performs integer division, rounding down to the nearest whole number. For example, <code>"total_amount // batch_size"</code> 
+          tells you how many complete batches fit into a total.
+        </p>
+
+        <p class="mb-2">
+          <code>%</code> returns the remainder (modulo) after division. For example, <code>"transaction_count % 10"</code> returns the remainder 
+          after dividing by 10.
+        </p>
+
+        <p>
+          <code>**</code> raises a number to a power (exponentiation). For example, <code>"interest_rate ** years"</code> computes compound growth. 
+          Note that raising 0 to a negative power will raise an error.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">8.5 Operator precedence and grouping</h3>
+        <p>
+          When an expression contains multiple operators, SESL evaluates them in a specific order, following standard mathematical conventions. 
+          Understanding precedence is important to avoid unexpected results.
+        </p>
+
+        <p class="mb-2">
+          SESL follows this precedence, from highest priority (evaluated first) to lowest priority (evaluated last):
+        </p>
+
+        <ol class="mb-3">
+          <li><strong>Parentheses:</strong> <code>(...)</code> – Always evaluated first, allowing you to override normal precedence</li>
+          <li><strong>Exponentiation:</strong> <code>**</code> – Raises a number to a power</li>
+          <li><strong>Unary negation:</strong> <code>-x</code>, <code>not x</code> – Applied to a single value</li>
+          <li><strong>Multiplication, division, modulo:</strong> <code>*, /, //, %</code> – Evaluated left to right</li>
+          <li><strong>Addition, subtraction:</strong> <code>+, -</code> – Evaluated left to right</li>
+          <li><strong>Comparisons:</strong> <code>==, !=, &gt;, &gt;=, &lt;, &lt;=, in, not in, is, is not</code> – Evaluated left to right</li>
+          <li><strong>Logical AND:</strong> <code>and</code> – All conditions must be true</li>
+          <li><strong>Logical OR:</strong> <code>or</code> – At least one condition must be true</li>
+        </ol>
+
+        <p>
+          Use parentheses to make complex expressions explicit and to ensure your intent is clear. For example, without parentheses 
+          <code>"a + b * c"</code> is different from <code>"(a + b) * c"</code> because multiplication has higher precedence. Using parentheses 
+          makes your model easier to understand and less prone to mistakes.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">8.6 Built-in functions</h3>
+        <p>
+          SESL provides a set of built-in functions that handle common operations. These functions can be used anywhere an expression can be used: 
+          in conditions, in let blocks, and in then actions. Using functions reduces complexity and makes your rules more readable.
+        </p>
+
+        <p class="mb-2">
+          <code>max(a, b)</code> returns the greater of two values. For example, <code>"max(applicant.income, minimum_income)"</code> ensures you 
+          use at least the minimum income in calculations, even if the applicant's actual income is lower.
+        </p>
+
+        <p class="mb-2">
+          <code>min(a, b)</code> returns the lesser of two values. For example, <code>"min(transaction.amount, limit)"</code> ensures the transaction 
+          does not exceed your maximum limit.
+        </p>
+
+        <p class="mb-2">
+          <code>abs(x)</code> returns the absolute value (magnitude without sign). For example, <code>"abs(variance)"</code> converts a variance that 
+          might be negative to its positive magnitude.
+        </p>
+
+        <p class="mb-2">
+          <code>len(x)</code> returns the length of a list or string. For example, <code>"len(customer.addresses)"</code> tells you how many addresses 
+          a customer has, or <code>"len(applicant.name)"</code> tells you the number of characters in a name.
+        </p>
+
+        <p class="mb-2">
+          <code>sum(list)</code> sums all numbers in a list. For example, <code>"sum(transaction.amounts)"</code> computes the total of all transaction 
+          amounts.
+        </p>
+
+        <p class="mb-2">
+          <code>avg(list)</code> and <code>mean(list)</code> compute the average (mean) of a list of numbers. For example, <code>"avg(monthly_expenses)"</code> 
+          tells you the average expense per month.
+        </p>
+
+        <p class="mb-2">
+          <code>round(x, n)</code> rounds a number to n decimal places. For example, <code>"round(calculated_rate, 2)"</code> rounds to 2 decimal places, 
+          suitable for percentages.
+        </p>
+
+        <p class="mb-2">
+          <code>floor(x)</code> rounds down to the nearest integer. For example, <code>"floor(score)"</code> converts 85.7 to 85.
+        </p>
+
+        <p class="mb-2">
+          <code>ceil(x)</code> rounds up to the nearest integer. For example, <code>"ceil(cost)"</code> converts 99.1 to 100, useful when you want to 
+          round up any partial amount to the next whole unit.
+        </p>
+
+        <p class="mb-2">
+          <code>str(x)</code> converts a value to a string. For example, <code>"str(applicant.id)"</code> converts an ID number to text.
+        </p>
+
+        <p class="mb-2">
+          <code>int(x)</code> converts a value to an integer. For example, <code>"int(score_string)"</code> converts the string "85" to the number 85.
+        </p>
+
+        <p>
+          <code>bool(x)</code> converts a value to a boolean (true or false). For example, <code>"bool(flag_value)"</code> ensures the result is a 
+          proper boolean.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">8.7 String operations</h3>
+        <p>
+          SESL supports basic string operations for working with text values. Strings are enclosed in single or double quotes and can be compared, 
+          combined, and searched.
+        </p>
+
+        <p class="mb-2">
+          <strong>Concatenation:</strong> Use the <code>+</code> operator to combine strings. For example, <code>"'Hello, ' + customer.name"</code> 
+          combines the greeting with the customer's name. You can concatenate multiple strings and even mix strings with numbers (the numbers are 
+          automatically converted to strings).
+        </p>
+
+        <p class="mb-2">
+          <strong>String comparison:</strong> Use comparison operators like <code>==</code> and <code>!=</code> to check string values. For example, 
+          <code>"applicant.status == 'active'"</code> checks whether the status is exactly 'active'. String comparisons are case-sensitive by default.
+        </p>
+
+        <p class="mb-2">
+          <strong>Membership:</strong> Check if a substring exists within a string using the <code>in</code> operator. For example, <code>"'restricted' in document_text"</code> 
+          returns true if the word 'restricted' appears anywhere in the document text.
+        </p>
+
+        <p>
+          <strong>Case methods:</strong> The methods <code>.lower()</code> and <code>.upper()</code> convert strings to lowercase or uppercase respectively. 
+          For example, <code>"customer.name.lower()"</code> converts a customer name to all lowercase, useful for case-insensitive comparisons.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">8.8 Expression context and scope</h3>
+        <p>
+          Expressions can reference different sources of data depending on where they appear in your rules. Understanding what is available in each 
+          context helps you write correct and clear expressions.
+        </p>
+
+        <p class="mb-2">
+          <strong>In condition expressions</strong> (the <code>if</code> field), you can reference facts via dot notation (like <code>customer.age</code>), 
+          constants via the <code>const.</code> prefix (like <code>const.minimum_age</code>), and helper variables from the enclosing <code>let</code> block.
+        </p>
+
+        <p class="mb-2">
+          <strong>In let blocks</strong>, you can reference facts, constants, and previously defined helper variables. However, a variable cannot 
+          reference itself (self-referential expressions are a compile-time error). Variables are evaluated in order, so earlier variables are 
+          available to later ones.
+        </p>
+
+        <p>
+          <strong>In then actions</strong>, you can reference facts, constants, helper variables, and the special <code>result</code> namespace. 
+          You can also reference previously written result values within the same then block, allowing you to build up complex output values step by step.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">8.9 Expression examples</h3>
+        <p>
+          Here are some realistic expression examples to help you understand how to use expressions in practice:
+        </p>
+        <pre><code># Simple arithmetic
+then:
+  result.total: "item_price * quantity"
+
+# Conditional using max
+let:
+  effective_income: "max(applicant.income, applicant.spouse_income)"
+
+# Boolean combination
+if: "applicant.age >= 18 and applicant.credit_score > 620"
+
+# String concatenation
+then:
+  result.message: "'Risk level: ' + result.risk_band"
+
+# Complex arithmetic with functions
+let:
+  debt_ratio: "total_debt / max(applicant.income, 1)"
+if: "debt_ratio > 0.5 or applicant.income < min_income"
+
+# List operations
+if: "applicant.country in const.approved_countries"
+then:
+  result.discount_rate: "0.15"</code></pre>
+      </section>
+
+      <!-- FACTS STRUCTURE -->
+      <section id="facts-structure" class="mt-12 scroll-mt-24">
+        <h2 class="text-3xl font-semibold mb-4">9. Facts structure</h2>
+        <p>
+          Facts represent the input data that rules operate on. They are the raw information that your application gathers 
+          from users, databases, or external services. Facts are structured as nested mappings (dictionaries or objects) of 
+          keys to values. The SESL engine treats the top level of the facts mapping as the main namespace where rules read and 
+          write values using dot-separated paths like <code>customer.age</code> or <code>result.decision</code>.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">9.1 Facts inside a model file</h3>
+        <p>
+          Within a SESL model file, the <code>facts</code> section is a list of test scenarios. Each scenario has its own copy 
+          of the facts mapping, allowing you to test your rules against different input combinations. When you run the model file 
+          through the engine, it evaluates the rules once for each scenario.
+        </p>
+
+        <p class="mb-2">
+          Here is a typical facts structure:
         </p>
         <pre><code>facts:
   - name: "Young customer"
@@ -688,117 +1456,413 @@ facts:
       country: "United Kingdom"
     result: {}</code></pre>
 
-        <p>Common patterns:</p>
-        <ul>
-          <li>
-            Use nested keys to group related information, such as all customer data under
-            <code>customer</code>.
-          </li>
-          <li>
-            Include an initial <code>result</code> mapping to hold outputs from rules. The engine will
-            create one if it is not present, but adding it explicitly is clearer.
-          </li>
-        </ul>
-
-        <h3 class="text-2xl font-semibold mt-6 mb-3">8.2 Engine metadata in facts</h3>
-        <p>
-          When the engine runs, it stores its own metadata under a reserved top level key named
-          <code>_sesl</code>. This metadata includes:
-        </p>
-        <ul>
-          <li>A snapshot of the original facts.</li>
-          <li>Support information for truth maintenance.</li>
-          <li>Monitoring information and execution metrics.</li>
-          <li>Configuration information derived from the engine configuration object.</li>
-        </ul>
-        <p>
-          Rules should not write to fields under <code>_sesl</code>. That namespace is reserved for
-          engine data.
+        <p class="mb-2">
+          Notice how the first scenario is named "Young customer" and contains customer information (age and country). The second 
+          scenario is "Senior customer" with different age but same country. Each scenario starts with an empty <code>result</code> 
+          mapping, which the rules will populate when they execute.
         </p>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">8.3 How rules consume facts</h3>
-        <p>Rules access facts using dot separated paths, for example:</p>
-        <ul>
-          <li><code>customer.age</code></li>
-          <li><code>customer.country</code></li>
-          <li><code>result.score</code></li>
-        </ul>
+        <p class="mb-2">
+          A key pattern in SESL is to use nested keys to group related information. In the example above, all customer data is 
+          grouped under the <code>customer</code> key. This keeps your facts organized and makes rules easier to read and maintain. 
+          You might have other top-level keys like <code>application</code>, <code>credit_report</code>, <code>transaction</code>, and so on.
+        </p>
+
         <p>
-          The engine resolves these paths against the current facts mapping. In strict path mode, a
-          missing intermediate segment leads to a clear error. This protects you from subtle mistakes
-          such as misspelt keys.
+          Including an initial <code>result</code> mapping (even if empty) makes your intent clear. Although the engine will automatically 
+          create a result mapping if it is missing, explicitly including it documents that you expect rules to write output into this 
+          section. This convention improves code clarity.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">9.2 Engine metadata in facts</h3>
+        <p>
+          When the SESL engine runs, it stores its own internal metadata under a reserved top level key named <code>_sesl</code>. 
+          This namespace is entirely managed by the engine and you should not access it from your rules.
+        </p>
+
+        <p class="mb-2">
+          The <code>_sesl</code> namespace contains several types of information. First, it holds a snapshot of the original facts 
+          as they were when the engine started, which is useful for comparison and rollback scenarios. Second, it stores support 
+          information for truth maintenance, tracking which rules produced which facts so that when a fact becomes invalid, the 
+          engine can determine which other facts depend on it. Third, it includes monitoring information about which rules fired, 
+          how conditions were evaluated, and execution metrics. Fourth, it contains a copy of the configuration settings used for 
+          the current run.
+        </p>
+
+        <p>
+          Since <code>_sesl</code> is reserved for engine data, you should never write facts under this key in your rules. If you 
+          do, the engine will either ignore them or raise an error, depending on configuration. Avoid using keys that start with 
+          underscore in your own facts to prevent accidental conflicts.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">9.3 How rules consume facts</h3>
+        <p>
+          Rules access facts using dot-separated path notation. A path describes a route through your nested facts structure. 
+          For example, <code>customer.age</code> means "look at the customer object and get the age field." Similarly, <code>result.score</code> 
+          means "look at the result object and get the score field."
+        </p>
+
+        <p class="mb-2">
+          When the engine evaluates a rule, it resolves these paths by traversing the facts mapping. If the path exists, the engine 
+          retrieves the value. If the path does not exist, the engine returns a null or missing value, depending on the configuration mode.
+        </p>
+
+        <p>
+          In strict path mode (controlled by the <code>SESL_STRICT_PATHS</code> configuration option), the engine raises an error when 
+          it encounters a missing path. This protects you from subtle mistakes such as misspelling a key. For example, if you write 
+          <code>customer.age</code> but the actual key is <code>customer.aget</code>, strict mode will catch this typo and alert you. In 
+          relaxed mode, the engine returns a null value for missing paths, allowing rules to handle missing data gracefully.
+        </p>
+      </section>
+
+      <!-- ENGINE CONFIGURATION -->
+      <section id="config" class="mt-12 scroll-mt-24">
+        <h2 class="text-3xl font-semibold mb-4">10. Engine configuration</h2>
+        <p>
+          The SESL engine behavior can be customized through configuration settings. These settings control how strictly the engine 
+          checks types and paths, how it handles missing values, and how it reports errors. Different applications have different 
+          requirements—a financial application might need strict type checking, while a customer service application might prefer 
+          lenient handling of missing data. Configuration allows you to tune the engine's behavior to match your needs.
+        </p>
+
+        <p>
+          Configuration can be set in three different ways: via environment variables that apply globally to the entire system, via 
+          configuration objects passed directly to the engine function, or by relying on sensible defaults. We will explore each approach.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">10.1 Environment variables</h3>
+        <p>
+          Environment variables provide a convenient way to configure the engine globally. These settings are checked when the engine 
+          initializes and apply to all rules in all models run in that environment. This is useful for setting global policies across 
+          your entire application.
+        </p>
+
+        <p class="mb-2">
+          <code>SESL_STRICT_OPERANDS</code> (true or false) controls whether the engine enforces type compatibility in expressions. When 
+          set to true, the engine will refuse operations that mix types without explicit conversion. For example, it will not add a 
+          string to a number; you must explicitly convert one or both to a compatible type. This prevents subtle bugs where a "123" string 
+          might unexpectedly behave like the number 123. Default: false (relaxed mode allows coercion).
+        </p>
+
+        <p class="mb-2">
+          <code>SESL_STRICT_PATHS</code> (true or false) controls whether the engine requires all intermediate structures to exist before 
+          you write to a path. When true, writing to <code>result.flags.high_risk</code> requires that both <code>result</code> and 
+          <code>result.flags</code> already exist as objects. This prevents typos where you might accidentally create <code>result.flgas</code> 
+          instead of <code>result.flags</code>. Default: false (relaxed mode creates missing structures).
+        </p>
+
+        <p class="mb-2">
+          <code>SESL_AUTO_CREATE_PATHS</code> (true or false) controls whether the engine automatically creates missing intermediate structures 
+          when writing to paths. When true, writing to <code>result.nested.deep.field</code> will automatically create any missing intermediate 
+          objects. This is convenient for rapid development but can hide typos. Default: true (automatic creation enabled). Note that this 
+          setting is ignored if SESL_STRICT_PATHS is true.
+        </p>
+
+        <p class="mb-2">
+          <code>SESL_ERROR_STYLE</code> (fancy or plain) controls whether error messages include formatting and colors. Fancy mode produces 
+          colorful, visually formatted error messages useful for development. Plain mode produces simple text suitable for logging systems 
+          that don't support colors. Default: fancy.
+        </p>
+
+        <p class="mb-2">
+          <code>SESL_CONFLICT_POLICY</code> (error, warn, or ignore) controls how the engine handles conflicting writes. A conflict occurs when 
+          multiple rules at the same priority level try to write different values to the same path in the same iteration. The error policy 
+          raises an exception, the warn policy logs a warning and picks one value, and the ignore policy silently picks one value. Default: warn.
+        </p>
+
+        <p>
+          <code>SESL_MAX_ITERATIONS</code> (integer) sets the maximum number of forward chaining iterations. This prevents infinite loops if your 
+          rules form a cycle that continuously updates facts. When the limit is reached, the engine stops and returns the current state. Default: 20.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">10.2 Configuration via function arguments</h3>
+        <p>
+          Configuration can also be passed directly to the <code>forward_chain</code> function via a configuration object. This approach allows 
+          you to override environment variables and defaults for specific runs without modifying system settings.
+        </p>
+
+        <pre><code>from sesl_engine import forward_chain, EngineConfig
+
+config = EngineConfig(
+    strict_operands=True,
+    strict_paths=False,
+    auto_create_paths=True,
+    error_style="fancy",
+    conflict_policy="warn",
+    max_iterations=20
+)
+
+forward_chain(rules, facts, config=config, monitor=monitor)</code></pre>
+
+        <p>
+          This pattern is useful when you want different configurations for different parts of your application. For example, your high-stakes 
+          approval engine might use strict checking, while your analytics engine might use relaxed checking for flexibility.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">10.3 Configuration precedence</h3>
+        <p>
+          When the engine needs to know a configuration value, it checks multiple sources and uses the highest-priority source available. 
+          Understanding this precedence helps you set configuration predictably across your application.
+        </p>
+
+        <p class="mb-2">
+          The precedence order from highest to lowest is:
+        </p>
+
+        <ol class="mb-3">
+          <li><strong>Function arguments:</strong> Configuration passed directly to <code>forward_chain</code> via the <code>config=</code> parameter has the highest priority</li>
+          <li><strong>Environment variables:</strong> Settings like <code>SESL_STRICT_OPERANDS</code> are checked second</li>
+          <li><strong>Engine defaults:</strong> Built-in defaults are used if no function arguments or environment variables are set</li>
+        </ol>
+
+        <p>
+          This design allows you to set global defaults via environment variables while overriding them for specific runs. For instance, you 
+          might set <code>SESL_STRICT_OPERANDS=false</code> globally for development, but pass <code>config=EngineConfig(strict_operands=True)</code> 
+          when running your production approval engine.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">10.4 Strict mode recommendations</h3>
+        <p>
+          Different applications have different safety requirements. We recommend enabling strict modes in production to catch subtle bugs early. 
+          The right configuration depends on your use case and risk tolerance.
+        </p>
+
+        <p class="mb-2">
+          For financial calculations, loan approvals, and other high-stakes decisions where correctness is critical, we strongly recommend setting 
+          <code>strict_operands=True</code>. This forces explicit type conversions and catches type mismatches, preventing unexpected behavior. 
+          Without strict mode, a string "100" might accidentally be treated as the number 100, leading to wrong decisions.
+        </p>
+
+        <p class="mb-2">
+          For models that process structured input data, set <code>strict_paths=True</code> with <code>auto_create_paths=False</code>. This ensures 
+          all paths are explicitly defined in your facts before rules write to them. If a rule tries to write to a path that doesn't exist, the 
+          engine raises an error immediately rather than silently creating it. This catches typos and missing initialization issues early.
+        </p>
+
+        <p>
+          For production models where multiple rules might write to the same path, set <code>conflict_policy="error"</code>. This treats conflicting 
+          writes as errors rather than warnings, ensuring you are aware of any ambiguities in your rule set. This promotes deterministic behavior 
+          and prevents subtle race conditions where the order of rules might affect results.
+        </p>
+      </section>
+
+      <!-- VALIDATION AND LINTING -->
+      <section id="validation" class="mt-12 scroll-mt-24">
+        <h2 class="text-3xl font-semibold mb-4">11. Validation and linting</h2>
+        <p>
+          Before running a SESL model in production, it is important to validate that the model is well-formed and that rules do not 
+          contain obvious errors. Mistakes in rule logic can have serious consequences—approving ineligible applicants, denying eligible 
+          ones, or applying incorrect discounts. SESL provides several validation and linting tools to help you identify and fix issues 
+          early in your development process, before they reach production.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">11.1 Preflight validation</h3>
+        <p>
+          Preflight validation is automatic and happens immediately when you load a model file using <code>load_model_from_yaml</code>. 
+          This first pass checks the basic structure and syntax of your model before the engine tries to execute it.
+        </p>
+
+        <p class="mb-2">
+          Preflight validation checks several important things. First, it verifies that the YAML syntax is correct. YAML is sensitive 
+          to indentation and special characters, so syntax errors are common. Second, it confirms that all required fields are present 
+          in each rule, such as the <code>rule</code> name and the <code>then</code> section. Third, it checks that all rule names are 
+          unique within the model—if you accidentally define two rules with the same name, the engine will catch this. Fourth, it scans 
+          for obviously missing references, such as constants that are used in rules but never defined in the <code>const</code> section.
+        </p>
+
+        <p>
+          If preflight validation fails, a clear and descriptive error message is raised immediately, telling you exactly what went wrong 
+          and where to find it in your model file. This means you can fix problems quickly without waiting to run the full engine.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">11.2 Model linting</h3>
+        <p>
+          In addition to basic validation, SESL provides a linter that performs much deeper semantic analysis. The linter looks beyond 
+          simple syntax and structure to understand the logic of your rules and find potential problems.
+        </p>
+
+        <p class="mb-2">
+          Here is how to run the linter on your model:
+        </p>
+        <pre><code>from sesl_engine.tools.linter_core import lint_model_from_yaml
+
+model_text = open("my_model.sesl.yaml").read()
+lints, errors = lint_model_from_yaml(model_text)
+
+for lint in lints:
+    print(f"Warning: {lint.message} at rule '{lint.rule_name}'")
+
+for error in errors:
+    print(f"Error: {error.message}")</code></pre>
+
+        <p class="mb-2">
+          The linter returns two lists: errors (which indicate serious problems that should be fixed) and lints (which are warnings about 
+          potential issues that you might want to address). You can use this information to improve your model before it reaches production.
+        </p>
+
+        <p>
+          The linter checks for several categories of problems. First, <strong>unused variables</strong>—helper variables defined in 
+          <code>let</code> blocks that are never referenced anywhere. These indicate incomplete logic or leftover code from refactoring. 
+          Second, <strong>unreachable code</strong>—rules that can never fire because their conditions are logically impossible or contradictory. 
+          Third, <strong>suspicious patterns</strong>—rules that write to facts without reading any input (suggesting they might be incorrect), 
+          or complex conditions that are hard to understand and therefore hard to maintain. Fourth, <strong>type mismatches</strong>—operations 
+          that combine incompatible types (when strict mode is enabled). Fifth, <strong>missing documentation</strong>—fields that are written 
+          by rules but never have an explanation or reason provided.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">11.3 Dependency analysis</h3>
+        <p>
+          The SESL engine can analyze the dependencies between your rules, showing which rules depend on values produced by other rules. 
+          This dependency analysis helps you understand rule ordering and identify potential conflicts or circular dependencies.
+        </p>
+
+        <p class="mb-2">
+          Here is how to use the dependency analysis tool:
+        </p>
+        <pre><code>from sesl_engine import build_dependency_graph
+
+graph = build_dependency_graph(rules)
+
+# Each rule shows which other rules it depends on
+for rule in rules:
+    dependencies = graph.get_dependencies(rule.name)
+    print(f"{rule.name} depends on: {dependencies}")</code></pre>
+
+        <p class="mb-2">
+          Understanding dependencies is useful for several reasons. First, it helps you reorder rules to improve clarity—even though the 
+          engine automatically reorders rules based on dependencies, explicitly arranging them in your model file makes the logic easier 
+          for humans to follow. Second, it helps you identify potential circular dependencies where Rule A depends on Rule B and Rule B 
+          depends on Rule A. The engine prevents circular dependencies from causing infinite loops, but they indicate design issues that 
+          should be addressed. Third, dependency analysis helps when refactoring large models into smaller, more focused sub-models—you 
+          can group rules that depend on each other into separate files.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">11.4 Testing and scenario validation</h3>
+        <p>
+          The <code>facts</code> section of a SESL model serves dual purposes: it provides test data for learning and experimenting, and 
+          it acts as a regression test suite to catch unexpected changes in rule behavior. Each fact scenario can be run independently to 
+          verify that rules behave as expected.
+        </p>
+
+        <p class="mb-2">
+          Here is a common pattern for testing your rules against all scenarios:
+        </p>
+        <pre><code>rules, scenarios = load_model_from_yaml(model_text)
+
+for scenario_name, facts in scenarios:
+    monitor = Monitor()
+    forward_chain(rules, facts.copy(), monitor=monitor)
+    
+    # Verify expected outcomes
+    assert facts["result"]["decision"] in ["approve", "decline"], f"Scenario {scenario_name} produced unexpected result"
+    print(f"✓ Scenario {scenario_name} passed")</code></pre>
+
+        <p class="mb-2">
+          This approach allows you to maintain a suite of test cases alongside your rules. When you modify your rules, you can run this test 
+          suite to ensure that changes do not break expected behavior. For example, if you change the income threshold in one rule, your tests 
+          will immediately tell you if this change affected the outcomes of your test scenarios in unexpected ways.
+        </p>
+
+        <p>
+          Best practice is to include test scenarios that cover the important decision boundaries in your model. For instance, if your model 
+          determines loan eligibility based on credit score, include scenarios just above and just below the eligibility threshold. This way, 
+          if someone accidentally changes the threshold value, your tests will catch it immediately.
         </p>
       </section>
 
       <!-- ENGINE -->
       <section id="engine" class="mt-12 scroll-mt-24">
-        <h2 class="text-3xl font-semibold mb-4">9. How the SESL engine works</h2>
+        <h2 class="text-3xl font-semibold mb-4">12. How the SESL engine works</h2>
         <p>
-          The SESL engine is a forward chaining inference engine implemented in Python. It loads rules
-          and facts, validates them, and then fires rules until no more changes occur or a limit is
-          reached.
+          The SESL engine is a forward chaining inference engine implemented in Python. It is designed to be transparent and predictable, 
+          so you understand exactly how it arrives at decisions. This section explains the internal workings of the engine, which helps you 
+          write better rules and debug unexpected results.
         </p>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">9.1 High level architecture</h3>
-        <ol>
-          <li>
-            <strong>Model loading.</strong> The <code>load_model_from_yaml</code> function parses the
-            structured text model and returns compiled rules together with fact scenarios.
-          </li>
-          <li>
-            <strong>Preflight validation.</strong> The <code>preflight_validate_model</code> function
-            performs inexpensive checks such as duplicate rule names and obvious path issues.
-          </li>
-          <li>
-            <strong>Dependency ordering.</strong> Rules are sorted by priority and by the dependencies
-            between read and written sections.
-          </li>
-          <li>
-            <strong>Forward chaining.</strong> The <code>forward_chain</code> function repeatedly evaluates
-            rule conditions and applies actions.
-          </li>
-          <li>
-            <strong>Explainability and metrics.</strong> The <code>Monitor</code> class records events,
-            actions, and metrics for later inspection.
-          </li>
+        <h3 class="text-2xl font-semibold mt-6 mb-3">12.1 High level architecture</h3>
+        <p>
+          The SESL engine follows a multi-stage pipeline to process rules and facts. Understanding these stages helps you know what happens 
+          at each step and when errors might be detected.
+        </p>
+
+        <p class="mb-2">
+          <strong>Stage 1: Model Loading</strong> begins when you call the <code>load_model_from_yaml</code> function. This function reads 
+          your YAML model file as text and parses it into internal structures. It extracts the rules, constants, and fact scenarios. This 
+          stage outputs compiled rules ready for execution and organized fact scenarios ready for testing.
+        </p>
+
+        <p class="mb-2">
+          <strong>Stage 2: Preflight Validation</strong> happens automatically as part of model loading. The <code>preflight_validate_model</code> 
+          function performs inexpensive checks such as verifying that all rule names are unique, that YAML syntax is correct, and that obviously 
+          missing constants or paths are caught. This stage is fast and runs every time you load a model.
+        </p>
+
+        <p class="mb-2">
+          <strong>Stage 3: Dependency Ordering</strong> analyzes relationships between rules. Rules are sorted by priority (higher priority first) 
+          and then by data dependencies (rules that produce data come before rules that consume it). This intelligent reordering ensures rules 
+          execute in an order that respects their dependencies.
+        </p>
+
+        <p class="mb-2">
+          <strong>Stage 4: Forward Chaining</strong> is when the actual inference happens. The <code>forward_chain</code> function repeatedly 
+          evaluates rule conditions and applies actions until no more facts change or the iteration limit is reached. This is the "thinking" 
+          part of the engine where decisions are made.
+        </p>
+
+        <p>
+          <strong>Stage 5: Explainability and Metrics</strong> happens throughout execution. The optional <code>Monitor</code> class records 
+          detailed information about which rules fired, which conditions were evaluated, and what changed. This information is essential for 
+          understanding and explaining decisions to users and auditors.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">12.2 Lifecycle of a single run</h3>
+        <p>
+          When you call <code>forward_chain</code>, the engine goes through a well-defined lifecycle. Understanding this lifecycle helps you 
+          understand exactly what happens to your facts at each step.
+        </p>
+
+        <p class="mb-2">
+          First, the engine receives the compiled rules and your facts mapping. It also optionally receives engine configuration settings and 
+          a monitor instance for recording details. The engine immediately makes a snapshot of your starting facts, storing them for later use 
+          in truth maintenance and explanations. This snapshot allows the engine to answer questions like "Which facts changed during execution?" 
+          and "Why did this fact change?"
+        </p>
+
+        <p class="mb-2">
+          Second, the engine attaches internal metadata under the reserved <code>_sesl</code> key of your facts. This metadata includes the 
+          snapshot, configuration settings, rule information, and monitoring data. You should never write to the <code>_sesl</code> key from 
+          your rules.
+        </p>
+
+        <p class="mb-2">
+          Third, the engine enters a main loop that runs for at most a fixed number of iterations (typically twenty). Each iteration is a complete 
+          pass through all rules. Here is what happens in each iteration:
+        </p>
+
+        <ol class="mb-2">
+          <li>The engine evaluates each rule in sorted order.</li>
+          <li>For each rule, it prepares a <code>_let</code> (helper variables) mapping and computes each helper expression.</li>
+          <li>It evaluates the rule conditions using the current facts and helper values.</li>
+          <li>If the conditions are satisfied, the engine applies actions by writing to target paths in the facts mapping.</li>
+          <li>It records monitoring events, including what rule executed, which conditions were true, and what changed.</li>
         </ol>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">9.2 Lifecycle of a single run</h3>
-        <ol>
-          <li>
-            The engine takes a list of compiled rules and a facts mapping. It also optionally receives
-            an engine configuration and a monitor instance.
-          </li>
-          <li>
-            It makes a snapshot of the starting facts for later explanations and truth maintenance.
-          </li>
-          <li>
-            It attaches configuration and rule metadata under the <code>_sesl</code> key of the facts.
-          </li>
-          <li>
-            It enters a loop that runs for at most a fixed number of iterations (for example twenty).
-          </li>
-          <li>
-            In each iteration, the engine evaluates each rule in the sorted order:
-            <ul>
-              <li>It prepares a <code>_let</code> mapping and computes each helper expression.</li>
-              <li>It evaluates the rule conditions using the current facts and helper values.</li>
-              <li>
-                If the conditions are satisfied, it applies actions by writing to target paths in the
-                facts mapping.
-              </li>
-              <li>It records monitoring events, including rule evaluation and firing.</li>
-            </ul>
-          </li>
-          <li>
-            At the end of each iteration, it compares a fingerprint of the user visible facts. If the
-            fingerprint has not changed since the previous iteration, the engine stops because the state
-            is stable.
-          </li>
-        </ol>
+        <p class="mb-2">
+          Fourth, at the end of each iteration, the engine compares a fingerprint (hash) of the user-visible facts. If the fingerprint has not 
+          changed since the previous iteration, the engine knows the facts have stabilized and it stops. The loop doesn't run the maximum iterations; 
+          it stops as soon as facts stop changing. This is efficient and means your rules can converge in a few iterations rather than always running 
+          to the maximum.
+        </p>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">9.3 Walkthrough example</h3>
-        <p>Consider the following very small model:</p>
+        <p>
+          Fifth, if all iterations complete and facts are still changing, the engine stops anyway. This prevents infinite loops from rules that 
+          form cycles. It will warn you that the maximum iterations were reached, which usually indicates that your rules might have a design issue.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">12.3 Walkthrough example</h3>
+        <p>
+          Let's trace through a simple example to see how the engine works step by step. Consider this very small model:
+        </p>
         <pre><code>model: "Simple flag demo"
 
 rules:
@@ -815,25 +1879,24 @@ facts:
       amount: 1500
     result: {}</code></pre>
 
-        <p>Processing steps for this example:</p>
-        <ol>
-          <li>The engine loads one rule and one scenario.</li>
+        <p class="mb-2">
+          Here is how the engine processes this model:
+        </p>
+
+        <ol class="mb-3">
+          <li>The engine loads one rule and one scenario with transaction amount 1500.</li>
           <li>It starts the first iteration and evaluates the rule.</li>
-          <li>
-            The condition <code>"transaction.amount &gt; 1000"</code> is true, because the amount is
-            one thousand five hundred.
-          </li>
-          <li>The engine writes two values into the <code>result</code> mapping.</li>
-          <li>It records that the rule fired and why.</li>
-          <li>
-            At the end of the iteration, the fingerprint of the facts differs from the starting
-            fingerprint, so the engine checks another iteration.
-          </li>
-          <li>In the next iteration, evaluating the same rule does not change any value.</li>
-          <li>The fingerprint now matches the previous one, so the engine stops.</li>
+          <li>It evaluates the condition <code>"transaction.amount &gt; 1000"</code>. Since the amount is 1500, this is true.</li>
+          <li>Because the condition is true, the engine executes the then block, writing two values: <code>result.flagged = true</code> and <code>result.flag_reason = "High transaction amount"</code>.</li>
+          <li>The monitor records that the rule fired and why.</li>
+          <li>At the end of the iteration, the engine compares fingerprints. The facts have changed (two new fields were added), so it checks another iteration.</li>
+          <li>In the next iteration, it evaluates the same rule again. The condition is still true, but the then block would write the same values.</li>
+          <li>No new facts changed this iteration, so the fingerprint matches the previous one. The engine stops.</li>
         </ol>
 
-        <p>The final result might look like this:</p>
+        <p>
+          The final result would look like this:
+        </p>
         <pre><code>result: {
   "flagged": true,
   "flag_reason": "High transaction amount",
@@ -841,39 +1904,56 @@ facts:
   "monitor_blocks": [...],
   "monitor_theme": "colour"
 }</code></pre>
+
+        <p>
+          In this simple example, the engine only needed two iterations to reach a stable state. More complex models with many interdependent rules 
+          might need more iterations, but the principle is the same: the engine keeps going until nothing changes or the iteration limit is reached.
+        </p>
       </section>
 
       <!-- OUTPUT -->
       <section id="output" class="mt-12 scroll-mt-24">
-        <h2 class="text-3xl font-semibold mb-4">10. Output of run commands</h2>
+        <h2 class="text-3xl font-semibold mb-4">13. Output and explanation</h2>
         <p>
-          This section describes the main parts of the engine output when you call the
-          <code>forward_chain</code> function. The engine mutates the facts mapping in place and attaches
-          several helpful structures.
+          When you call the <code>forward_chain</code> function, the engine mutates the facts mapping in place, filling it with results from 
+          rule execution. The engine also attaches several helpful structures that provide detailed information about what happened during 
+          execution. This section describes the main parts of the engine output.
         </p>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">10.1 Result section</h3>
+        <h3 class="text-2xl font-semibold mt-6 mb-3">13.1 Result section</h3>
         <p>
-          The most important part for application logic is the <code>result</code> mapping. This is where
-          your rules usually write decisions and scores.
+          The most important part for your application logic is the <code>result</code> mapping. This is where your rules typically write 
+          decisions, scores, explanations, and other output values. The result section is entirely defined by your model—you decide what 
+          fields to include and what they mean.
         </p>
+
         <pre><code>result: {
   "decision": "approve",
   "decision_reason": "Very high income",
   "score": 78
 }</code></pre>
-        <p>Each field in the result mapping is entirely defined by your model. Common patterns include:</p>
-        <ul>
-          <li><code>decision</code>: approve, decline, refer, and similar outcomes.</li>
-          <li><code>decision_reason</code>: free text explanation of the decision.</li>
-          <li><code>score</code>: numeric score or rating.</li>
-          <li><code>flags</code>: sub-mapping with Boolean flags describing conditions.</li>
+
+        <p class="mb-2">
+          Common patterns for result sections include:
+        </p>
+
+        <ul class="mb-3">
+          <li><strong>decision:</strong> The main outcome—approve, decline, refer, pending, or whatever options your business logic needs.</li>
+          <li><strong>decision_reason:</strong> Free text explanation of why the decision was made. This is crucial for transparency.</li>
+          <li><strong>score:</strong> A numeric score or rating (0-100, 0-1000, etc.) that quantifies the assessment.</li>
+          <li><strong>flags:</strong> A sub-mapping with Boolean flags describing special conditions (e.g., <code>flags.requires_manual_review</code>, <code>flags.high_risk</code>).</li>
+          <li><strong>confidence:</strong> A confidence level (e.g., 0-1) expressing how certain the decision is.</li>
+          <li><strong>processing_time_ms:</strong> How long the evaluation took (useful for performance monitoring).</li>
         </ul>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">10.2 Monitor fields</h3>
+        <h3 class="text-2xl font-semibold mt-6 mb-3">13.2 Monitor fields</h3>
         <p>
-          When you pass a monitor instance to the engine, the engine attaches monitoring information
-          under both the <code>_sesl</code> key and the <code>result</code> mapping for convenience.
+          When you pass a monitor instance to the engine, it records detailed information about rule execution. For convenience, this monitoring 
+          information is attached to both the <code>_sesl</code> key and the <code>result</code> mapping, making it easily accessible.
+        </p>
+
+        <p class="mb-2">
+          Here is an example of monitor output:
         </p>
         <pre><code>result: {
   "decision": "approve",
@@ -890,26 +1970,32 @@ facts:
   "monitor_theme": "colour"
 }</code></pre>
 
-        <p>Field meanings:</p>
-        <ul>
-          <li>
-            <strong>monitor</strong>: a list of raw monitor events, in chronological order. Each event has
-            a numeric step and a message, and may have details.
-          </li>
-          <li>
-            <strong>monitor_blocks</strong>: human readable multi-line blocks summarising each rule, its
-            evaluation, and actions.
-          </li>
-          <li>
-            <strong>monitor_theme</strong>: a hint string used by user interfaces to pick a presentation
-            style.
-          </li>
-        </ul>
+        <p class="mb-2">
+          The monitor output contains three fields. The <code>monitor</code> field is a list of raw events in chronological order. Each event 
+          has a numeric step number, a message, and optionally detailed information about what was evaluated. This raw format is machine-readable 
+          and useful for programmatic analysis.
+        </p>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">10.3 Metrics and configuration</h3>
+        <p class="mb-2">
+          The <code>monitor_blocks</code> field is a list of human-readable multi-line blocks summarizing each rule's evaluation. Each block 
+          shows which rule was evaluated, whether the conditions matched, what actions were taken, and whether the rule fired. These blocks are 
+          formatted for easy reading and often include Unicode symbols (checkmarks, arrows, etc.) to visually indicate execution flow.
+        </p>
+
         <p>
-          The engine attaches metrics and configuration details under the <code>_sesl</code> key on the
-          facts mapping. For example:
+          The <code>monitor_theme</code> field is a hint string that indicates what presentation style was used. Common values are "colour" 
+          (for colorful terminal output) or "plain" (for simple text). Your user interface can use this hint to determine how to display the 
+          monitoring information to users.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">13.3 Metrics and configuration</h3>
+        <p>
+          The engine attaches execution metrics and configuration details under the reserved <code>_sesl</code> key of the facts mapping. This 
+          information is useful for diagnostics, performance tuning, and understanding how the engine processed your model.
+        </p>
+
+        <p class="mb-2">
+          Here is an example:
         </p>
         <pre><code>_sesl:
   metrics:
@@ -922,30 +2008,32 @@ facts:
     strict_operands: true
     strict_paths: true
     auto_create_paths: false
-    let_missing: "error"
-    dependency_sort: true
-    strict_actions: false
     error_style: "fancy"
-    conflict_policy: "warn"
-    logger: "NullLogger"</code></pre>
+    conflict_policy: "warn"</code></pre>
 
-        <p>These fields help with tuning and diagnostics:</p>
-        <ul>
-          <li><strong>iterations</strong>: number of forward chaining cycles completed.</li>
-          <li><strong>rules_evaluated</strong>: how many rule evaluations were performed.</li>
-          <li><strong>rules_fired</strong>: how many times rules actually changed facts.</li>
-          <li><strong>elapsed_ms</strong>: total execution time in milliseconds.</li>
-          <li>
-            <strong>convergence_fingerprint</strong>: hash of user visible facts used to detect stable
-            state.
-          </li>
-        </ul>
+        <p class="mb-2">
+          The metrics section provides performance and execution information. The <code>iterations</code> field shows how many forward chaining 
+          cycles the engine completed before reaching a stable state. The <code>rules_evaluated</code> field shows the total number of times the 
+          engine evaluated rule conditions (this might be higher than the number of rules × iterations because of complex conditions). The <code>rules_fired</code> 
+          field shows how many times rules actually executed and changed facts. The <code>elapsed_ms</code> field shows the total execution time in 
+          milliseconds, useful for performance monitoring. The <code>convergence_fingerprint</code> is a hash of the user-visible facts used internally 
+          to detect when the state has stabilized.
+        </p>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">10.4 Truth maintenance support</h3>
         <p>
-          SESL collects support information for paths that rules write. This support information is stored
-          under <code>_sesl.support</code> and <code>_sesl.support_detail</code> and can be used to
-          explain why a fact has a particular value.
+          The _config section documents what configuration settings were used during execution. This is useful for auditing and debugging—you can 
+          verify that rules were executed with the expected configuration (strict mode on or off, etc.).
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">13.4 Truth maintenance support</h3>
+        <p>
+          SESL maintains detailed support information tracking which rules wrote which facts. This support information is stored under <code>_sesl.support</code> 
+          and <code>_sesl.support_detail</code> and can be used to explain exactly why a fact has a particular value. This is the foundation of the 
+          SESL engine's explainability capabilities.
+        </p>
+
+        <p class="mb-2">
+          Here is an example:
         </p>
         <pre><code>_sesl:
   support:
@@ -957,14 +2045,168 @@ facts:
         priority: 10</code></pre>
 
         <p>
-          The helper function <code>explain_fact(facts, "result.decision")</code> returns a structured
-          justification chain for a given path.
+          The support structure maps from result paths to the list of rules that wrote those paths. The support_detail provides more context about 
+          each rule, including its reason and priority. You can use the helper function <code>explain_fact(facts, "result.decision")</code> to retrieve 
+          a structured justification chain for any path, which is helpful for building user-facing explanations and audit trails.
+        </p>
+      </section>
+
+      <!-- TRUTH MAINTENANCE -->
+      <section id="truth-maintenance" class="mt-12 scroll-mt-24">
+        <h2 class="text-3xl font-semibold mb-4">14. Truth maintenance and dependency tracking</h2>
+        <p>
+          One of the most powerful features of SESL is its ability to track and explain every fact produced by your rules. Truth maintenance 
+          is the practice of recording which rules wrote which facts so that you can later explain exactly why a decision was made. This section 
+          describes how truth maintenance works and how to use it to build transparent, auditable systems.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">14.1 Support information structure</h3>
+        <p>
+          When rules fire and write values, the SESL engine automatically records which rule wrote each value and under what conditions. This 
+          information is called "support" or "provenance." It is stored in the <code>_sesl.support</code> and <code>_sesl.support_detail</code> 
+          sections of the facts mapping.
+        </p>
+
+        <p class="mb-2">
+          Here is an example:
+        </p>
+        <pre><code>_sesl:
+  support:
+    "result.decision": ["Approve on high income"]
+    "result.score": ["Calculate base score", "Apply income bonus"]
+  
+  support_detail:
+    "result.decision":
+      "Approve on high income":
+        reason: "Applicant has very high income"
+        priority: 10
+        rule_fired_at_iteration: 1
+    
+    "result.score":
+      "Calculate base score":
+        reason: "Starting score from applicant profile"
+        priority: 50
+      "Apply income bonus":
+        reason: "Bonus applied for stable income"
+        priority: 40</code></pre>
+
+        <p class="mb-2">
+          The <code>support</code> field is a mapping from fact paths to lists of rule names that wrote to those paths. This tells you exactly 
+          which rules are responsible for each output value. The <code>support_detail</code> field provides additional context about each write 
+          operation, including the rule's reason explanation, its priority, and which iteration it fired in.
+        </p>
+
+        <p>
+          This structure is the foundation of SESL's explainability. Every output value can be traced back to the rules that produced it, and 
+          every rule can be linked to its reason explanation. This creates a complete audit trail of how decisions were made.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">14.2 Explaining a specific fact</h3>
+        <p>
+          You can use the <code>explain_fact</code> helper function to construct a human-readable explanation of why a fact has its current value. 
+          This function traces through the support information and compiles a structured justification.
+        </p>
+
+        <p class="mb-2">
+          Here is an example of using explain_fact:
+        </p>
+        <pre><code>from sesl_engine import explain_fact
+
+# After running forward_chain...
+explanation = explain_fact(facts, "result.decision")
+
+print(f"Path: {explanation.path}")
+print(f"Value: {explanation.value}")
+print(f"Supported by rules: {explanation.supporting_rules}")
+for rule_name, details in explanation.rule_details.items():
+    print(f"  - {rule_name}: {details['reason']}")</code></pre>
+
+        <p class="mb-2">
+          This produces output like:
+        </p>
+        <pre><code>Path: result.decision
+Value: approve
+Supported by rules: ['Approve on high income']
+  - Approve on high income: Applicant has very high income</code></pre>
+
+        <p>
+          You can use this in your application to show users exactly why a decision was made. For example, in a loan approval system, you could 
+          display "Your application was approved because: Applicant has very high income." This transparency builds trust and makes it easier to 
+          explain decisions to applicants, regulators, and internal stakeholders.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">14.3 Multiple writes and conflict resolution</h3>
+        <p>
+          When multiple rules try to write to the same path, the support information tracks all of them, but only one value "wins" and becomes 
+          the final result. The engine determines which value wins through a priority-based conflict resolution process.
+        </p>
+
+        <p class="mb-2">
+          First, the engine respects rule priority. If Rule A has priority 20 and Rule B has priority 10, Rule A's value will be used. Second, 
+          if two rules have the same priority and both fire in the same iteration, the conflict policy determines what happens. The default 
+          conflict policy is "warn," which logs a warning but lets one rule win (the order is implementation-dependent). You can set it to "error" 
+          to reject conflicting writes or "ignore" to silently pick one.
+        </p>
+
+        <p>
+          The support information always records which rule's value is currently "winning" (the highest priority, most recent write). This means 
+          you can explain not just why a fact has a value, but why other rules' values were rejected in favor of higher-priority rules.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">14.4 Dependency graphs and rule relationships</h3>
+        <p>
+          SESL can analyze your rules to build a dependency graph—a visual representation of which rules read values and which rules write them. 
+          This helps you understand the "flow" of data through your rule set.
+        </p>
+
+        <p class="mb-2">
+          Here is how to build and query a dependency graph:
+        </p>
+        <pre><code>from sesl_engine import build_dependency_graph
+
+graph = build_dependency_graph(rules)
+
+# Find all rules that depend on a given path
+depending_rules = graph.get_rules_reading(path="result.score")
+
+# Find all paths that a rule writes to
+written_paths = graph.get_written_paths(rule_name="Calculate bonus")</code></pre>
+
+        <p class="mb-2">
+          Dependency graphs are useful for several purposes. First, understanding the flow of data helps you understand what your rules do. 
+          Second, you can identify which rules are safe to modify or remove—if you remove a rule that no other rule depends on, nothing breaks. 
+          Third, you can detect unused rules or dead code—rules that never fire or that nobody depends on. Fourth, you can refactor large models 
+          to improve maintainability by grouping related rules.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-6 mb-3">14.5 Building user interfaces with explanation data</h3>
+        <p>
+          The support and monitor information generated by SESL can be used to build rich user interfaces that explain decisions. Rather than 
+          showing users a black box that says "approved," you can show them exactly why the decision was made and which rules were involved.
+        </p>
+
+        <p class="mb-2">
+          Here are some UI patterns you can build with SESL explanation data:
+        </p>
+
+        <ul class="mb-3">
+          <li><strong>Decision summary:</strong> Show the final decision and the primary rule that determined it. For example, "Your application was <strong>approved</strong> because you meet the high income threshold."</li>
+          <li><strong>Rule trace:</strong> Display all rules that fired, in the order they executed, with their conditions and actions. This helps advanced users understand the logic.</li>
+          <li><strong>Evidence trail:</strong> For each output field, show which rules contributed to it and why. Create a table showing each field, its value, and the supporting rules.</li>
+          <li><strong>Fact path navigation:</strong> Allow users to click on any fact in the output and see which rules read or write it. This creates an interactive exploration experience.</li>
+          <li><strong>What-if analysis:</strong> Show how the decision would change if a specific input was different. This helps users understand decision boundaries (e.g., "If your income were $5,000 higher, you would be approved").</li>
+        </ul>
+
+        <p>
+          The monitor data (available in <code>result.monitor</code> and <code>result.monitor_blocks</code>) provides formatted text suitable for 
+          rendering in logs, web pages, or interactive tools. The support data provides structured information suitable for programmatic use. Together, 
+          they give you everything you need to build transparent, auditable systems.
         </p>
       </section>
 
       <!-- BUSINESS EXAMPLES -->
       <section id="examples" class="mt-12 scroll-mt-24">
-        <h2 class="text-3xl font-semibold mb-4">11. Examples: SESL in business contexts</h2>
+        <h2 class="text-3xl font-semibold mb-4">15. Examples: SESL in business contexts</h2>
         <p>
           This section presents five business examples that show SESL in realistic situations. Each
           example consists of a scenario description, a model fragment, sample input data, and a short
@@ -972,7 +2214,7 @@ facts:
         </p>
 
         <!-- EXAMPLE 1 -->
-        <h3 class="text-2xl font-semibold mt-8 mb-3">11.1 Insurance risk assessment</h3>
+        <h3 class="text-2xl font-semibold mt-8 mb-3">15.1 Insurance risk assessment</h3>
         <p><strong>Scenario.</strong> An insurance company wants to flag high risk motor policies.</p>
         <pre><code>model: "Motor risk flags"
 
@@ -1023,7 +2265,7 @@ print(facts["result"])</code></pre>
         </ul>
 
         <!-- EXAMPLE 2 -->
-        <h3 class="text-2xl font-semibold mt-8 mb-3">11.2 Banking credit scoring</h3>
+        <h3 class="text-2xl font-semibold mt-8 mb-3">15.2 Banking credit scoring</h3>
         <p><strong>Scenario.</strong> A bank wants to compute a simple credit score.</p>
         <pre><code>model: "Credit score demo"
 
@@ -1069,7 +2311,7 @@ facts:
         </ul>
 
         <!-- EXAMPLE 3 -->
-        <h3 class="text-2xl font-semibold mt-8 mb-3">11.3 Retail pricing and discounts</h3>
+        <h3 class="text-2xl font-semibold mt-8 mb-3">15.3 Retail pricing and discounts</h3>
         <p><strong>Scenario.</strong> A retailer wants to apply volume discounts.</p>
         <pre><code>model: "Volume discount"
 
@@ -1116,7 +2358,7 @@ facts:
         </ul>
 
         <!-- EXAMPLE 4 -->
-        <h3 class="text-2xl font-semibold mt-8 mb-3">11.4 Supply chain routing</h3>
+        <h3 class="text-2xl font-semibold mt-8 mb-3">15.4 Supply chain routing</h3>
         <p><strong>Scenario.</strong> A logistics team wants to pick a warehouse to ship from.</p>
         <pre><code>model: "Warehouse selection"
 
@@ -1161,7 +2403,7 @@ facts:
         </ul>
 
         <!-- EXAMPLE 5 -->
-        <h3 class="text-2xl font-semibold mt-8 mb-3">11.5 Compliance checking</h3>
+        <h3 class="text-2xl font-semibold mt-8 mb-3">15.5 Compliance checking</h3>
         <p><strong>Scenario.</strong> A compliance team wants to check whether a transaction breaches simple policy rules.</p>
         <pre><code>model: "Policy compliance"
 
@@ -1215,9 +2457,9 @@ facts:
 
       <!-- BEST PRACTICES -->
       <section id="best-practices" class="mt-12 scroll-mt-24">
-        <h2 class="text-3xl font-semibold mb-4">12. Best practices and common pitfalls</h2>
+        <h2 class="text-3xl font-semibold mb-4">16. Best practices and common pitfalls</h2>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">12.1 Organising models, rules, and facts</h3>
+        <h3 class="text-2xl font-semibold mt-6 mb-3">16.1 Organising models, rules, and facts</h3>
         <ul>
           <li>
             Use one SESL model per coherent decision area, such as one model for eligibility and another
@@ -1233,7 +2475,7 @@ facts:
           </li>
         </ul>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">12.2 Naming conventions</h3>
+        <h3 class="text-2xl font-semibold mt-6 mb-3">16.2 Naming conventions</h3>
         <ul>
           <li>
             Use lower case and underscores for keys, such as <code>total_debt</code> rather than
@@ -1249,7 +2491,7 @@ facts:
           </li>
         </ul>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">12.3 Performance considerations</h3>
+        <h3 class="text-2xl font-semibold mt-6 mb-3">16.3 Performance considerations</h3>
         <ul>
           <li>
             Avoid unnecessary complexity in conditions. If a condition becomes very long, consider
@@ -1264,7 +2506,7 @@ facts:
           </li>
         </ul>
 
-        <h3 class="text-2xl font-semibold mt-6 mb-3">12.4 Common pitfalls</h3>
+        <h3 class="text-2xl font-semibold mt-6 mb-3">16.4 Common pitfalls</h3>
         <ul>
           <li>
             <strong>Missing parent paths.</strong> When strict path mode is enabled and automatic path
@@ -1289,7 +2531,7 @@ facts:
 
       <!-- CONCLUSION -->
       <section id="conclusion" class="mt-12 scroll-mt-24">
-        <h2 class="text-3xl font-semibold mb-4">13. Conclusion and next steps</h2>
+        <h2 class="text-3xl font-semibold mb-4">17. Conclusion and next steps</h2>
         <p>
           SESL provides a focused, transparent way to express decision logic as rules over structured
           data. You have seen how models are structured, how rules and facts interact, how the engine

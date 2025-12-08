@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Applicant 1",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all approval criteria: all documents are verified, DTI is 10.5% (well below 35% threshold), disposable income is \u00a32,722 (well above \u00a3600), credit score is 661 (above 640), bureau scores are consistent (spread 45), employment is stable at 4.5 years, and loan amount is 16.5% of annual income (well below 35%). No rules are breached."
+  },
+  {
+    "id": 2,
+    "name": "Applicant 2",
+    "decision": "DECLINED",
+    "reason": "Employment duration is only 0.7 years, which is below the 1-year minimum for approval. Although the applicant has strong affordability and credit, the exception for high-earning, strong-credit applicants with <1 year employment requires income \u2265 \u00a355,000 and credit score \u2265 720, which are met, but policy states such cases may be considered under manual review, not automatic approval. Therefore, this application does not qualify for automatic approval and must be declined per policy.",
+    "employment_stability": "0.7 years (below 1-year threshold)",
+    "credit_score": 721,
+    "income": 59724,
+    "dti_ratio": 0.1308,
+    "disposable_income": 3542.0,
+    "exception_considered": "High-earning, strong-credit with <1 year employment, but policy routes to manual review, not approval"
+  },
+  {
+    "id": 3,
+    "name": "Applicant 3",
+    "result": {
+      "decision": "APPROVED",
+      "reason": "Applicant meets all approval criteria: all documents are verified, DTI is 5.5% (well below 35%), disposable income is \u00a33,423.42 (well above \u00a3600), credit score is 751 with consistent bureau scores, employment is stable at 3 years, and the loan amount is 31.8% of annual income (below 35% threshold). No rules are breached.",
+      "computed_dti_percent": 5.54,
+      "disposable_income_threshold": "above \u00a3600",
+      "loan_to_income_percent": 31.8,
+      "bureau_spread": 40
+    }
+  }
+]

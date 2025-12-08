@@ -1,0 +1,287 @@
+const:
+  DTI_APPROVE_MAX: 0.35
+  DTI_MANUAL_MAX: 0.45
+  DTI_EXCEPTION_MAX: 0.50
+  DISPOSABLE_APPROVE_MIN: 600
+  DISPOSABLE_MANUAL_MIN: 300
+  CREDIT_APPROVE_MIN: 700
+  CREDIT_MANUAL_MIN: 640
+  CREDIT_EXCEPTION_MIN: 620
+  CREDIT_DECLINE_MAX: 639
+  CREDIT_BUREAU_DECLINE: 580
+  CREDIT_STRONG: 720
+  INCOME_DOC_EXCEPTION: 50000
+  INCOME_HIGH: 60000
+  INCOME_EMPLOYMENT_EXCEPTION: 55000
+  EMPLOYMENT_STABLE: 2
+  EMPLOYMENT_MANUAL: 1
+  EMPLOYMENT_EXCEPTION: 1
+  LOAN_APPROVE_MAX: 0.35
+  LOAN_MANUAL_MAX: 0.5
+  BUREAU_SPREAD_MANUAL: 120
+
+rules:
+  - rule: DeclineUnverifiedDocuments
+    priority: 100
+    let:
+      docs_verified: id_verified and pay_slips_verified and bank_statements_verified
+      docs_missing: 3 - (id_verified + pay_slips_verified + bank_statements_verified)
+    if:
+      all:
+        - docs_verified == false
+        - docs_missing > 1
+    then:
+      decision: "DECLINED"
+      reason: "More than one required document is unverified"
+    because: "Application missing more than one required document"
+    stop: true
+
+  - rule: ManualReviewSingleDocException
+    priority: 95
+    let:
+      docs_verified: id_verified and pay_slips_verified and bank_statements_verified
+      docs_missing: 3 - (id_verified + pay_slips_verified + bank_statements_verified)
+    if:
+      all:
+        - docs_verified == false
+        - docs_missing == 1
+        - credit_score >= CREDIT_STRONG
+        - income >= INCOME_DOC_EXCEPTION
+    then:
+      decision: "MANUAL REVIEW"
+      reason: "One document unverified but strong financial profile"
+    because: "Single document missing, but applicant has strong credit and income"
+    stop: true
+
+  - rule: DeclineUnverifiedDocumentsNoException
+    priority: 90
+    let:
+      docs_verified: id_verified and pay_slips_verified and bank_statements_verified
+      docs_missing: 3 - (id_verified + pay_slips_verified + bank_statements_verified)
+    if:
+      all:
+        - docs_verified == false
+        - docs_missing == 1
+        - not (credit_score >= CREDIT_STRONG and income >= INCOME_DOC_EXCEPTION)
+    then:
+      decision: "DECLINED"
+      reason: "Required document unverified and no exception applies"
+    because: "One document missing and no strong financial profile"
+    stop: true
+
+  - rule: DeclineDTI
+    priority: 85
+    if: dti_ratio > DTI_MANUAL_MAX
+    then:
+      decision: "DECLINED"
+      reason: "DTI above 45% threshold"
+    because: "DTI exceeds maximum allowed for affordability"
+    stop: true
+
+  - rule: ManualReviewDTI
+    priority: 80
+    if:
+      all:
+        - dti_ratio > DTI_APPROVE_MAX
+        - dti_ratio <= DTI_MANUAL_MAX
+    then:
+      decision: "MANUAL REVIEW"
+      reason: "DTI between 35% and 45%"
+    because: "DTI in manual review range"
+    stop: false
+
+  - rule: DeclineDisposableIncome
+    priority: 75
+    if: disposable_income < DISPOSABLE_MANUAL_MIN
+    then:
+      decision: "DECLINED"
+      reason: "Disposable income below £300"
+    because: "Disposable income below minimum threshold"
+    stop: true
+
+  - rule: ManualReviewDisposableIncome
+    priority: 70
+    if:
+      all:
+        - disposable_income >= DISPOSABLE_MANUAL_MIN
+        - disposable_income < DISPOSABLE_APPROVE_MIN
+    then:
+      decision: "MANUAL REVIEW"
+      reason: "Disposable income between £300 and £599"
+    because: "Disposable income in manual review range"
+    stop: false
+
+  - rule: AffordabilityExceptionHighEarner
+    priority: 68
+    if:
+      all:
+        - income >= INCOME_HIGH
+        - dti_ratio <= DTI_EXCEPTION_MAX
+        - dti_ratio > DTI_MANUAL_MAX
+    then:
+      decision: "MANUAL REVIEW"
+      reason: "High earner with DTI up to 50%"
+    because: "Affordability exception for high income and DTI ≤ 50%"
+    stop: false
+
+  - rule: AffordabilityExceptionSavings
+    priority: 67
+    if:
+      all:
+        - disposable_income < DISPOSABLE_MANUAL_MIN
+        - savings_verified == true
+    then:
+      decision: "MANUAL REVIEW"
+      reason: "Low disposable income but verified savings"
+    because: "Exception for verified savings"
+    stop: false
+
+  - rule: DeclineCreditScore
+    priority: 65
+    if: credit_score < CREDIT_MANUAL_MIN
+    then:
+      decision: "DECLINED"
+      reason: "Credit score below 640"
+    because: "Credit score below minimum threshold"
+    stop: true
+
+  - rule: ManualReviewCreditScore
+    priority: 60
+    if:
+      all:
+        - credit_score >= CREDIT_MANUAL_MIN
+        - credit_score < CREDIT_APPROVE_MIN
+    then:
+      decision: "MANUAL REVIEW"
+      reason: "Credit score between 640 and 699"
+    because: "Credit score in manual review range"
+    stop: false
+
+  - rule: DeclineAnyBureauScore
+    priority: 58
+    let:
+      min_bureau: min([bureau_score_1, bureau_score_2, bureau_score_3])
+    if: min_bureau < CREDIT_BUREAU_DECLINE
+    then:
+      decision: "DECLINED"
+      reason: "At least one bureau score below 580"
+    because: "Bureau score below minimum threshold"
+    stop: true
+
+  - rule: ManualReviewBureauSpread
+    priority: 55
+    let:
+      bureau_scores: [bureau_score_1, bureau_score_2, bureau_score_3]
+      bureau_spread: max(bureau_scores) - min(bureau_scores)
+    if: bureau_spread >= BUREAU_SPREAD_MANUAL
+    then:
+      decision: "MANUAL REVIEW"
+      reason: "Bureau score spread ≥ 120"
+    because: "Large spread between bureau scores"
+    stop: false
+
+  - rule: CreditExceptionEmploymentStability
+    priority: 53
+    if:
+      all:
+        - credit_score >= CREDIT_EXCEPTION_MIN
+        - credit_score <= CREDIT_DECLINE_MAX
+        - employment_years >= 5
+        - adverse_credit_events == false
+    then:
+      decision: "MANUAL REVIEW"
+      reason: "Credit score 620-639 with long-term stable employment"
+    because: "Exception for stable employment and no adverse credit"
+    stop: false
+
+  - rule: DeclineEmploymentStability
+    priority: 50
+    if: employment_years < EMPLOYMENT_MANUAL
+    then:
+      decision: "DECLINED"
+      reason: "Employment less than 1 year"
+    because: "Employment duration below minimum"
+    stop: true
+
+  - rule: ManualReviewEmploymentStability
+    priority: 45
+    if:
+      all:
+        - employment_years >= EMPLOYMENT_MANUAL
+        - employment_years < EMPLOYMENT_STABLE
+    then:
+      decision: "MANUAL REVIEW"
+      reason: "Employment between 1 and 2 years"
+    because: "Employment duration in manual review range"
+    stop: false
+
+  - rule: EmploymentExceptionHighEarner
+    priority: 43
+    if:
+      all:
+        - employment_years < EMPLOYMENT_MANUAL
+        - income >= INCOME_EMPLOYMENT_EXCEPTION
+        - credit_score >= CREDIT_STRONG
+    then:
+      decision: "MANUAL REVIEW"
+      reason: "High earner and strong credit with <1 year employment"
+    because: "Exception for high income and strong credit"
+    stop: false
+
+  - rule: DeclineLoanAmount
+    priority: 40
+    let:
+      loan_income_ratio: loan_amount / income
+    if: loan_income_ratio > LOAN_MANUAL_MAX
+    then:
+      decision: "DECLINED"
+      reason: "Loan exceeds 50% of annual income"
+    because: "Loan amount unsustainable relative to income"
+    stop: true
+
+  - rule: ManualReviewLoanAmount
+    priority: 35
+    let:
+      loan_income_ratio: loan_amount / income
+    if:
+      all:
+        - loan_income_ratio > LOAN_APPROVE_MAX
+        - loan_income_ratio <= LOAN_MANUAL_MAX
+    then:
+      decision: "MANUAL REVIEW"
+      reason: "Loan between 35% and 50% of income"
+    because: "Loan amount in manual review range"
+    stop: false
+
+  - rule: ApproveAllCriteria
+    priority: 10
+    let:
+      docs_verified: id_verified and pay_slips_verified and bank_statements_verified
+      min_bureau: min([bureau_score_1, bureau_score_2, bureau_score_3])
+      bureau_scores: [bureau_score_1, bureau_score_2, bureau_score_3]
+      bureau_spread: max(bureau_scores) - min(bureau_scores)
+      loan_income_ratio: loan_amount / income
+    if:
+      all:
+        - docs_verified == true
+        - dti_ratio <= DTI_APPROVE_MAX
+        - disposable_income >= DISPOSABLE_APPROVE_MIN
+        - credit_score >= CREDIT_APPROVE_MIN
+        - min_bureau >= CREDIT_BUREAU_DECLINE
+        - bureau_spread < BUREAU_SPREAD_MANUAL
+        - employment_years >= EMPLOYMENT_STABLE
+        - loan_income_ratio <= LOAN_APPROVE_MAX
+    then:
+      decision: "APPROVED"
+      reason: "All approval criteria met"
+    because: "Applicant meets all policy requirements"
+    stop: true
+
+  - rule: ManualReviewDefault
+    priority: 1
+    if: true
+    then:
+      decision: "MANUAL REVIEW"
+      reason: "Default to manual review"
+    because: "No other rule matched; manual review required"
+    stop: true
