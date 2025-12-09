@@ -1,0 +1,602 @@
+[
+  {
+    "id": 1,
+    "name": "Applicant 1",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 661 falls within the 640-699 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 2,
+    "name": "Applicant 2",
+    "decision": "MANUAL REVIEW",
+    "reason": "Employment duration less than one year requires manual review per Employment Stability section."
+  },
+  {
+    "id": 3,
+    "name": "Applicant 3",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all policy requirements: verified documents, credit score of 751, DTI of 5.54%, disposable income of \u00a33423.42, stable employment of 3 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 4,
+    "name": "Applicant 4",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 689 requires manual review per credit score thresholds."
+  },
+  {
+    "id": 5,
+    "name": "Applicant 5",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Bureau score below 580 (bureau_score_2: 541)"
+  },
+  {
+    "id": 6,
+    "name": "Applicant 6",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 661 falls within the 640-699 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 7,
+    "name": "Applicant 7",
+    "decision": "MANUAL REVIEW",
+    "reason": "Document Verification: Bank statements unverified, requires manual review per policy exception for strong financial profile."
+  },
+  {
+    "id": 8,
+    "name": "Applicant 8",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 632 falls within the 620-639 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 9,
+    "name": "Applicant 9",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 689 falls within the 640-699 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 10,
+    "name": "Applicant 10",
+    "decision": "DECLINED",
+    "reason": "Document Verification: Bank statements unverified, application cannot proceed."
+  },
+  {
+    "id": 11,
+    "name": "Applicant 11",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 660 falls within the 640-699 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 12,
+    "name": "Applicant 12",
+    "decision": "APPROVED",
+    "reason": "The applicant meets all policy requirements: all documents verified, credit score of 766 is above 700, DTI of 32.56% is below 35%, disposable income of \u00a31175.5 is above \u00a3600, and employment duration of 4.5 years is stable."
+  },
+  {
+    "id": 13,
+    "name": "Applicant 13",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Bureau score below 580 (bureau_score_2: 539)"
+  },
+  {
+    "id": 14,
+    "name": "Applicant 14",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 654 falls within the 640-699 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 15,
+    "name": "Applicant 15",
+    "decision": "APPROVED",
+    "reason": "The applicant meets all policy requirements: verified documents, credit score of 771, DTI of 27.82%, disposable income of \u00a3951.83, stable employment of 2 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 16,
+    "name": "Applicant 16",
+    "decision": "MANUAL REVIEW",
+    "reason": "Document Verification: Bank statements unverified, requires manual review per policy exception for strong financial profile."
+  },
+  {
+    "id": 17,
+    "name": "Applicant 17",
+    "decision": "MANUAL REVIEW",
+    "reason": "Disposable income of \u00a3556.92 falls into the \u00a3300\u2013\u00a3599 range, requiring manual review per affordability assessment policy."
+  },
+  {
+    "id": 18,
+    "name": "Applicant 18",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 661 falls within the 640-699 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 19,
+    "name": "Applicant 19",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 692 requires manual review per credit score thresholds (640-699)."
+  },
+  {
+    "id": 20,
+    "name": "Applicant 20",
+    "decision": "DECLINED",
+    "reason": "Credit score of 576 is below the 640 threshold, leading to decline as per Creditworthiness Assessment section 5.3."
+  },
+  {
+    "id": 21,
+    "name": "Applicant 21",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 634 requires manual review per credit score thresholds."
+  },
+  {
+    "id": 22,
+    "name": "Applicant 22",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Bureau score below 580 (bureau_score_1: 559, bureau_score_2: 529)"
+  },
+  {
+    "id": 23,
+    "name": "Applicant 23",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 677 falls within the 640-699 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 24,
+    "name": "Applicant 24",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Credit score of 578 is below the 640 threshold, leading to decline."
+  },
+  {
+    "id": 25,
+    "name": "Applicant 25",
+    "decision": "APPROVED",
+    "reason": "The applicant meets all policy requirements: verified documents, credit score of 772, DTI of 25.6%, disposable income of \u00a31910.5, stable employment of 5.8 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 26,
+    "name": "Applicant 26",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all policy requirements: verified documents, credit score of 746, DTI of 24.71%, disposable income of \u00a31740.5, stable employment of 2.6 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 27,
+    "name": "Applicant 27",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Bureau score below 580 (bureau_score_2: 563)"
+  },
+  {
+    "id": 28,
+    "name": "Applicant 28",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all policy requirements: verified documents, credit score of 737, DTI of 15.08%, disposable income of \u00a32716.25, stable employment of 4.1 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 29,
+    "name": "Applicant 29",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Bureau score below 580 (bureau_score_1: 573, bureau_score_3: 572)"
+  },
+  {
+    "id": 30,
+    "name": "Applicant 30",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Bureau score below 580 (bureau_score_3: 562)"
+  },
+  {
+    "id": 31,
+    "name": "Applicant 31",
+    "decision": "APPROVED",
+    "reason": "The applicant meets all policy requirements: verified documents, credit score of 769, DTI of 16.62%, disposable income of \u00a32513.17, stable employment of 4 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 32,
+    "name": "Applicant 32",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Bureau score below 580 (bureau_score_1: 567)"
+  },
+  {
+    "id": 33,
+    "name": "Applicant 33",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all policy requirements: credit score of 707, DTI of 22.8%, disposable income of \u00a32735.92, stable employment of 6.9 years, and all documents verified."
+  },
+  {
+    "id": 34,
+    "name": "Applicant 34",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 657 falls within the 640-699 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 35,
+    "name": "Applicant 35",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all policy requirements: verified documents, credit score of 713, DTI of 19.26%, disposable income of \u00a32846.25, stable employment of 5.6 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 36,
+    "name": "Applicant 36",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 625 requires manual review per credit score thresholds."
+  },
+  {
+    "id": 37,
+    "name": "Applicant 37",
+    "decision": "DECLINED",
+    "reason": "Document Verification: ID not verified, application cannot proceed."
+  },
+  {
+    "id": 38,
+    "name": "Applicant 38",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all policy requirements: verified documents, credit score of 731, DTI of 8.3%, disposable income of \u00a34077.92, stable employment of 1.3 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 39,
+    "name": "Applicant 39",
+    "decision": "DECLINED",
+    "reason": "Document Verification: Government-issued identification is unverified, which is a mandatory requirement."
+  },
+  {
+    "id": 40,
+    "name": "Applicant 40",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 661 falls within the 640-699 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 41,
+    "name": "Applicant 41",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 671 falls within the 640-699 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 42,
+    "name": "Applicant 42",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 621 requires manual review per credit score thresholds."
+  },
+  {
+    "id": 43,
+    "name": "Applicant 43",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 683 falls within the 640-699 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 44,
+    "name": "Applicant 44",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all policy requirements: verified documents, credit score of 772, DTI of 15.41%, disposable income of \u00a31391.33, stable employment of 8.2 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 45,
+    "name": "Applicant 45",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Bureau score below 580 (bureau_score_2: 541)"
+  },
+  {
+    "id": 46,
+    "name": "Applicant 46",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Bureau score below 580 (bureau_score_1: 558)"
+  },
+  {
+    "id": 47,
+    "name": "Applicant 47",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Bureau score below 580 (bureau_score_1: 551)"
+  },
+  {
+    "id": 48,
+    "name": "Applicant 48",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 691 requires manual review per credit score thresholds."
+  },
+  {
+    "id": 49,
+    "name": "Applicant 49",
+    "decision": "DECLINED",
+    "reason": "Credit score of 573 is below the 640 threshold, leading to decline as per Creditworthiness Assessment section."
+  },
+  {
+    "id": 50,
+    "name": "Applicant 50",
+    "decision": "MANUAL REVIEW",
+    "reason": "Document Verification: Bank statements unverified, requires manual review per policy exception for strong financial profile."
+  },
+  {
+    "id": 51,
+    "name": "Applicant 51",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 647 falls within the 640-699 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 52,
+    "name": "Applicant 52",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640 indicates elevated risk and leads to decline as per Creditworthiness Assessment section."
+  },
+  {
+    "id": 53,
+    "name": "Applicant 53",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Credit score below 640 indicates elevated risk and leads to decline."
+  },
+  {
+    "id": 54,
+    "name": "Applicant 54",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all policy requirements: verified documents, credit score of 740, DTI of 20.45%, disposable income of \u00a32768.5, stable employment of 6.5 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 55,
+    "name": "Applicant 55",
+    "decision": "DECLINED",
+    "reason": "Loan amount of \u00a323,532 exceeds 50% of annual income, violating the loan amount vs income threshold."
+  },
+  {
+    "id": 56,
+    "name": "Applicant 56",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Bureau score below 580 (bureau_score_1: 577)"
+  },
+  {
+    "id": 57,
+    "name": "Applicant 57",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all policy requirements: verified documents, credit score of 755, DTI of 18.62%, disposable income of \u00a32899.42, stable employment of 5.8 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 58,
+    "name": "Applicant 58",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all approval criteria: verified documents, credit score of 704, DTI of 24.56%, disposable income of \u00a32237.33, stable employment of 6.1 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 59,
+    "name": "Applicant 59",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all policy requirements: verified documents, credit score of 725, DTI of 20.57%, disposable income of \u00a32402.75, stable employment of 7 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 60,
+    "name": "Applicant 60",
+    "decision": "DECLINED",
+    "reason": "Document Verification: Bank statements unverified, application cannot proceed."
+  },
+  {
+    "id": 61,
+    "name": "Applicant 61",
+    "decision": "DECLINED",
+    "reason": "Document Verification: Government-issued identification is unverified, which is a mandatory requirement."
+  },
+  {
+    "id": 62,
+    "name": "Applicant 62",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Bureau score below 580 (bureau_score_2: 576)"
+  },
+  {
+    "id": 63,
+    "name": "Applicant 63",
+    "decision": "DECLINED",
+    "reason": "Disposable income of \u00a3298.42 is below the required minimum of \u00a3300, resulting in a decline per affordability assessment policy."
+  },
+  {
+    "id": 64,
+    "name": "Applicant 64",
+    "decision": "DECLINED",
+    "reason": "Document Verification: Government-issued identification is unverified."
+  },
+  {
+    "id": 65,
+    "name": "Applicant 65",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Bureau score below 580 (bureau_score_1: 594)"
+  },
+  {
+    "id": 66,
+    "name": "Applicant 66",
+    "decision": "DECLINED",
+    "reason": "Document Verification: Pay slips and bank statements are unverified, which requires decline per policy section 5.1."
+  },
+  {
+    "id": 67,
+    "name": "Applicant 67",
+    "decision": "APPROVED",
+    "reason": "The applicant meets all policy requirements: verified documents, credit score of 720, DTI of 22.9%, disposable income of \u00a31218.92, stable employment of 6.9 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 68,
+    "name": "Applicant 68",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 631 requires manual review per credit score thresholds."
+  },
+  {
+    "id": 69,
+    "name": "Applicant 69",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Bureau score below 580 (bureau_score_2: 554)"
+  },
+  {
+    "id": 70,
+    "name": "Applicant 70",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 696 falls within the 640-699 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 71,
+    "name": "Applicant 71",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 680 falls within the 640-699 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 72,
+    "name": "Applicant 72",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all policy requirements: verified documents, credit score of 749, DTI of 17.12%, disposable income of \u00a33370.92, stable employment of 3.8 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 73,
+    "name": "Applicant 73",
+    "decision": "DECLINED",
+    "reason": "Document Verification: Government-issued identification is unverified."
+  },
+  {
+    "id": 74,
+    "name": "Applicant 74",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 643 falls within the 640-699 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 75,
+    "name": "Applicant 75",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all policy requirements: verified documents, credit score of 735, DTI of 7.83%, disposable income of \u00a33139.92, stable employment of 8.7 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 76,
+    "name": "Applicant 76",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640 indicates elevated risk and leads to decline as per Creditworthiness Assessment section."
+  },
+  {
+    "id": 77,
+    "name": "Applicant 77",
+    "decision": "DECLINED",
+    "reason": "Credit score of 565 is below the 640 threshold, leading to decline as per Creditworthiness Assessment section."
+  },
+  {
+    "id": 78,
+    "name": "Applicant 78",
+    "decision": "DECLINED",
+    "reason": "Document Verification: Government-issued identification is unverified, which is a mandatory requirement."
+  },
+  {
+    "id": 79,
+    "name": "Applicant 79",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all policy requirements: verified documents, credit score of 770, DTI of 24.56%, disposable income of \u00a32229.83, stable employment of 1.1 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 80,
+    "name": "Applicant 80",
+    "decision": "DECLINED",
+    "reason": "Document Verification: Bank statements unverified, application cannot proceed."
+  },
+  {
+    "id": 81,
+    "name": "Applicant 81",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Bureau score below 580 (bureau_score_1: 545, bureau_score_3: 544)"
+  },
+  {
+    "id": 82,
+    "name": "Applicant 82",
+    "decision": "APPROVED",
+    "reason": "The applicant meets all policy requirements: verified documents, credit score of 737, DTI of 26.38%, disposable income of \u00a31736.25, stable employment of 7.7 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 83,
+    "name": "Applicant 83",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 618 requires manual review per credit score thresholds."
+  },
+  {
+    "id": 84,
+    "name": "Applicant 84",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 616 falls within the 620-639 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 85,
+    "name": "Applicant 85",
+    "decision": "DECLINED",
+    "reason": "Credit score of 569 is below the 640 threshold, leading to decline as per Creditworthiness Assessment section 5.3."
+  },
+  {
+    "id": 86,
+    "name": "Applicant 86",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 633 requires manual review per credit score thresholds."
+  },
+  {
+    "id": 87,
+    "name": "Applicant 87",
+    "decision": "MANUAL REVIEW",
+    "reason": "Document Verification: Bank statements unverified, requires manual review per policy exception for strong financial profile."
+  },
+  {
+    "id": 88,
+    "name": "Applicant 88",
+    "decision": "MANUAL REVIEW",
+    "reason": "Document Verification: Pay slips unverified, but applicant has a strong financial profile with credit score of 723 and income of \u00a327,712, meeting the controlled exception for manual review."
+  },
+  {
+    "id": 89,
+    "name": "Applicant 89",
+    "decision": "DECLINED",
+    "reason": "Document Verification: Pay slips unverified, application cannot proceed."
+  },
+  {
+    "id": 90,
+    "name": "Applicant 90",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all policy requirements: verified documents, credit score of 776, DTI of 18.71%, disposable income of \u00a32302.83, stable employment of 6.4 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 91,
+    "name": "Applicant 91",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 680 falls within the 640-699 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 92,
+    "name": "Applicant 92",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Bureau score below 580 (bureau_score_2: 573)"
+  },
+  {
+    "id": 93,
+    "name": "Applicant 93",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all approval criteria: verified documents, credit score of 722, DTI of 13.22%, disposable income of \u00a31369.75, stable employment of 7.6 years, and loan amount within acceptable range."
+  },
+  {
+    "id": 94,
+    "name": "Applicant 94",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 628 requires manual review per credit score thresholds."
+  },
+  {
+    "id": 95,
+    "name": "Applicant 95",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 648 falls within the 640-699 range, requiring manual review per creditworthiness assessment policy."
+  },
+  {
+    "id": 96,
+    "name": "Applicant 96",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score of 624 requires manual review per credit score thresholds."
+  },
+  {
+    "id": 97,
+    "name": "Applicant 97",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all policy requirements: credit score of 709, DTI of 31.02%, disposable income of \u00a31263.17, stable employment of 6.4 years, and all documents verified."
+  },
+  {
+    "id": 98,
+    "name": "Applicant 98",
+    "decision": "DECLINED",
+    "reason": "Document Verification: Pay slips unverified, application cannot proceed."
+  },
+  {
+    "id": 99,
+    "name": "Applicant 99",
+    "decision": "DECLINED",
+    "reason": "Creditworthiness Assessment: Bureau score below 580 indicates elevated risk and leads to decline."
+  },
+  {
+    "id": 100,
+    "name": "Applicant 100",
+    "decision": "APPROVED",
+    "reason": "Applicant meets all policy requirements: verified documents, credit score of 757, DTI of 14.87%, disposable income of \u00a32775.33, stable employment of 9.5 years, and loan amount within acceptable range."
+  }
+]

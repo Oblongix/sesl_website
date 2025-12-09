@@ -1,0 +1,602 @@
+[
+  {
+    "id": 1,
+    "name": "Applicant 1",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 2,
+    "name": "Applicant 2",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 3,
+    "name": "Applicant 3",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 4,
+    "name": "Applicant 4",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 5,
+    "name": "Applicant 5",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 6,
+    "name": "Applicant 6",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score between 640 and 699"
+  },
+  {
+    "id": 7,
+    "name": "Applicant 7",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 8,
+    "name": "Applicant 8",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 9,
+    "name": "Applicant 9",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 10,
+    "name": "Applicant 10",
+    "decision": "DECLINED",
+    "reason": "Required document unverified and no exception applies"
+  },
+  {
+    "id": 11,
+    "name": "Applicant 11",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 12,
+    "name": "Applicant 12",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 13,
+    "name": "Applicant 13",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 14,
+    "name": "Applicant 14",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score between 640 and 699"
+  },
+  {
+    "id": 15,
+    "name": "Applicant 15",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 16,
+    "name": "Applicant 16",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 17,
+    "name": "Applicant 17",
+    "decision": "MANUAL REVIEW",
+    "reason": "Disposable income between \u00a3300 and \u00a3600"
+  },
+  {
+    "id": 18,
+    "name": "Applicant 18",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 19,
+    "name": "Applicant 19",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 20,
+    "name": "Applicant 20",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 21,
+    "name": "Applicant 21",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 22,
+    "name": "Applicant 22",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 23,
+    "name": "Applicant 23",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 24,
+    "name": "Applicant 24",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 25,
+    "name": "Applicant 25",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 26,
+    "name": "Applicant 26",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 27,
+    "name": "Applicant 27",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 28,
+    "name": "Applicant 28",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 29,
+    "name": "Applicant 29",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 30,
+    "name": "Applicant 30",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 31,
+    "name": "Applicant 31",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 32,
+    "name": "Applicant 32",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 33,
+    "name": "Applicant 33",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 34,
+    "name": "Applicant 34",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 35,
+    "name": "Applicant 35",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 36,
+    "name": "Applicant 36",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 37,
+    "name": "Applicant 37",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 38,
+    "name": "Applicant 38",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 39,
+    "name": "Applicant 39",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 40,
+    "name": "Applicant 40",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 41,
+    "name": "Applicant 41",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 42,
+    "name": "Applicant 42",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 43,
+    "name": "Applicant 43",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 44,
+    "name": "Applicant 44",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 45,
+    "name": "Applicant 45",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 46,
+    "name": "Applicant 46",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 47,
+    "name": "Applicant 47",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 48,
+    "name": "Applicant 48",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 49,
+    "name": "Applicant 49",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 50,
+    "name": "Applicant 50",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 51,
+    "name": "Applicant 51",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 52,
+    "name": "Applicant 52",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 53,
+    "name": "Applicant 53",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 54,
+    "name": "Applicant 54",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 55,
+    "name": "Applicant 55",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 56,
+    "name": "Applicant 56",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 57,
+    "name": "Applicant 57",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 58,
+    "name": "Applicant 58",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 59,
+    "name": "Applicant 59",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 60,
+    "name": "Applicant 60",
+    "decision": "DECLINED",
+    "reason": "Required document unverified and no exception applies"
+  },
+  {
+    "id": 61,
+    "name": "Applicant 61",
+    "decision": "DECLINED",
+    "reason": "Required document unverified and no exception applies"
+  },
+  {
+    "id": 62,
+    "name": "Applicant 62",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 63,
+    "name": "Applicant 63",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 64,
+    "name": "Applicant 64",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 65,
+    "name": "Applicant 65",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 66,
+    "name": "Applicant 66",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 67,
+    "name": "Applicant 67",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 68,
+    "name": "Applicant 68",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 69,
+    "name": "Applicant 69",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 70,
+    "name": "Applicant 70",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 71,
+    "name": "Applicant 71",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 72,
+    "name": "Applicant 72",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 73,
+    "name": "Applicant 73",
+    "decision": "DECLINED",
+    "reason": "Required document unverified and no exception applies"
+  },
+  {
+    "id": 74,
+    "name": "Applicant 74",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 75,
+    "name": "Applicant 75",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 76,
+    "name": "Applicant 76",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 77,
+    "name": "Applicant 77",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 78,
+    "name": "Applicant 78",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 79,
+    "name": "Applicant 79",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 80,
+    "name": "Applicant 80",
+    "decision": "DECLINED",
+    "reason": "Required document unverified and no exception applies"
+  },
+  {
+    "id": 81,
+    "name": "Applicant 81",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 82,
+    "name": "Applicant 82",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 83,
+    "name": "Applicant 83",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 84,
+    "name": "Applicant 84",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 85,
+    "name": "Applicant 85",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 86,
+    "name": "Applicant 86",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 87,
+    "name": "Applicant 87",
+    "decision": "MANUAL REVIEW",
+    "reason": "One document unverified but strong financial profile"
+  },
+  {
+    "id": 88,
+    "name": "Applicant 88",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 89,
+    "name": "Applicant 89",
+    "decision": "DECLINED",
+    "reason": "Required document unverified and no exception applies"
+  },
+  {
+    "id": 90,
+    "name": "Applicant 90",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 91,
+    "name": "Applicant 91",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 92,
+    "name": "Applicant 92",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 93,
+    "name": "Applicant 93",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 94,
+    "name": "Applicant 94",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 95,
+    "name": "Applicant 95",
+    "decision": "MANUAL REVIEW",
+    "reason": "Credit score between 640 and 699"
+  },
+  {
+    "id": 96,
+    "name": "Applicant 96",
+    "decision": "",
+    "reason": ""
+  },
+  {
+    "id": 97,
+    "name": "Applicant 97",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  },
+  {
+    "id": 98,
+    "name": "Applicant 98",
+    "decision": "DECLINED",
+    "reason": "Required document unverified and no exception applies"
+  },
+  {
+    "id": 99,
+    "name": "Applicant 99",
+    "decision": "DECLINED",
+    "reason": "Credit score below 640"
+  },
+  {
+    "id": 100,
+    "name": "Applicant 100",
+    "decision": "APPROVED",
+    "reason": "All approval criteria met"
+  }
+]

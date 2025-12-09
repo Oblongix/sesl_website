@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>SESL MCP Server - User Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Complete guide to the SESL MCP Server for AI-powered rule generation and execution." />
+  <link rel="icon" type="image/x-icon" href="../assets/SESLIcon.ico" />
+
+  <!-- Load dark mode before rendering -->
+  <script>
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              300: "#a5b4fc",
+              500: "#6366f1",
+              600: "#4f46e5"
+            }
+          },
+          fontFamily: {
+            sans: ["Inter", "system-ui", "Arial"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    pre {
+      background-color: #e5e7eb !important;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      overflow-x: auto;
+      border: 1px solid #d1d5db;
+      margin-top: 8px !important;
+      margin-bottom: 8px !important;
+    }
+
+    .dark pre {
+      background-color: #374151 !important;
+      border-color: #4b5563;
+    }
+
+    pre code {
+      background-color: transparent !important;
+      color: inherit;
+    }
+  </style>
+</head>
+
+<body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased">
+
+  <!-- HEADER -->
+  <header class="border-b border-slate-300 bg-white/80 backdrop-blur sticky top-0 z-40 dark:border-slate-800 dark:bg-slate-950/80">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+
+      <!-- LOGO -->
+      <a href="../index.html" class="flex items-center gap-3">
+        <img src="../assets/SESL Logo.png" class="h-10 block dark:hidden" alt="SESL logo light" />
+        <img src="../assets/SESL Logo Dark.png" class="h-10 hidden dark:block" alt="SESL logo dark" />
+      </a>
+
+      <!-- DESKTOP NAV -->
+      <nav class="hidden md:flex gap-8 text-sm font-medium">
+        <a href="../index.html">Home</a>
+        <a href="../product.html">Product</a>
+        <a href="../solutions.html">Solutions</a>
+        <a href="../resources.html" class="text-brand-600 dark:text-brand-300 font-semibold">Resources</a>
+        <a href="../about.html">About</a>
+      </nav>
+
+      <!-- RIGHT SIDE -->
+      <div class="flex items-center gap-4">
+        <a href="../login.html" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-200
+                dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800
+                text-sm font-medium transition-colors">
+          Login
+        </a>
+
+        <button id="themeToggle" class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200 
+               dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors" type="button">
+          ☀️/🌙
+        </button>
+
+        <!-- MOBILE MENU BUTTON -->
+        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xl" type="button">
+          ☰
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div id="mobileMenu" class="hidden md:hidden flex-col bg-white dark:bg-slate-900 border-b border-slate-300 dark:border-slate-800 px-4 py-4 space-y-3 text-sm font-medium">
+    <a href="../index.html" class="block">Home</a>
+    <a href="../product.html" class="block">Product</a>
+    <a href="../solutions.html" class="block">Solutions</a>
+    <a href="../resources.html" class="block text-brand-600 dark:text-brand-300">Resources</a>
+    <a href="../about.html" class="block">About</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="pt-24 pb-10 px-4 text-center">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-4xl sm:text-5xl font-semibold mb-6">SESL MCP Server - User Guide</h1>
+      <p class="text-lg text-slate-700 dark:text-slate-300">
+        AI-powered rule generation and execution via Model Context Protocol. Connect ChatGPT, Claude, and other AI assistants to the SESL rule engine.
+      </p>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="pb-24 px-4 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto grid gap-10 lg:grid-cols-[280px,1fr]">
+
+      <!-- TABLE OF CONTENTS -->
+      <aside class="lg:sticky lg:top-24 self-start">
+        <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
+          <h2 class="text-sm font-semibold tracking-wide text-slate-500 dark:text-slate-400 mb-3 uppercase">
+            Table of contents
+          </h2>
+          <nav class="space-y-2 text-sm">
+            <a href="#overview" class="block hover:text-brand-600">1. Overview</a>
+            <a href="#installation" class="block hover:text-brand-600">2. Installation</a>
+            <a href="#tools" class="block hover:text-brand-600">3. MCP Tools</a>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- GUIDE BODY -->
+      <article class="prose prose-slate dark:prose-invert max-w-none">
+
+        <section id="overview" class="scroll-mt-24">
+          <h2 class="text-3xl font-semibold mb-4">1. Overview</h2>
+          <p>
+            The <strong class="text-blue-900 dark:text-blue-300">SESL MCP Server</strong> is a Model Context Protocol (MCP) server that exposes the SESL (Simple Expert System Language) rule engine capabilities through a standardized MCP interface. MCP is an open protocol that allows AI assistants like Claude, ChatGPT, and other clients to interact with external tools and data sources in a standardized way.
+          </p>
+          <p>
+            This server acts as a bridge between AI assistants and the SESL rule engine, enabling you to:
+          </p>
+          <ul>
+            <li><strong class="text-blue-900 dark:text-blue-300">Generate business rules</strong> from natural language descriptions (e.g., "Approve loan if credit score > 700")</li>
+            <li><strong class="text-blue-900 dark:text-blue-300">Validate SESL code</strong> before execution to catch syntax errors, missing fields, and logical issues</li>
+            <li><strong class="text-blue-900 dark:text-blue-300">Execute rule-based models</strong> with forward-chaining inference (rules fire automatically when conditions are met)</li>
+            <li><strong class="text-blue-900 dark:text-blue-300">Build and modify models</strong> incrementally by adding rules and test scenarios</li>
+            <li><strong class="text-blue-900 dark:text-blue-300">Integrate with ChatGPT</strong> seamlessly by pasting generated code directly (auto-formatting included)</li>
+          </ul>
+          <p>
+            <strong class="text-blue-900 dark:text-blue-300">How it works:</strong> When you send a request to the MCP server (e.g., asking it to generate rules for loan approval), the server processes your request using the SESL engine and returns structured results. The server runs continuously in the background, listening for MCP tool calls over HTTP.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+            <div class="p-4 bg-slate-50 dark:bg-slate-900/40 rounded-lg border border-slate-200 dark:border-slate-800">
+              <h4 class="font-semibold text-brand-600 dark:text-brand-300 mb-2">🤖 AI-Powered Generation</h4>
+              <p class="text-sm">Convert natural language to SESL YAML rules automatically</p>
+            </div>
+            <div class="p-4 bg-slate-50 dark:bg-slate-900/40 rounded-lg border border-slate-200 dark:border-slate-800">
+              <h4 class="font-semibold text-brand-600 dark:text-brand-300 mb-2">✅ Validation & Linting</h4>
+              <p class="text-sm">Catch errors before execution with comprehensive YAML validation</p>
+            </div>
+            <div class="p-4 bg-slate-50 dark:bg-slate-900/40 rounded-lg border border-slate-200 dark:border-slate-800">
+              <h4 class="font-semibold text-brand-600 dark:text-brand-300 mb-2">⚡ Rule Execution</h4>
+              <p class="text-sm">Run forward-chaining inference on your business rules</p>
+            </div>
+            <div class="p-4 bg-slate-50 dark:bg-slate-900/40 rounded-lg border border-slate-200 dark:border-slate-800">
+              <h4 class="font-semibold text-brand-600 dark:text-brand-300 mb-2">📝 Direct Paste Support</h4>
+              <p class="text-sm">Paste SESL code from ChatGPT with automatic formatting fixes</p>
+            </div>
+          </div>
+
+          <div class="p-4 bg-blue-50 dark:bg-blue-950/20 border-l-4 border-blue-500 rounded my-6">
+            <p class="font-semibold text-blue-900 dark:text-blue-300 mb-2">ℹ️ What is SESL?</p>
+            <p class="text-sm text-blue-800 dark:text-blue-200">
+              SESL (Simple Expert System Language) is a forward-chaining rule engine with a YAML-based DSL (Domain Specific Language) for defining business rules and policies. Unlike traditional programming where you explicitly control the flow, SESL uses <em>declarative rules</em> that fire automatically when their conditions are met.
+            </p>
+            <p class="text-sm text-blue-800 dark:text-blue-200 mt-2"><strong class="text-blue-900 dark:text-blue-300">Key concepts:</strong></p>
+            <ul class="text-sm text-blue-800 dark:text-blue-200 mt-1 ml-4 list-disc">
+              <li><strong class="text-blue-900 dark:text-blue-300">Forward-chaining:</strong> Rules are evaluated continuously; when a rule's conditions become true, it fires and adds new facts</li>
+              <li><strong class="text-blue-900 dark:text-blue-300">Facts:</strong> Data objects (key-value pairs) that represent the current state (e.g., <code class="text-xs">{"credit_score": 750}</code>)</li>
+              <li><strong class="text-blue-900 dark:text-blue-300">Rules:</strong> IF-THEN statements that transform facts (e.g., "IF credit_score > 700 THEN approve = true")</li>
+              <li><strong class="text-blue-900 dark:text-blue-300">Priority:</strong> Higher priority rules fire first (useful for overrides and exceptions)</li>
+              <li><strong class="text-blue-900 dark:text-blue-300">Constants:</strong> Reusable values defined once and referenced throughout rules</li>
+            </ul>
+            <p class="text-sm text-blue-800 dark:text-blue-200 mt-2">
+              Learn more at: <a href="https://github.com/vpowell4/sesl" class="underline">github.com/vpowell4/sesl</a>
+            </p>
+          </div>
+
+          <h3 class="text-2xl font-semibold mt-8 mb-3">Key Features</h3>
+          <ul>
+            <li><strong class="text-blue-900 dark:text-blue-300">7 MCP Tools</strong> for complete SESL workflow management</li>
+            <li><strong class="text-blue-900 dark:text-blue-300">Auto-fix</strong> for ChatGPT-generated YAML (converts bullet points to YAML syntax)</li>
+            <li><strong class="text-blue-900 dark:text-blue-300">Large request support</strong> (100MB default, configurable)</li>
+            <li><strong class="text-blue-900 dark:text-blue-300">Comprehensive error reporting</strong> with actionable suggestions</li>
+            <li><strong class="text-blue-900 dark:text-blue-300">HTTP transport</strong> via FastMCP with Uvicorn</li>
+            <li><strong class="text-blue-900 dark:text-blue-300">Environment-based configuration</strong> for flexible deployment</li>
+          </ul>
+        </section>
+
+        <section id="installation" class="mt-12 scroll-mt-24">
+          <h2 class="text-3xl font-semibold mb-4">2. Installation</h2>
+          <p class="text-slate-600 dark:text-slate-400">
+            To Be Updated
+          </p>
+        </section>
+
+        <section id="tools" class="mt-12 scroll-mt-24">
+          <h2 class="text-3xl font-semibold mb-4">3. MCP Tools</h2>
+          <p>
+            The SESL MCP Server exposes 7 tools through the MCP interface:
+          </p>
+
+          <!-- TOOL 1: generate_sesl -->
+          <div class="p-6 bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-lg my-6">
+            <h3 class="text-2xl font-semibold text-brand-600 dark:text-brand-300 mb-2">
+              1. generate_sesl
+              <span class="text-sm font-semibold px-3 py-1 bg-brand-600 text-white rounded-full ml-2">Generator</span>
+            </h3>
+            <p>Generates a SESL prompt template for converting natural language descriptions into valid SESL YAML.</p>
+
+            <h4 class="text-lg font-semibold mt-4 mb-2">Parameters</h4>
+            <div class="overflow-x-auto">
+              <table class="min-w-full border border-slate-300 dark:border-slate-700 text-sm">
+                <thead>
+                  <tr class="bg-slate-100 dark:bg-slate-800">
+                    <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Name</th>
+                    <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Type</th>
+                    <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Required</th>
+                    <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="border border-slate-300 dark:border-slate-700 px-3 py-2"><code>prompt</code></td>
+                    <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">string</td>
+                    <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">✅ Yes</td>
+                    <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">Natural language description of business rules or policies</td>
+                  </tr>
+                
+                    </tbody>
+              </table></div>
+
+                <h4 class="text-lg font-semibold mt-4 mb-2">Returns</h4>
+                <p class="mb-3">Complete prompt template with SESL specification, error prevention guidelines, and examples.</p>
+
+                <div class="p-4 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg my-4">
+                    <strong class="text-blue-900 dark:text-blue-300">📋 Example Request:</strong>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>{
+  "tool": "generate_sesl",
+  "arguments": {
+    "prompt": "Create rules to approve a loan if credit score > 700 and income > 50000"
+  }
+}</code></pre>
+                </div>
+
+                <div class="p-4 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg my-4">
+                    <strong class="text-green-900 dark:text-green-300">📤 Example Response:</strong>
+                    <p class="mt-2 text-green-800 dark:text-green-200">Returns a comprehensive template (2000+ characters) that you can send to an LLM like ChatGPT or Claude. The template includes:</p>
+                    <ul class="mt-2 ml-4 list-disc text-green-800 dark:text-green-200">
+                        <li><strong class="text-blue-900 dark:text-blue-300">Complete SESL specification (10 sections):</strong> File structure, rule syntax, YAML formatting rules, condition syntax, LET variables, field references, THEN blocks, data types, priorities, and facts</li>
+                        <li><strong class="text-blue-900 dark:text-blue-300">Error prevention checklist:</strong> Common mistakes to avoid (YAML syntax errors, condition formatting, variable usage, required fields)</li>
+                        <li><strong class="text-blue-900 dark:text-blue-300">Working example:</strong> A complete, runnable SESL model demonstrating all features</li>
+                        <li><strong class="text-blue-900 dark:text-blue-300">Your prompt:</strong> Integrated into the template as the goal for code generation</li>
+                    </ul>
+                    
+                    <p><strong class="text-blue-900 dark:text-blue-300">Typical usage flow:</strong></p>
+                    <ol>
+                        <li>Call <code>generate_sesl</code> with your requirements</li>
+                        <li>Copy the returned template</li>
+                        <li>Send it to ChatGPT/Claude (e.g., "Here's a SESL template. Generate the code: [paste template]")</li>
+                        <li>LLM returns valid SESL YAML that you can save with <code>add_model</code></li>
+                    </ol>
+                    
+                    <p><em>Sample output snippet:</em></p>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>Generate SESL YAML for the following requirement:
+
+Create rules to approve a loan if credit score > 700 and income > 50000
+
+=== SESL SPECIFICATION ===
+
+1. FILE STRUCTURE
+Every SESL file must have this structure:
+  const:        # Optional: define reusable constants
+  rules:        # Required: list of rules
+  facts:        # Optional: test scenarios
+
+2. RULE STRUCTURE
+Each rule must have:
+  - rule: unique_name
+    priority: number (higher = fires first)
+    if: [conditions]
+    then: [actions]
+    because: "explanation"
+
+...</code></pre>
+                </div>
+            </div>
+
+            <!-- TOOL 2: lint_sesl -->
+            <div class="p-6 bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-lg my-6">
+                <h3 class="text-2xl font-semibold text-brand-600 dark:text-brand-300 mb-2">
+                  2. lint_sesl
+                  <span class="text-sm font-semibold px-3 py-1 bg-yellow-600 text-white rounded-full ml-2">Validator</span>
+                </h3>
+                <p class="mb-4">Validates SESL YAML and returns structured error/warning messages.</p>
+
+                <h4 class="text-lg font-semibold mt-4 mb-2">Parameters</h4>
+                <div class="overflow-x-auto">
+                  <table class="min-w-full border border-slate-300 dark:border-slate-700 text-sm">
+                    <thead>
+                      <tr class="bg-slate-100 dark:bg-slate-800">
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Name</th>
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Type</th>
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Required</th>
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td class="border border-slate-300 dark:border-slate-700 px-3 py-2"><code>contents</code></td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">List[Any]</td>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">✅ Yes</td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">SESL YAML content (TextContent, dicts, or strings)</td>
+                        </tr>
+                    
+                    </tbody>
+                </table></div>
+
+                <h4 class="text-lg font-semibold mt-4 mb-2">Returns</h4>
+                <p class="mb-3">List of TextContent with validation issues including level (ERROR/WARNING), message, rule, and details.</p>
+
+                <div class="p-4 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg my-4">
+                    <strong class="text-blue-900 dark:text-blue-300">📋 Example Request:</strong>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>{
+  "tool": "lint_sesl",
+  "arguments": {
+    "contents": [
+      {
+        "type": "text",
+        "text": "const:\\n  MIN_SCORE: 700\\nrules:\\n  - rule: approve_loan\\n..."
+      }
+    ]
+  }
+}</code></pre>
+                </div>
+
+                <div class="p-4 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg my-4">
+                    <strong class="text-green-900 dark:text-green-300">📤 Example Response (with errors):</strong>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>[
+  {
+    "type": "text",
+    "text": {
+      "issues": [
+        {
+          "level": "ERROR",
+          "message": "Missing required field 'priority'",
+          "rule": "approve_loan",
+          "details": {
+            "error_type": "ValidationError",
+            "field": "priority",
+            "suggestion": "Add 'priority: 100' to the rule definition"
+          }
+        },
+        {
+          "level": "WARNING",
+          "message": "Rule has no 'because' field",
+          "rule": "check_income",
+          "details": {
+            "suggestion": "Add explanatory text for documentation"
+          }
+        }
+      ]
+    }
+  }
+]</code></pre>
+                    
+                    <strong class="text-green-900 dark:text-green-300">📤 Example Response (no errors):</strong>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>[
+  {
+    "type": "text",
+    "text": {
+      "issues": []
+    }
+  }
+]</code></pre>
+                    
+                    <p><strong class="text-blue-900 dark:text-blue-300">Understanding the response:</strong></p>
+                    <ul>
+                        <li><strong class="text-blue-900 dark:text-blue-300">Empty issues array:</strong> Your SESL is valid and ready to execute</li>
+                        <li><strong class="text-blue-900 dark:text-blue-300">ERROR level:</strong> Critical issues that will prevent execution - must fix these</li>
+                        <li><strong class="text-blue-900 dark:text-blue-300">WARNING level:</strong> Best practice violations - code will run but may not be optimal</li>
+                        <li><strong class="text-blue-900 dark:text-blue-300">details object:</strong> Additional context including error type and actionable suggestions</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- TOOL 3: run_sesl -->
+            <div class="p-6 bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-lg my-6">
+                <h3 class="text-2xl font-semibold text-brand-600 dark:text-brand-300 mb-2">
+                  3. run_sesl
+                  <span class="text-sm font-semibold px-3 py-1 bg-green-600 text-white rounded-full ml-2">Executor</span>
+                </h3>
+                <p class="mb-4">Executes SESL rules with provided facts and returns computed results.</p>
+
+                <h4 class="text-lg font-semibold mt-4 mb-2">Parameters</h4>
+                <div class="overflow-x-auto">
+                  <table class="min-w-full border border-slate-300 dark:border-slate-700 text-sm">
+                    <thead>
+                      <tr class="bg-slate-100 dark:bg-slate-800">
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Name</th>
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Type</th>
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Required</th>
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2"><code>contents</code></td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">List[Any]</td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">✅ Yes</td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">SESL YAML model definition</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2"><code>facts</code></td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">Dict[str, Any]</td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">✅ Yes</td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">Input facts for rule execution</td>
+                      </tr>
+                    
+                    </tbody>
+                  </table>
+                </div>
+
+                <h4 class="text-lg font-semibold mt-4 mb-2">Returns</h4>
+                <p class="mb-3">Execution results including final facts, rules fired, and execution metadata.</p>
+
+                <div class="p-4 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg my-4">
+                    <strong class="text-blue-900 dark:text-blue-300">📋 Example Request:</strong>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>{
+  "tool": "run_sesl",
+  "arguments": {
+    "contents": ["const:\\n  MIN_SCORE: 700\\n..."],
+    "facts": {
+      "credit_score": 750,
+      "annual_income": 60000
+    }
+  }
+}</code></pre>
+                </div>
+
+                <div class="p-4 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg my-4">
+                    <strong class="text-green-900 dark:text-green-300">📤 Example Response (successful execution):</strong>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>[
+  {
+    "type": "text",
+    "text": {
+      "results": {
+        "credit_score": 750,
+        "annual_income": 60000,
+        "debt_to_income": 0.35,
+        "loan_approved": true,
+        "approval_reason": "Meets credit and income requirements",
+        "max_loan_amount": 250000
+      },
+      "metadata": {
+        "rules_fired": ["calculate_dti", "approve_loan", "calculate_max_loan"],
+        "execution_stages": ["lint", "load", "build_facts", "execute"],
+        "total_rules": 5,
+        "rules_evaluated": 5,
+        "execution_time_ms": 45,
+        "success": true
+      }
+    }
+  }
+]</code></pre>
+                    
+                    <p><strong class="text-blue-900 dark:text-blue-300">Understanding the response:</strong></p>
+                    <ul>
+                        <li><strong class="text-blue-900 dark:text-blue-300">results object:</strong> Contains both your original input facts AND new facts added by rules</li>
+                        <li><strong class="text-blue-900 dark:text-blue-300">rules_fired array:</strong> Shows which rules executed, in the order they fired (useful for debugging)</li>
+                        <li><strong class="text-blue-900 dark:text-blue-300">execution_stages:</strong> Confirms all processing stages completed successfully</li>
+                        <li><strong class="text-blue-900 dark:text-blue-300">New fields:</strong> Any field that appears in results but wasn't in your input facts was created by a rule (e.g., <code>loan_approved</code>, <code>max_loan_amount</code>)</li>
+                    </ul>
+                    
+                    <strong class="text-green-900 dark:text-green-300">📤 Example Response (execution error):</strong>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>[
+  {
+    "type": "text",
+    "text": {
+      "error": "Execution failed during stage: execute",
+      "error_type": "RuntimeError",
+      "stage": "execute",
+      "details": "Division by zero in rule 'calculate_ratio'",
+      "suggestion": "Add condition to check denominator is not zero",
+      "metadata": {
+        "rules_fired_before_error": ["validate_input"],
+        "failed_at_rule": "calculate_ratio"
+      }
+    }
+  }
+]</code></pre>
+                </div>
+            </div>
+
+            <!-- TOOL 4: add_model -->
+            <div class="p-6 bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-lg my-6">
+                <h3 class="text-2xl font-semibold text-brand-600 dark:text-brand-300 mb-2">
+                  4. add_model
+                  <span class="text-sm font-semibold px-3 py-1 bg-blue-600 text-white rounded-full ml-2">Creator</span>
+                </h3>
+                <p class="mb-4">Save a complete SESL model to a file. Supports direct paste from ChatGPT with automatic formatting fixes.</p>
+
+                <h4 class="text-lg font-semibold mt-4 mb-2">Parameters</h4>
+                <div class="overflow-x-auto">
+                  <table class="min-w-full border border-slate-300 dark:border-slate-700 text-sm">
+                    <thead>
+                      <tr class="bg-slate-100 dark:bg-slate-800">
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Name</th>
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Type</th>
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Required</th>
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td class="border border-slate-300 dark:border-slate-700 px-3 py-2"><code>sesl_yaml</code></td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">string</td>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">✅ Yes</td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">Complete SESL YAML content (rules, const, etc.)</td>
+                        </tr>
+                      <tr>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2"><code>name</code></td>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">string</td>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">❌ No</td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">Filename without extension (default: "model")</td>
+                        </tr>
+                      <tr>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2"><code>auto_fix</code></td>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">boolean</td>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">❌ No</td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">Auto-fix ChatGPT formatting issues (default: true)</td>
+                        </tr>
+                    
+                    </tbody>
+                </table></div>
+
+                <h4 class="text-lg font-semibold mt-4 mb-2">Returns</h4>
+                <p class="mb-3">Success status, file path, and metadata about the saved model.</p>
+
+                <div class="p-4 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg my-4">
+                    <strong class="text-blue-900 dark:text-blue-300">📋 Example Request:</strong>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>{
+  "tool": "add_model",
+  "arguments": {
+    "sesl_yaml": "const:\\n* MIN_SCORE: 700\\nrules:\\n* rule: approve\\n...",
+    "name": "loan_approval",
+    "auto_fix": true
+  }
+}</code></pre>
+                </div>
+
+                <div class="p-4 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg my-4">
+                    <strong class="text-green-900 dark:text-green-300">📤 Example Response (success):</strong>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>{
+  "success": true,
+  "file_path": "C:\\Users\\vince\\Documents\\sesl-mcp\\loan_approval.sesl",
+  "file_name": "loan_approval.sesl",
+  "content_length": 342,
+  "auto_fixed": true,
+  "message": "SESL model saved to loan_approval.sesl"
+}</code></pre>
+                    
+                    <p><strong class="text-blue-900 dark:text-blue-300">Field explanations:</strong></p>
+                    <ul>
+                        <li><strong class="text-blue-900 dark:text-blue-300">file_path:</strong> Absolute path where the file was saved (current working directory)</li>
+                        <li><strong class="text-blue-900 dark:text-blue-300">content_length:</strong> Size of saved content in bytes</li>
+                        <li><strong class="text-blue-900 dark:text-blue-300">auto_fixed:</strong> <code>true</code> if ChatGPT bullet points were converted to YAML syntax, <code>false</code> if no changes needed</li>
+                    </ul>
+                    
+                    <strong class="text-green-900 dark:text-green-300">📤 Example Response (error - invalid YAML):</strong>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>{
+  "success": false,
+  "error": "Invalid YAML syntax",
+  "error_type": "YAMLError",
+  "details": "mapping values are not allowed here\n  in \"<unicode string>\", line 5, column 15",
+  "suggestion": "Check YAML formatting: indentation, colons, dashes. Line 5 likely has incorrect spacing or missing colon."
+}</code></pre>
+                    
+                    <p><strong class="text-blue-900 dark:text-blue-300">Common errors and fixes:</strong></p>
+                    <ul>
+                        <li><strong class="text-blue-900 dark:text-blue-300">"mapping values are not allowed":</strong> Missing space after colon (should be <code>key: value</code> not <code>key:value</code>)</li>
+                        <li><strong class="text-blue-900 dark:text-blue-300">"expected &lt;block end&gt;":</strong> Indentation problem - ensure consistent spaces (not tabs)</li>
+                        <li><strong class="text-blue-900 dark:text-blue-300">File already exists:</strong> The tool will overwrite existing files - use different names or backup first</li>
+                    </ul>
+                </div>
+
+                <div class="p-4 bg-blue-50 dark:bg-blue-950/20 border-l-4 border-blue-500 rounded my-6">
+                    <strong class="text-blue-900 dark:text-blue-300">💡 ChatGPT Support:</strong><br>
+                    The <code>auto_fix</code> feature automatically converts ChatGPT's bullet points (* and •) to YAML list syntax (-), preserving indentation.
+                </div>
+            </div>
+
+            <!-- TOOL 5: add_scenario -->
+            <div class="p-6 bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-lg my-6">
+                <h3 class="text-2xl font-semibold text-brand-600 dark:text-brand-300 mb-2">
+                  5. add_scenario
+                  <span class="text-sm font-semibold px-3 py-1 bg-blue-600 text-white rounded-full ml-2">Editor</span>
+                </h3>
+                <p class="mb-4">Add test scenarios (facts) to an existing SESL model file.</p>
+
+                <h4 class="text-lg font-semibold mt-4 mb-2">Parameters</h4>
+                <div class="overflow-x-auto">
+                  <table class="min-w-full border border-slate-300 dark:border-slate-700 text-sm">
+                    <thead>
+                      <tr class="bg-slate-100 dark:bg-slate-800">
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Name</th>
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Type</th>
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Required</th>
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td class="border border-slate-300 dark:border-slate-700 px-3 py-2"><code>model_file</code></td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">string</td>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">✅ Yes</td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">Path to existing SESL model file (e.g., "model.sesl")</td>
+                        </tr>
+                      <tr>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2"><code>scenario_yaml</code></td>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">string</td>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">✅ Yes</td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">YAML content for the scenario (dict or list)</td>
+                        </tr>
+                      <tr>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2"><code>auto_fix</code></td>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">boolean</td>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">❌ No</td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">Auto-fix ChatGPT formatting (default: true)</td>
+                        </tr>
+                    
+                    </tbody>
+                </table></div>
+
+                <h4 class="text-lg font-semibold mt-4 mb-2">Returns</h4>
+                <p class="mb-3">Success status, number of scenarios added, and total scenario count.</p>
+
+                <div class="p-4 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg my-4">
+                    <strong class="text-blue-900 dark:text-blue-300">📋 Example Request:</strong>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>{
+  "tool": "add_scenario",
+  "arguments": {
+    "model_file": "loan_approval.sesl",
+    "scenario_yaml": "credit_score: 800\\nannual_income: 75000"
+  }
+}</code></pre>
+                </div>
+
+                <div class="p-4 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg my-4">
+                    <strong class="text-green-900 dark:text-green-300">📤 Example Response (success):</strong>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>{
+  "success": true,
+  "file_path": "C:\\Users\\vince\\Documents\\sesl-mcp\\loan_approval.sesl",
+  "scenarios_added": 1,
+  "total_scenarios": 3,
+  "message": "Added 1 scenario(s) to loan_approval.sesl"
+}</code></pre>
+                    
+                    <p><strong class="text-blue-900 dark:text-blue-300">Understanding the response:</strong></p>
+                    <ul>
+                        <li><strong class="text-blue-900 dark:text-blue-300">scenarios_added:</strong> How many test scenarios were added in this operation (can be >1 if you provide a YAML list)</li>
+                        <li><strong class="text-blue-900 dark:text-blue-300">total_scenarios:</strong> Total count of scenarios in the file after adding (helps track test coverage)</li>
+                    </ul>
+                    
+                    <p><strong class="text-blue-900 dark:text-blue-300">What happens to the file:</strong> The tool loads your existing model, parses the scenario YAML, appends it to the <code>facts</code> array, and writes the updated model back to disk. Original formatting is preserved where possible.</p>
+                    
+                    <strong class="text-green-900 dark:text-green-300">📤 Example Response (error - file not found):</strong>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>{
+  "success": false,
+  "error": "Model file not found: loan_approval.sesl",
+  "suggestion": "Use add_model first to create the SESL model file",
+  "searched_path": "C:\\Users\\vince\\Documents\\sesl-mcp\\loan_approval.sesl"
+}</code></pre>
+                    
+                    <p><strong class="text-blue-900 dark:text-blue-300">Tip:</strong> You can add multiple scenarios at once by providing a YAML list:</p>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>scenario_yaml: |-
+  - credit_score: 800
+    annual_income: 100000
+  - credit_score: 650
+    annual_income: 45000
+  - credit_score: 720
+    annual_income: 62000</code></pre>
+                </div>
+            </div>
+
+            <!-- TOOL 6: add_rule -->
+            <div class="p-6 bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-lg my-6">
+                <h3 class="text-2xl font-semibold text-brand-600 dark:text-brand-300 mb-2">
+                  6. add_rule
+                  <span class="text-sm font-semibold px-3 py-1 bg-blue-600 text-white rounded-full ml-2">Editor</span>
+                </h3>
+                <p class="mb-4">Add a new rule to an existing SESL model file.</p>
+
+                <h4 class="text-lg font-semibold mt-4 mb-2">Parameters</h4>
+                <div class="overflow-x-auto">
+                  <table class="min-w-full border border-slate-300 dark:border-slate-700 text-sm">
+                    <thead>
+                      <tr class="bg-slate-100 dark:bg-slate-800">
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Name</th>
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Type</th>
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Required</th>
+                        <th class="border border-slate-300 dark:border-slate-700 px-3 py-2 text-left font-semibold">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td class="border border-slate-300 dark:border-slate-700 px-3 py-2"><code>model_file</code></td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">string</td>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">✅ Yes</td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">Path to existing SESL model file (e.g., "model.sesl")</td>
+                        </tr>
+                      <tr>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2"><code>rule_yaml</code></td>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">string</td>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">✅ Yes</td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">YAML content for the rule (must have 'rule' key)</td>
+                        </tr>
+                      <tr>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2"><code>auto_fix</code></td>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">boolean</td>
+                            <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">❌ No</td>
+                        <td class="border border-slate-300 dark:border-slate-700 px-3 py-2">Auto-fix ChatGPT formatting (default: true)</td>
+                        </tr>
+                    
+                    </tbody>
+                </table></div>
+
+                <h4 class="text-lg font-semibold mt-4 mb-2">Returns</h4>
+                <p class="mb-3">Success status, number of rules added, and total rule count.</p>
+
+                <div class="p-4 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg my-4">
+                    <strong class="text-blue-900 dark:text-blue-300">📋 Example Request:</strong>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>{
+  "tool": "add_rule",
+  "arguments": {
+    "model_file": "loan_approval.sesl",
+    "rule_yaml": "rule: high_value_approval\\npriority: 10\\nif:\\n  - credit_score > 800\\nthen:\\n  - approved: true"
+  }
+}</code></pre>
+                </div>
+
+                <div class="p-4 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg my-4">
+                    <strong class="text-green-900 dark:text-green-300">📤 Example Response (success):</strong>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>{
+  "success": true,
+  "file_path": "C:\\Users\\vince\\Documents\\sesl-mcp\\loan_approval.sesl",
+  "rules_added": 1,
+  "total_rules": 5,
+  "message": "Added 1 rule(s) to loan_approval.sesl"
+}</code></pre>
+                    
+                    <p><strong class="text-blue-900 dark:text-blue-300">Understanding the response:</strong></p>
+                    <ul>
+                        <li><strong class="text-blue-900 dark:text-blue-300">rules_added:</strong> How many rules were added in this operation</li>
+                        <li><strong class="text-blue-900 dark:text-blue-300">total_rules:</strong> Total count of rules in the model after adding</li>
+                    </ul>
+                    
+                    <strong class="text-green-900 dark:text-green-300">📤 Example Response (error - invalid rule format):</strong>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>{
+  "success": false,
+  "error": "Invalid rule format: must have 'rule' key",
+  "suggestion": "Each rule must have: rule, priority, if, then, because"
+}</code></pre>
+                    
+                    <p><strong class="text-blue-900 dark:text-blue-300">Required rule structure:</strong> Every SESL rule must be a dictionary with these fields:</p>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>rule: unique_rule_name        # Required: identifier for the rule
+priority: 100                 # Required: number (higher fires first)
+if:                          # Required: list of conditions
+  - condition1
+  - condition2
+then:                        # Required: list of actions
+  - field: value
+because: "explanation"        # Required: human-readable reason</code></pre>
+                    
+                    <p><strong class="text-blue-900 dark:text-blue-300">Priority guidelines:</strong></p>
+                    <ul>
+                        <li><strong class="text-blue-900 dark:text-blue-300">1000+:</strong> Critical overrides and exceptions</li>
+                        <li><strong class="text-blue-900 dark:text-blue-300">500-999:</strong> High-priority business logic</li>
+                        <li><strong class="text-blue-900 dark:text-blue-300">100-499:</strong> Standard rules</li>
+                        <li><strong class="text-blue-900 dark:text-blue-300">1-99:</strong> Default/fallback rules</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- TOOL 7: server_info -->
+            <div class="p-6 bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-lg my-6">
+                <h3 class="text-2xl font-semibold text-brand-600 dark:text-brand-300 mb-2">
+                  7. server_info
+                  <span class="text-sm font-semibold px-3 py-1 bg-green-600 text-white rounded-full ml-2">Status</span>
+                </h3>
+                <p class="mb-4">Get server version, status, and available tools.</p>
+
+                <h4 class="text-lg font-semibold mt-4 mb-2">Parameters</h4>
+                <p class="mb-3"><em>No parameters required</em></p>
+
+                <h4 class="text-lg font-semibold mt-4 mb-2">Returns</h4>
+                <p class="mb-3">Server metadata including version, status, and tool list.</p>
+
+                <div class="p-4 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg my-4">
+                    <strong class="text-blue-900 dark:text-blue-300">📋 Example Request:</strong>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>{
+  "tool": "server_info",
+  "arguments": {}
+}</code></pre>
+                </div>
+
+                <div class="p-4 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg my-4">
+                    <strong class="text-green-900 dark:text-green-300">📤 Example Response:</strong>
+                    <pre class="bg-slate-800 text-slate-100 p-3 rounded mt-2 overflow-x-auto"><code>{
+  "name": "sesl-mcp-server",
+  "version": "0.1.0",
+  "status": "running",
+  "tools": [
+    "generate_sesl",
+    "lint_sesl",
+    "run_sesl",
+    "add_model",
+    "add_scenario",
+    "add_rule",
+    "server_info"
+  ],
+  "sesl_engine": "https://github.com/vpowell4/sesl"
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+      </article>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-300 dark:border-slate-800 py-16 px-4">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+
+      <div>
+        <h4 class="font-semibold mb-3">Product</h4>
+        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li><a href="../product.html" class="hover:text-brand-600">Overview</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold mb-3">Solutions</h4>
+        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li><a href="../solutions.html" class="hover:text-brand-600">Use Cases</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold mb-3">Resources</h4>
+        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li><a href="../resources.html" class="hover:text-brand-600">Documentation</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold mb-3">Company</h4>
+        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li><a href="../about.html" class="hover:text-brand-600">About SESL</a></li>
+          <li><a href="../about.html#contact" class="hover:text-brand-600">Contact</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-300 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-3">
+        <img src="../assets/SESL Logo.png" class="h-7 block dark:hidden" alt="SESL Footer Logo" />
+        <img src="../assets/SESL Logo Dark.png" class="h-7 hidden dark:block" alt="SESL Footer Logo Dark" />
+        <span class="text-sm text-slate-600 dark:text-slate-400">Simple Expert System Language</span>
+      </div>
+
+      <div class="flex gap-4">
+        <a href="#" class="text-slate-600 hover:text-brand-600 dark:text-slate-400">Twitter</a>
+        <a href="#" class="text-slate-600 hover:text-brand-600 dark:text-slate-400">LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="text-center mt-6 text-sm text-slate-500 dark:text-slate-500">
+      © <span id="year"></span> Oblongix. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle
+    const btn = document.getElementById("themeToggle");
+    btn.addEventListener("click", () => {
+      const isDark = document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      btn.textContent = isDark ? "🌙" : "☀️";
+    });
+    btn.textContent = document.documentElement.classList.contains("dark") ? "🌙" : "☀️";
+
+    // Mobile menu
+    const mobileBtn = document.getElementById("mobileMenuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    mobileBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+
+</html>
+
+
+
+
