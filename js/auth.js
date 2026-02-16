@@ -36,6 +36,7 @@ document.getElementById("logoutBtn")?.addEventListener("click", async (e) => {
   e.preventDefault();
   try {
     await signOut(auth);
+    window.location.assign("index.html");
   } catch (err) {
     alert(err.message);
   }
