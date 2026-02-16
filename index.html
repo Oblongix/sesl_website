@@ -86,15 +86,15 @@
         </button>
 
         <!-- THEME BUTTON -->
-        <button id="themeToggle" class="p-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200 
+        <button id="themeToggle" class="px-3 py-2 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-200 
                  dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800
-                 transition-colors">
-          🌙
+                 transition-colors flex items-center gap-2">
+          ☀️ Light mode
         </button>
 
         <!-- MOBILE MENU BUTTON -->
         <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg border border-slate-300 dark:border-slate-700">
-          ☰
+          Menu
         </button>
 
       </div>
@@ -284,7 +284,7 @@
     </div>
 
     <div class="text-center mt-6 text-sm text-slate-500 dark:text-slate-500">
-      © <span id="year"></span> Oblongix. All rights reserved. | <a href="legal.html" class="underline hover:text-brand-600">Legal & Privacy</a>
+      &copy; <span id="year"></span> Oblongix. All rights reserved. | <a href="legal.html" class="underline hover:text-brand-600">Legal & Privacy</a>
     </div>
   </footer>
 
@@ -292,12 +292,16 @@
   <script>
     // Theme toggle
     const btn = document.getElementById("themeToggle");
+    function setThemeLabel(isDark) {
+      btn.innerHTML = isDark ? "🌙 Dark mode" : "☀️ Light mode";
+    }
+
     btn.addEventListener("click", () => {
       const d = document.documentElement.classList.toggle("dark");
       localStorage.setItem("theme", d ? "dark" : "light");
-      btn.textContent = d ? "☀️" : "🌙";
+      setThemeLabel(d);
     });
-    btn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙";
+    setThemeLabel(document.documentElement.classList.contains("dark"));
 
     // Mobile menu toggle
     const mobileBtn = document.getElementById("mobileMenuBtn");
@@ -359,7 +363,7 @@
 
         <p class="text-sm text-center text-slate-600 dark:text-slate-400">
           <a id="goRegister" class="text-brand-600 dark:text-brand-300 cursor-pointer">Create account</a>
-          &nbsp;•&nbsp;
+          &nbsp;|&nbsp;
           <a id="goReset" class="text-brand-600 dark:text-brand-300 cursor-pointer">Forgot password?</a>
         </p>
       </form>

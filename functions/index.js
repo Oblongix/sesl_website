@@ -15,18 +15,13 @@ exports.getDownloadLink = onCall(async (req) => {
     throw new HttpsError("unauthenticated", "Login required.");
   }
 
-  // Update the path if you store the file elsewhere in Storage
-  const [files] = await getStorage().bucket().getFiles();
-  console.log(files.map(f => f.name));
-
   const file = getStorage().bucket().file("sesl.zip");
-  
 
   // 10-minute signed URL; adjust as needed
   const [url] = await file.getSignedUrl({
     action: "read",
     expires: Date.now() + 10 * 60 * 1000,
-    responseDisposition: "attachment; filename=sesl.exe",
+    responseDisposition: "attachment; filename=sesl.zip",
   });
 
   return { url };
