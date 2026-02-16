@@ -1,11 +1,25 @@
 const { onCall, HttpsError } = require("firebase-functions/v2/https");
 const { onRequest } = require("firebase-functions/v2/https");
-const admin = require("firebase-admin");
-const { getStorage } = require("firebase-admin/storage");
 
-// Initialise only once
-if (!admin.apps.length) {
-  admin.initializeApp();
+let admin;
+let getStorage;
+
+function getAdminApp() {
+  if (!admin) {
+    admin = require("firebase-admin");
+  }
+  if (!admin.apps.length) {
+    admin.initializeApp();
+  }
+  return admin;
+}
+
+function getDefaultBucket() {
+  if (!getStorage) {
+    ({ getStorage } = require("firebase-admin/storage"));
+  }
+  getAdminApp();
+  return getStorage().bucket();
 }
 
 // Callable function: requires login, returns a short-lived signed URL for the protected binary
@@ -15,7 +29,7 @@ exports.getDownloadLink = onCall(async (req) => {
     throw new HttpsError("unauthenticated", "Login required.");
   }
 
-  const file = getStorage().bucket().file("sesl.zip");
+  const file = getDefaultBucket().file("sesl.zip");
 
   // 10-minute signed URL; adjust as needed
   const [url] = await file.getSignedUrl({
@@ -41,6 +55,7 @@ exports.getDownloadLinkHttp = onRequest({ cors: true }, async (req, res) => {
   }
 
   try {
+    const adminApp = getAdminApp();
     const authHeader = req.headers.authorization || "";
     const match = authHeader.match(/^Bearer (.+)$/);
     if (!match) {
@@ -50,9 +65,9 @@ exports.getDownloadLinkHttp = onRequest({ cors: true }, async (req, res) => {
     }
 
     const idToken = match[1];
-    await admin.auth().verifyIdToken(idToken);
+    await adminApp.auth().verifyIdToken(idToken);
 
-    const file = getStorage().bucket().file("sesl.zip");
+    const file = getDefaultBucket().file("sesl.zip");
     const [url] = await file.getSignedUrl({
       action: "read",
       expires: Date.now() + 10 * 60 * 1000,
