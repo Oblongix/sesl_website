@@ -6,15 +6,17 @@ import {
   signOut
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
-// TODO: Replace this with your real Firebase project config
-const firebaseConfig = {
-  apiKey: "AIzaSyDl6a4QfGH8LdcvA4QOYGtTSHEG1zr35yM",
+const defaultFirebaseConfig = {
+  apiKey: "YOUR_FIREBASE_API_KEY",
   authDomain: "sesl-website-98721997-dd76a.firebaseapp.com",
   projectId: "sesl-website-98721997-dd76a",
   storageBucket: "sesl-website-98721997-dd76a.firebasestorage.app",
   messagingSenderId: "674237923200",
   appId: "1:674237923200:web:661fe0f3e1569663c88b65"
 };
+const runtimeFirebaseConfig =
+  typeof window !== "undefined" && window.__FIREBASE_CONFIG__ ? window.__FIREBASE_CONFIG__ : {};
+const firebaseConfig = { ...defaultFirebaseConfig, ...runtimeFirebaseConfig };
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // Export so other modules can import the singleton auth instance
